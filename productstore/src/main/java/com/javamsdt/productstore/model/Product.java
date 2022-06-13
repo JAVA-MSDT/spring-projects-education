@@ -3,6 +3,7 @@ package com.javamsdt.productstore.model;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,11 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -28,7 +31,7 @@ public class Product {
     @Column(name = "product_id")
     private long productId;
 
-    @Column(name = "product_")
+    @Column(name = "product_title")
     private String productTitle;
 
     @Column(name = "product_description")
@@ -43,11 +46,20 @@ public class Product {
     @Column(name = "product_type")
     private String productType;
 
-    @OneToMany
-    @JoinTable(name =  "product_images",
-    joinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "product_id")},
-            inverseJoinColumns = {@JoinColumn(name = "image_id", referencedColumnName = "image_id")}
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "product_images",
+            joinColumns = { @JoinColumn(name = "product_id", referencedColumnName = "product_id") },
+            inverseJoinColumns = { @JoinColumn(name = "image_id", referencedColumnName = "image_id") }
     )
     private Set<Image> productImages;
+
+    @ManyToMany()
+    @JoinTable(name = "user_products",
+            joinColumns = { @JoinColumn(name = "product_id", referencedColumnName = "product_id", insertable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false) }
+    )
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    private Set<User> users;
 
 }

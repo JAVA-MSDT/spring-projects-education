@@ -10,7 +10,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -38,6 +40,8 @@ public class Image {
             joinColumns = {@JoinColumn(name = "image_id", referencedColumnName = "image_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")}
     )
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private User user;
 
     @ManyToOne
@@ -45,6 +49,8 @@ public class Image {
             joinColumns = {@JoinColumn(name = "image_id", referencedColumnName = "image_id")},
             inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "product_id")}
     )
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private Product product;
 
 }
