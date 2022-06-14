@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -42,6 +43,7 @@ public class Image {
     )
     @JsonIgnore
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private User user;
 
     @ManyToOne
@@ -51,6 +53,7 @@ public class Image {
     )
     @JsonIgnore
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Product product;
 
 }
