@@ -42,6 +42,10 @@ target/
 *.iws
 *.iml
 *.ipr
+.mvn/wrapper
+.mvnw
+mvnw.cmd
+.jpb/
 
 ### NetBeans ###
 /nbproject/private/
