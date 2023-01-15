@@ -16,4 +16,5 @@ public class ImageDto {
   private Resource content;
   private String name;
   private String location;
+
 }
