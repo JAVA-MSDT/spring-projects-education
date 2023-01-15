@@ -2,7 +2,7 @@ package com.javamsdt.filestore.controller;
 
 import com.javamsdt.filestore.dto.ImageDto;
 import com.javamsdt.filestore.model.Image;
-import com.javamsdt.filestore.service.UploadImageToDbService;
+import com.javamsdt.filestore.service.ImageToDbService;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.ServletContext;
@@ -27,25 +27,25 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class ImageController {
 
-  private final UploadImageToDbService uploadImageToDbService;
+  private final ImageToDbService imageToDbService;
 
   private final ServletContext servletContext;
 
   @PostMapping
   Long uploadImage(@RequestParam("image") MultipartFile multipartImage) throws Exception {
-    return uploadImageToDbService.saveImageReturnId(multipartImage);
+    return imageToDbService.saveImageReturnId(multipartImage);
   }
 
   @GetMapping(value = "/{imageId}", produces = MediaType.IMAGE_JPEG_VALUE)
   Resource downloadImage(@PathVariable Long imageId) {
-    byte[] image = uploadImageToDbService.getImageById(imageId)
+    byte[] image = imageToDbService.getImageById(imageId)
       .getContent();
     return new ByteArrayResource(image);
   }
 
   @GetMapping(produces = MediaType.IMAGE_JPEG_VALUE)
   List<Resource> downloadImage(@RequestParam("ids") List<Long> ids) {
-    return uploadImageToDbService.findByImageIds(ids)
+    return imageToDbService.findByImageIds(ids)
       .stream()
       .peek(image -> System.out.println(image.getName()))
       .map(Image::getContent)
@@ -55,19 +55,19 @@ public class ImageController {
 
   @GetMapping(value = "/image-name/{name}", produces = MediaType.IMAGE_JPEG_VALUE)
   Resource downloadImageByName(@PathVariable("name") String name) {
-    byte[] image = uploadImageToDbService.findImageByName(name)
+    byte[] image = imageToDbService.findImageByName(name)
       .getContent();
     return new ByteArrayResource(image);
   }
 
   @GetMapping(value = "/image/{imageId}", produces = MediaType.IMAGE_JPEG_VALUE)
   ImageDto downloadImageById(@PathVariable Long imageId) {
-    return uploadImageToDbService.downloadImageById(imageId);
+    return imageToDbService.downloadImageById(imageId);
   }
 
   @GetMapping(value = "/image-resource/{imageId}")
   public ResponseEntity<Resource> getImageAsResource(@PathVariable Long imageId) {
-    Image image = uploadImageToDbService.getImageById(imageId);
+    Image image = imageToDbService.getImageById(imageId);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("imageName", image.getName());
@@ -78,7 +78,7 @@ public class ImageController {
 
   @GetMapping(value = "/image-response-entity/{imageId}")
   public ResponseEntity<byte[]> getImageAsResponseEntity(@PathVariable Long imageId) {
-    Image image = uploadImageToDbService.getImageById(imageId);
+    Image image = imageToDbService.getImageById(imageId);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("imageName", image.getName());

@@ -14,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
-public class UploadImageToDbService {
+public class ImageToDbService {
   private final ImageRepository imageRepository;
 
   private final ImageMapper imageMapper;
@@ -30,6 +30,10 @@ public class UploadImageToDbService {
       .getId();
   }
 
+  public Long saveImageReturnIdFromImage(Image image) {
+    return imageRepository.save(image)
+      .getId();
+  }
   public Image getImageById(Long imageId) {
     return imageRepository.findById(imageId)
       .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
