@@ -4,6 +4,7 @@ import com.javamsdt.filestore.dto.ImageDto;
 import com.javamsdt.filestore.mapper.ImageMapper;
 import com.javamsdt.filestore.model.Image;
 import com.javamsdt.filestore.repository.ImageRepository;
+import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,10 @@ public class UploadImageToDbService {
   public Image getImageById(Long imageId) {
     return imageRepository.findById(imageId)
       .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+  }
+
+  public List<Image> findByImageIds(List<Long> ids) {
+    return imageRepository.findByImageIds(ids);
   }
 
   public Image findImageByName(String name) {

@@ -3,6 +3,8 @@ package com.javamsdt.filestore.controller;
 import com.javamsdt.filestore.dto.ImageDto;
 import com.javamsdt.filestore.model.Image;
 import com.javamsdt.filestore.service.UploadImageToDbService;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.support.ServletContextResource;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -42,12 +43,23 @@ public class ImageController {
     return new ByteArrayResource(image);
   }
 
+  @GetMapping(produces = MediaType.IMAGE_JPEG_VALUE)
+  List<Resource> downloadImage(@RequestParam("ids") List<Long> ids) {
+    return uploadImageToDbService.findByImageIds(ids)
+      .stream()
+      .peek(image -> System.out.println(image.getName()))
+      .map(Image::getContent)
+      .map(ByteArrayResource::new)
+      .collect(Collectors.toList());
+  }
+
   @GetMapping(value = "/image-name/{name}", produces = MediaType.IMAGE_JPEG_VALUE)
   Resource downloadImageByName(@PathVariable("name") String name) {
     byte[] image = uploadImageToDbService.findImageByName(name)
       .getContent();
     return new ByteArrayResource(image);
   }
+
   @GetMapping(value = "/image/{imageId}", produces = MediaType.IMAGE_JPEG_VALUE)
   ImageDto downloadImageById(@PathVariable Long imageId) {
     return uploadImageToDbService.downloadImageById(imageId);
@@ -60,7 +72,7 @@ public class ImageController {
     HttpHeaders headers = new HttpHeaders();
     headers.add("imageName", image.getName());
     Resource resource = new ByteArrayResource(image.getContent());
-      // new ServletContextResource(servletContext, "/WEB-INF/images/image-example.jpg");
+    // new ServletContextResource(servletContext, "/WEB-INF/images/image-example.jpg");
     return new ResponseEntity<>(resource, headers, HttpStatus.OK);
   }
 
