@@ -11,7 +11,7 @@ public class FileStoreUtil {
         return List.of(filePath.substring(0, lastDot), filePath.substring(lastDot));
     }
 
-    public static String buildImageUrl(HttpServletRequest request, Long id) {
+    public static String buildFileUrl(HttpServletRequest request, Long id) {
         return request.getScheme() + "://"
                 + request.getServerName() + ":"
                 + request.getServerPort()

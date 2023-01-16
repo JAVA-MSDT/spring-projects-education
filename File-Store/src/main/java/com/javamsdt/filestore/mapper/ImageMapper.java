@@ -13,5 +13,6 @@ public interface ImageMapper {
 
     @Mapping(ignore = true, target = "content")
     ImageDto toImageDto(Image image);
+    ImageDto toFullImageDto(Image image);
 
 }

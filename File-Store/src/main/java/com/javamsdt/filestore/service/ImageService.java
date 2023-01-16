@@ -36,11 +36,11 @@ public class ImageService {
         image.setAlt(alt);
         Image dbImage = imageRepository.save(image);
         return imageMapper.toImageDto(
-                updateImageLocation(dbImage.getId(), FileStoreUtil.buildImageUrl(request, dbImage.getId())));
+                updateImageLocation(dbImage.getId(), FileStoreUtil.buildFileUrl(request, dbImage.getId())));
     }
 
     public ImageDto findImageById(Long id) {
-        return imageMapper.toImageDto(getImageById(id));
+        return imageMapper.toFullImageDto(getImageById(id));
     }
     public List<ImageDto> findAllImages() {
         return imageRepository.findAll()

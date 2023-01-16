@@ -34,9 +34,11 @@ public class ImageController {
         return imageService.saveImage(multipartImage, alt, request);
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<ImageDto> findImageById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(imageService.findImageById(id), HttpStatus.OK);
+    @GetMapping(value = "/{id}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    Resource findImageById(@PathVariable("id") Long id) {
+        byte[] image = imageService.findImageById(id)
+                .getContent();
+        return new ByteArrayResource(image);
     }
     @GetMapping
     ResponseEntity<List<ImageDto>> findAllImages() {
