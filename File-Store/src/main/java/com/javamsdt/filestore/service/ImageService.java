@@ -5,7 +5,6 @@ import com.javamsdt.filestore.mapper.ImageMapper;
 import com.javamsdt.filestore.model.Image;
 import com.javamsdt.filestore.repository.ImageRepository;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -21,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
-public class ImageToDbService {
+public class ImageService {
 
     private final ImageRepository imageRepository;
 
