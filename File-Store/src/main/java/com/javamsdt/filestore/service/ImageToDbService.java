@@ -4,9 +4,15 @@ import com.javamsdt.filestore.dto.ImageDto;
 import com.javamsdt.filestore.mapper.ImageMapper;
 import com.javamsdt.filestore.model.Image;
 import com.javamsdt.filestore.repository.ImageRepository;
+
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.javamsdt.filestore.util.FileStoreUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,67 +22,54 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 @RequiredArgsConstructor
 public class ImageToDbService {
-  private final ImageRepository imageRepository;
 
-  private final ImageMapper imageMapper;
+    private final ImageRepository imageRepository;
 
-  public Long saveImageReturnId(MultipartFile multipartImage) throws Exception {
-    Image dbImage = new Image();
-    dbImage.setName(extractImageName(multipartImage.getOriginalFilename()));
-    dbImage.setContent(multipartImage.getBytes());
+    private final ImageMapper imageMapper;
 
-    return imageRepository.save(dbImage)
-      .getId();
-  }
-
-  public List<Long> saveImages(List<MultipartFile> multipartFiles) {
-    return imageRepository.saveAll(toImages(multipartFiles))
-      .stream()
-      .map(Image::getId)
-      .collect(Collectors.toList());
-  }
-
-  public Long saveImageReturnIdFromImage(Image image) {
-    return imageRepository.save(image)
-      .getId();
-  }
-
-  public Image getImageById(Long imageId) {
-    return imageRepository.findById(imageId)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-  }
-
-  public List<Image> findByImageIds(List<Long> ids) {
-    return imageRepository.findByImageIds(ids);
-  }
-
-  public Image findImageByName(String name) {
-    return imageRepository.findByName(name)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-  }
-
-  public ImageDto downloadImageById(Long imageId) {
-    return imageMapper.toImageDto(getImageById(imageId));
-  }
-
-  private String extractImageName(String imagePath) {
-    int lastDot = imagePath.lastIndexOf(".");
-    return imagePath.substring(0, lastDot);
-  }
-
-  private List<Image> toImages(List<MultipartFile> multipartFiles) {
-    return multipartFiles.stream()
-      .map(fileImage -> {
+    public ImageDto saveImage(MultipartFile multipartImage, String alt, HttpServletRequest request) throws Exception {
         Image image = new Image();
-        image.setName(extractImageName(fileImage.getOriginalFilename()));
-        try {
-          image.setContent(fileImage.getBytes());
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        }
-        return image;
-      })
-      .collect(Collectors.toList());
-  }
+        image.setName(
+                FileStoreUtil.extractFileName(Objects.requireNonNull(multipartImage.getOriginalFilename())).get(0));
+        image.setExtension(
+                FileStoreUtil.extractFileName(Objects.requireNonNull(multipartImage.getOriginalFilename())).get(1));
+        image.setContent(multipartImage.getBytes());
+        image.setAlt(alt);
+        Image dbImage = imageRepository.save(image);
+        return imageMapper.toImageDto(
+                updateImageLocation(dbImage.getId(), FileStoreUtil.buildImageUrl(request, dbImage.getId())));
+    }
 
+    public ImageDto findImageById(Long id) {
+        return imageMapper.toImageDto(getImageById(id));
+    }
+    public List<ImageDto> findAllImages() {
+        return imageRepository.findAll()
+                .stream()
+                .map(imageMapper::toImageDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<ImageDto> findByImageIds(List<Long> ids) {
+        return imageRepository.findByImageIds(ids)
+                .stream()
+                .map(imageMapper::toImageDto)
+                .collect(Collectors.toList());
+    }
+
+    public Image findImageByName(String name) {
+        return imageRepository.findByName(name)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    public Image updateImageLocation(Long id, String location) {
+        Image dbImage = getImageById(id);
+        dbImage.setLocation(location);
+        return imageRepository.save(dbImage);
+    }
+
+    private Image getImageById(Long imageId) {
+        return imageRepository.findById(imageId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
 }

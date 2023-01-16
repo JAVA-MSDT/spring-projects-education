@@ -1,10 +1,10 @@
 package com.javamsdt.filestore.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.core.io.Resource;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,9 +12,15 @@ import org.springframework.core.io.Resource;
 @Getter
 public class ImageDto {
 
-  private long id;
-  private Resource content;
-  private String name;
-  private String location;
+    private long id;
 
+    private byte[] content;
+
+    private String name;
+
+    private String location;
+
+    private String alt;
+
+    private String extension;
 }

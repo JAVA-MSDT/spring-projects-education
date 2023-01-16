@@ -31,5 +31,9 @@ public class Image {
   private String name;
   @Column
   private String location;
+  @Column
+  private String alt;
+  @Column
+  private String extension;
 
 }

@@ -1,5 +1,6 @@
 package com.javamsdt.filestore.controller;
 
+import com.javamsdt.filestore.dto.ImageDto;
 import com.javamsdt.filestore.model.Image;
 import com.javamsdt.filestore.service.ImageToDbService;
 
@@ -21,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,36 +35,24 @@ public class ImageController {
 
     private final ImageToDbService imageToDbService;
 
-    private final ServletContext servletContext;
-
     @PostMapping
-    String saveImage(@RequestParam("image") MultipartFile multipartImage, HttpServletRequest request) throws Exception {
-        return buildImageUrl(request, imageToDbService.saveImageReturnId(multipartImage));
+    ImageDto saveImage(@RequestParam("alt") String alt, @RequestParam("image") MultipartFile multipartImage,
+            HttpServletRequest request) throws Exception {
+        return imageToDbService.saveImage(multipartImage, alt, request);
     }
 
-    @PostMapping("/images")
-    List<Long> saveImages(@RequestParam("images") MultipartFile[] multipartImage) throws Exception {
-        List<MultipartFile> multipartFiles = Arrays.stream(multipartImage).collect(Collectors.toList());
-        System.out.println("multipartImage.size():: " + multipartFiles.size());
-        return imageToDbService.saveImages(multipartFiles);
+    @GetMapping("/{id}")
+    ResponseEntity<ImageDto> findImageById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(imageToDbService.findImageById(id), HttpStatus.OK);
     }
-
-    @GetMapping(value = "/{imageId}", produces = MediaType.IMAGE_JPEG_VALUE)
-    Resource findImageById(@PathVariable Long imageId) {
-        byte[] image = imageToDbService.getImageById(imageId)
-                .getContent();
-        return new ByteArrayResource(image);
-    }
-
     @GetMapping
-    ResponseEntity<List<String>> findImagesByIdsResource(@RequestParam("ids") List<Long> ids,
-            HttpServletRequest request) {
-        List<String> resources = imageToDbService.findByImageIds(ids)
-                .stream()
-                .peek(image -> System.out.println(image.getName()))
-                .map(image -> buildImageUrl(request, image.getId()))
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(resources, HttpStatus.OK);
+    ResponseEntity<List<ImageDto>> findAllImages() {
+        return new ResponseEntity<>(imageToDbService.findAllImages(), HttpStatus.OK);
+    }
+
+    @GetMapping("/ids")
+    ResponseEntity<List<ImageDto>> findImagesByIds(@RequestParam("ids") List<Long> ids) {
+        return new ResponseEntity<>(imageToDbService.findByImageIds(ids), HttpStatus.OK);
     }
 
     @GetMapping(value = "/image-name/{name}", produces = MediaType.IMAGE_JPEG_VALUE)
@@ -70,14 +60,5 @@ public class ImageController {
         byte[] image = imageToDbService.findImageByName(name)
                 .getContent();
         return new ByteArrayResource(image);
-    }
-
-    private String buildImageUrl(HttpServletRequest request, Long id) {
-        return request.getScheme() + "://"
-                + request.getServerName() + ":"
-                + request.getServerPort()
-                + request.getContextPath()
-                + request.getRequestURI() + "/"
-                + id;
     }
 }

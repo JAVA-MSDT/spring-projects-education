@@ -11,11 +11,7 @@ import org.springframework.core.io.Resource;
 @Mapper(componentModel = "spring")
 public interface ImageMapper {
 
-  @Mapping(source = "content", target = "content", qualifiedByName = "toResource")
-  ImageDto toImageDto(Image image);
+    @Mapping(ignore = true, target = "content")
+    ImageDto toImageDto(Image image);
 
-  @Named("toResource")
-  default Resource toResource(byte[] imageBytes) {
-    return new ByteArrayResource(imageBytes);
-  }
 }
