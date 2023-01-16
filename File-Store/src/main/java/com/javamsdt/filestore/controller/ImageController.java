@@ -50,7 +50,7 @@ public class ImageController {
         return new ResponseEntity<>(imageService.findByImageIds(ids), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/image-name/{name}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/name/{name}", produces = MediaType.IMAGE_JPEG_VALUE)
     Resource findImageByName(@PathVariable("name") String name) {
         byte[] image = imageService.findImageByName(name)
                 .getContent();

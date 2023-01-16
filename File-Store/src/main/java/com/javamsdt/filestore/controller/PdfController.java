@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.javamsdt.filestore.dto.PdfDto;
 import com.javamsdt.filestore.service.PdfService;
-import com.javamsdt.filestore.service.PdfService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -49,7 +48,7 @@ public class PdfController {
         return new ResponseEntity<>(pdfService.findByPdfIds(ids), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/pdf-name/{name}", produces = MediaType.APPLICATION_PDF_VALUE)
+    @GetMapping(value = "/name/{name}", produces = MediaType.APPLICATION_PDF_VALUE)
     Resource findPdfByName(@PathVariable("name") String name) {
         byte[] pdf = pdfService.findPdfByName(name)
                 .getContent();
