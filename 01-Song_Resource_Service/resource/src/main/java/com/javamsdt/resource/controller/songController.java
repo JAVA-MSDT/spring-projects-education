@@ -2,12 +2,15 @@ package com.javamsdt.resource.controller;
 
 import com.javamsdt.resource.model.Song;
 import com.javamsdt.resource.service.SongService;
+import com.javamsdt.resource.util.ResourceUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.mp3.Mp3Parser;
 import org.apache.tika.sax.BodyContentHandler;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +24,7 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("${api.version}/songs")
@@ -38,9 +42,13 @@ public class songController {
         return songService.getSong(id);
     }
 
+    @GetMapping(value = "/song/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    Resource getSongContentById(@PathVariable("id") Long id) {
+        return new ByteArrayResource(songService.getSong(id).getSong());
+    }
+
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public Long saveSong(@RequestBody() MultipartFile song) throws IOException, TikaException, SAXException {
-        mp3(song);
         return songService.saveMultipartSong(song).getId();
     }
 
@@ -48,7 +56,7 @@ public class songController {
         System.out.println("Name:: " + song.getName());
         System.out.println("getContentType:: " + song.getContentType());
         System.out.println("getOriginalFilename:: " + song.getOriginalFilename());
-        System.out.println("getURI:: " + song.getResource().getURI());
+        System.out.println("Extension:: " + ResourceUtil.getFileExtension(Objects.requireNonNull(song.getOriginalFilename())));
 
         InputStream inputStream = song.getInputStream();
         System.out.println("Available Stream:: " + inputStream.available());
