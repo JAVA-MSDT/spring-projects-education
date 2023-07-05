@@ -1,5 +1,7 @@
 package com.javamsdt.resource.service;
 
+import com.javamsdt.resource.metadata.mp3.model.Mp3Metadata;
+import com.javamsdt.resource.metadata.mp3.service.Mp3MetadataService;
 import com.javamsdt.resource.model.Song;
 import com.javamsdt.resource.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SongService {
     private final SongRepository songRepository;
+    private final Mp3MetadataService mp3MetadataService;
 
     public Song getSong(Long id) {
         return findSongById(id);
@@ -25,12 +28,12 @@ public class SongService {
         return songRepository.findAll();
     }
 
-    public Song saveMultipartSong(MultipartFile multipartImage) throws IOException {
+    public Song saveMultipartSong(MultipartFile multipartSong) throws IOException {
         Song song = new Song();
-        song.setSong(multipartImage.getBytes());
+        song.setSong(multipartSong.getBytes());
         Song saved = songRepository.save(song);
-        System.out.println("Saved ID:: " + saved.getId());
-        System.out.println("Saved Song:: " + saved.getSong().length);
+        Mp3Metadata mp3Metadata = mp3MetadataService.getMp3Metadata(multipartSong, saved.getId());
+        System.out.println(mp3Metadata);
         return saved;
     }
     public Song saveSong(Song song) {
