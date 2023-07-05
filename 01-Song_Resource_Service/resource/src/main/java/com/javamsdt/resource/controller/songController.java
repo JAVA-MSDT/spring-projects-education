@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("${api.version}/songs")
@@ -50,7 +51,8 @@ public class songController {
         if (ResourceUtil.checkFileExtension(song, AppConstants.MP3_EXTENSION)) {
             return ResponseEntity.ok(songService.saveMultipartSong(song).getId());
         } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Accepting MP3 file only");
+            String songExtension = ResourceUtil.getFileExtension(Objects.requireNonNull(song.getOriginalFilename()));
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Accepting MP3 file only and not %s .", songExtension));
         }
     }
 }
