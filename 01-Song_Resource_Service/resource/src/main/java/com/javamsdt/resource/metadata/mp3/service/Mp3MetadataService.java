@@ -28,6 +28,24 @@ public class Mp3MetadataService {
         return mp3MetadataMapper.mapMp3Metadata(mp3Metadata, songId);
     }
 
+    public Metadata getResourceMetadataFromInputStream(InputStream inputStream) {
+        Metadata metadata = new Metadata();
+        BodyContentHandler handler = new BodyContentHandler();
+        ParseContext context = new ParseContext();
+
+        try {
+            Mp3Parser mp3Parser = new Mp3Parser();
+            mp3Parser.parse(inputStream, handler, metadata, context);
+        } catch (TikaException e) {
+            log.error("TikaException while extracting the Metadata ", e);
+        } catch (IOException e) {
+            log.error("IOException while extracting the Metadata ", e);
+        } catch (SAXException e) {
+            log.error("SAXException while extracting the Metadata ", e);
+        }
+        return metadata;
+    }
+
     private Metadata getResourceMetadata(MultipartFile song) {
         Metadata metadata = new Metadata();
         BodyContentHandler handler = new BodyContentHandler();
