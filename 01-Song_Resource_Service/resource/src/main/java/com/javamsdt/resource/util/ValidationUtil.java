@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ValidationUtil {
 
     public static Integer getIntegerFromString(String stringNumber) {
-        try{
+        try {
             return Integer.parseInt(stringNumber);
         } catch (NumberFormatException numberFormatException) {
             log.error(String.format("Error while converting String %s as an integer number, ", stringNumber) + numberFormatException.getMessage(), numberFormatException);
@@ -18,7 +18,7 @@ public class ValidationUtil {
     }
 
     public static Double getDoubleFromString(String stringNumber) {
-        try{
+        try {
             return Double.parseDouble(stringNumber);
         } catch (NumberFormatException numberFormatException) {
             log.error(String.format("Error while converting String %s as a double number ", stringNumber), numberFormatException);

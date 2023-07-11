@@ -20,6 +20,7 @@ public class Mp3MetadataService {
     public Mp3Metadata getMp3MetadataByResourceId(Long resourceId) {
         return findByResourceId(resourceId);
     }
+
     public List<Mp3Metadata> getAllMp3Metadata() {
         return mp3MetadataRepository.findAll();
     }
