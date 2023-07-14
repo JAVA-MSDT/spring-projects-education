@@ -1,0 +1,33 @@
+services:
+  db:
+    container_name: db_resource
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: "resource"
+      POSTGRES_USER: "resource"
+      POSTGRES_PASSWORD: "resource"
+    volumes:
+      - C:\Docker\Postgres\docker_resource:/var/lib/postgresql/data
+     # - ./sql/build_tables.sql:/docker-entrypoint-initdb.d/build_tables.sql
+    ports:
+      - 5432:5432
+    networks:
+      resource-network:
+  resource-service:
+    container_name: resource-service
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    # environment:
+      # - "SPRING_PROFILES_ACTIVE=docker"
+      # - spring.datasource.url=jdbc:postgresql://localhost:5432/resource
+    depends_on:
+      - db
+    networks:
+      resource-network:
+    # restart: on-failure
+    ports:
+      - 8000:8000
+networks:
+  resource-network:
