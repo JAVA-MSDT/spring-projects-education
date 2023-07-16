@@ -26,10 +26,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.javamsdt.resource.util.ResourceUtil.getMp3Extension;
+import static com.javamsdt.resource.util.ResourceUtil.getTitle;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class SongService {
+    private static final String REST_CLIENT_EXCEPTION_MESSAGE = "restClientException While";
     private final SongRepository songRepository;
     private final Mp3MetadataService mp3MetadataService;
     private final Mp3MetadataDownstream mp3MetadataDownstream;
@@ -56,7 +60,7 @@ public class SongService {
         try {
             mp3MetadataDownstream.saveMp3Metadata(mp3Metadata);
         } catch (RestClientException restClientException) {
-            log.error("restClientException While saveMp3Metadata:: " + restClientException.getMessage());
+            log.error(REST_CLIENT_EXCEPTION_MESSAGE + " saveMp3Metadata:: " + restClientException.getMessage(), restClientException);
         }
         return saved;
     }
@@ -77,7 +81,7 @@ public class SongService {
                 messages.addAll(deletedMetadata);
             }
         } catch (RestClientException restClientException) {
-            log.error("restClientException While deletedMetadata:: " + restClientException.getMessage(), restClientException);
+            log.error(REST_CLIENT_EXCEPTION_MESSAGE + " deletedMetadata:: " + restClientException.getMessage(), restClientException);
         }
         return messages.isEmpty() ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(messages, HttpStatus.MULTI_STATUS);
@@ -93,28 +97,31 @@ public class SongService {
                         String.format("Song with that id: %s is Not found in DB", id)));
     }
 
-    private HttpHeaders getHttpHeadersForMp3Metadata(Resource song, Long resourceId) throws IOException {
-        Metadata metadata = new Metadata();
+    private HttpHeaders getHttpHeadersForMp3Metadata(Resource song, Long resourceId) {
         HttpHeaders headers = new HttpHeaders();
         String fileName = "";
         String contentType = "";
         try {
             Mp3Metadata mp3Metadata = mp3MetadataDownstream.getMp3MetadataByResourceId(resourceId);
-            metadata = mp3MetadataService.getResourceMetadataFromInputStream(song.getInputStream());
-            fileName = URLEncoder.encode(mp3Metadata.getTitle(), StandardCharsets.UTF_8) + "." + mp3Metadata.getAudioCompressor().toLowerCase();
+            fileName = URLEncoder.encode(getTitle(mp3Metadata.getTitle()), StandardCharsets.UTF_8) + "." + getMp3Extension(mp3Metadata.getAudioCompressor());
             contentType = mp3Metadata.getContentType();
 
         } catch (RestClientException restClientException) {
-            log.error("restClientException while getMp3MetadataByResourceId:: " + restClientException.getMessage());
-            fileName = URLEncoder.encode(metadata.get("dc:title"), StandardCharsets.UTF_8) + "." + metadata.get("xmpDM:audioCompressor").toLowerCase();
-            contentType = metadata.get("Content-Type");
-        } catch (IOException e) {
-            log.error("IOException while reading inputStream for getting Mp3Metadata:: " + e.getMessage());
-            throw new IOException();
+            log.error(REST_CLIENT_EXCEPTION_MESSAGE + " getMp3MetadataByResourceId:: " + restClientException.getMessage(), restClientException);
+            try {
+                Metadata metadata = mp3MetadataService.getResourceMetadataFromInputStream(song.getInputStream());
+                fileName = URLEncoder.encode(getTitle(metadata.get("dc:title")), StandardCharsets.UTF_8) + "." + getMp3Extension(metadata.get("xmpDM:audioCompressor"));
+                contentType = metadata.get("Content-Type");
+            } catch (IOException e) {
+                log.error("IOException while reading inputStream for getting Mp3Metadata:: " + e.getMessage(), e);
+            }
+
         }
         headers.setContentType(MediaType.valueOf(contentType));
         headers.add("Content-disposition", "inline; filename=" + fileName + "");
 
         return headers;
     }
+
+
 }

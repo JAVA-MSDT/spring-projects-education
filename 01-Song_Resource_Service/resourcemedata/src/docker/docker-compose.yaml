@@ -1,16 +1,16 @@
 services:
   db:
-    container_name: pg_resource_metadata
+    container_name: pg_resource
     image: postgres
     restart: always
     environment:
-      POSTGRES_DB: "resource_metadata"
-      POSTGRES_USER: "resource_metadata"
-      POSTGRES_PASSWORD: "resource_metadata"
+      POSTGRES_DB: "resource"
+      POSTGRES_USER: "resource"
+      POSTGRES_PASSWORD: "resource"
     volumes:
-      - C:\Docker\Postgres\resource_metadata:/var/lib/postgresql/data
+      - C:\Docker\Postgres\resource:/var/lib/postgresql/data
     ports:
-      - 5434:5432
+      - 5432:5432
   pgadmin:
     container_name: pgAdmin
     image: dpage/pgadmin4

@@ -9,6 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 public class ValidationUtil {
 
     public static Integer getIntegerFromString(String stringNumber) {
+        if (stringNumber == null) {
+            return 0;
+        }
+
         try {
             return Integer.parseInt(stringNumber);
         } catch (NumberFormatException numberFormatException) {
@@ -18,6 +22,10 @@ public class ValidationUtil {
     }
 
     public static Double getDoubleFromString(String stringNumber) {
+        if (stringNumber == null) {
+            return 0D;
+        }
+
         try {
             return Double.parseDouble(stringNumber);
         } catch (NumberFormatException numberFormatException) {

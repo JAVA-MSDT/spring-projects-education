@@ -20,5 +20,15 @@ public class ResourceUtil {
                 .equalsIgnoreCase(extension);
     }
 
+    public static String getMp3Extension(String audioCompressor) {
+        if (audioCompressor != null && !audioCompressor.isEmpty()) {
+            return audioCompressor.toLowerCase();
+        } else {
+            return "mp3";
+        }
+    }
 
+    public static String getTitle(String title) {
+        return title == null ? "mp3song" : title;
+    }
 }

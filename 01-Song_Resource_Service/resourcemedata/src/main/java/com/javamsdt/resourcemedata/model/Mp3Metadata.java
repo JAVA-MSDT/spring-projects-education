@@ -18,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Builder
 @Entity
-@Table(name = "mp3-metadata")
+@Table(name = "mp3_metadata")
 public class Mp3Metadata {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
