@@ -41,6 +41,7 @@ Possible container options for existing resources:
   * application-docker.properties will be running from dockerfile as startup command, which have the connection for the postgresql and the downstream docker container for internal communication between the applications and postgres.
 * The main [docker-compose](./docker-compose.yaml) located in root uses [docker.env](./docker.env) file to recive custom variables.
 * PostgreSQL will get a [build tables script](./sql/build_tables.sql) as an init scripts for the database to run when container starts up.
+* Uploaded [postman collections](.././postman_collections) for testing in the repository root.
 ### Dockerizing steps
 
 > There are 2 project **resource** and **resourcemetadata** also there a docker compose file in each project
