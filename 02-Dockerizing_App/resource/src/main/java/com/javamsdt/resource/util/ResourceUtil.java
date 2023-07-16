@@ -27,4 +27,8 @@ public class ResourceUtil {
             return "mp3";
         }
     }
+
+    public static String getTitle(String title) {
+        return title == null ? "mp3song" : title;
+    }
 }

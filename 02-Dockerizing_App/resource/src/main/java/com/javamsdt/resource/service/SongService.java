@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.javamsdt.resource.util.ResourceUtil.getMp3Extension;
+import static com.javamsdt.resource.util.ResourceUtil.getTitle;
 
 @Service
 @RequiredArgsConstructor
@@ -56,7 +57,6 @@ public class SongService {
         song.setSong(multipartSong.getBytes());
         Song saved = songRepository.save(song);
         Mp3Metadata mp3Metadata = mp3MetadataService.getMp3Metadata(multipartSong.getInputStream(), saved.getId());
-        System.out.println(mp3Metadata);
         try {
             mp3MetadataDownstream.saveMp3Metadata(mp3Metadata);
         } catch (RestClientException restClientException) {
@@ -103,14 +103,14 @@ public class SongService {
         String contentType = "";
         try {
             Mp3Metadata mp3Metadata = mp3MetadataDownstream.getMp3MetadataByResourceId(resourceId);
-            fileName = URLEncoder.encode(mp3Metadata.getTitle(), StandardCharsets.UTF_8) + "." + getMp3Extension(mp3Metadata.getAudioCompressor());
+            fileName = URLEncoder.encode(getTitle(mp3Metadata.getTitle()), StandardCharsets.UTF_8) + "." + getMp3Extension(mp3Metadata.getAudioCompressor());
             contentType = mp3Metadata.getContentType();
 
         } catch (RestClientException restClientException) {
             log.error(REST_CLIENT_EXCEPTION_MESSAGE + " getMp3MetadataByResourceId:: " + restClientException.getMessage(), restClientException);
             try {
                 Metadata metadata = mp3MetadataService.getResourceMetadataFromInputStream(song.getInputStream());
-                fileName = URLEncoder.encode(metadata.get("dc:title"), StandardCharsets.UTF_8) + "." + getMp3Extension(metadata.get("xmpDM:audioCompressor"));
+                fileName = URLEncoder.encode(getTitle(metadata.get("dc:title")), StandardCharsets.UTF_8) + "." + getMp3Extension(metadata.get("xmpDM:audioCompressor"));
                 contentType = metadata.get("Content-Type");
             } catch (IOException e) {
                 log.error("IOException while reading inputStream for getting Mp3Metadata:: " + e.getMessage(), e);

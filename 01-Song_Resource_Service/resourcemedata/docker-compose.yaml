@@ -1,0 +1,28 @@
+services:
+  db:
+    container_name: db_resource
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: "resource"
+      POSTGRES_USER: "resource"
+      POSTGRES_PASSWORD: "resource"
+    volumes:
+      - C:\Docker\Postgres\docker_resource:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      resource-network:
+  resource-service:
+    container_name: resource-metadata-service
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    networks:
+      resource-network:
+    ports:
+      - 8000:8000
+networks:
+  resource-network:
