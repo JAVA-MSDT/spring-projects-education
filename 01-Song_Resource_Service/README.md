@@ -272,7 +272,7 @@ Make sure the service is still available over HTTP.
 </table>
 
 **Note**
-
+> Uploaded [postman collections](.././postman_collections) for testing in the repository root.
 As a database, it is best to use Docker database/storage containers (e.g. [postgres image](https://hub.docker.com/_/postgres)) in the implementation.
 
 ![](../assets/img/Song-resources-task.png)
