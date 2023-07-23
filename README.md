@@ -1,9 +1,9 @@
 # Resources
 ## Table of Content
-1) [Description](description)
-2) [Project Configuration](project-configuration)
-    * [1 - Libraries](1---libraries)
-    * [2 - Building & Running](2---building-&-running)
+1) [Description](#1---description)
+2) [Project Configuration](#2---project-configuration)
+    * [1 - Libraries](#1---libraries)
+    * [2 - Building & Running](#2---building-&-running)
 
 ## 1 - Description 
 Application to manage resources such as files, audio, videos, and etc.
@@ -23,7 +23,7 @@ Application to manage resources such as files, audio, videos, and etc.
 * Import it in your favorite IDE.
 * **Build using maven**
   *  Use maven plugin in your ide, clean install.
-  *  Or use CMD from the project root where pom.xml file resides command `mvn clean instal'
+  *  Or use CMD from the project root where pom.xml file resides command `mvn clean instal`
 * Run docker-compose to make sure that the docker postgres container started fine.
   * Make sure that docker deamon (**docker desktop**) running before running docker-compose file.
 * Run the application form the main class.
