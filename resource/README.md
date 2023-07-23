@@ -27,4 +27,4 @@ Application to manage resources such as files, audio, videos, and etc.
 * Run docker-compose to make sure that the docker postgres container started fine.
   * Make sure that docker deamon (**docker desktop**) running before running docker-compose file.
 * Run the application form the main class.
-* Use the postman collections for testing, uploaded in the project.
+* Use the [postman collections](PostmanCollections/) for testing, uploaded in the project.
