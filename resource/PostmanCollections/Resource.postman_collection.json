@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "02ac5ee1-8a28-4a4a-8888-31b043ca4498",
+		"name": "Resource",
+		"description": "StartFragment\n\nApplication to manage resources such as files, audio, videos, and etc.\n\n  \n\nEndFragm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9368472"
+	},
+	"item": [
+		{
+			"name": "Save MP3 Song",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "song",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/Arabic/Hamed Al-Shaere/اجمل من كل البشر - حميد الشاعرى (192 kbps).mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8800/api/v1/songs",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get MP3 Song By ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "song",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/Arabic/Hamed Al-Shaere/Hamid El Shaeri - Matethabesh [Lyrics Video] - حميد الشاعري - ماتتحبيش.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8800/api/v1/songs/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"songs",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get MP3 Content",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8800/api/v1/songs/song/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"songs",
+						"song",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
