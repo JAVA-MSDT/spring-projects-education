@@ -1,42 +1,30 @@
-# Resource project
-
-> Application to store the binary data of a resource such as MP3 files.
-
+# Resources
 ## Table of Content
+1) [Description](#1---description)
+2) [Project Configuration](#2---project-configuration)
+    * [1 - Libraries](#1---libraries)
+    * [2 - Building & Running](#2---building-&-running)
 
-- [Dockerizing steps](#Dockerizing-steps)
-- [Troubleshooting](#Troubleshooting)
+## 1 - Description 
+Application to manage resources such as files, audio, videos, and etc.
 
-## Dockerizing steps
+## 2 - Project Configuration
+### 1 - Libraries
+* [Java](https://www.openlogic.com/openjdk-downloads) V17 - [Direct download](https://builds.openlogic.com/downloadJDK/openlogic-openjdk/17.0.6+10/openlogic-openjdk-17.0.6+10-windows-x64.zip)
+* [Maven](https://maven.apache.org/) 
+* [SpringBoot](https://spring.io/projects/spring-boot) V3.1.1, [Spring Initializer](https://start.spring.io/)
+    * [What is Spring Boot under the hood (In 10 Minutes)](https://youtu.be/7zOvIgcq478) 
+* [PostgreSQL](https://www.postgresql.org/) - [DockerImage](https://hub.docker.com/_/postgres).
+* [ProjectLombok](https://projectlombok.org/) - class members generator.
+* [Apache tika](https://tika.apache.org/) - Metadata extraction.
 
-> There are 2 docker compose files
-> docker-compose under src/docker you need to run it first to guruntee that the build will be success due to Hibernate
-> checking during the build.
-> docker-compose which is in the root you will run it after you have build your project, because it has the
-> configuration of the newtwork where postgreSQL will run first then the reource image
-
-### Steps to successfully run the application in docker mode.
-
-* Run docker-compose under src/docker.
-    * The reason for this step is becuase during the run Hibernate will ckeck that there is a connection between the
-      application and the database.
-    * So this step is mendatory to build a docker image for the resource application, then later you can build a
-      container from that image locally or push to the hub.
-* Package the application using maven tab in your IDEA or CMD command `mvn clean package`
-* You should now find a jar file under target/
-* Stop and delete the docker container which you have run from docker-compose under src/docker.
-    * This step is important to avoid the port in use conflict.
-* Run docker-compose under the root.
-* now you should have your application running successfully and you can interact with it.
-* For more info about the application please check the application resource folder (application-docker.properties)
-* You can add more configuration or changing the anything in the application source code then repeat the above steps to
-  build a new image from the application.
-
-## Troubleshooting
-
-### Docker exiting
-
-* resource application docker will stop runing if you you have build the image several times, because of the old image
-  will be in use.
-* To avoid that, any change you do related to docker image or the application, delete the image to guarantee a new clean
-  image.
+### 2 - Building & Running.
+* [Clone the project](https://github.com/JAVA-MSDT/resources.git).
+* Import it in your favorite IDE.
+* **Build using maven**
+  *  Use maven plugin in your ide, clean install.
+  *  Or use CMD from the project root where pom.xml file resides command `mvn clean instal`
+* Run docker-compose to make sure that the docker postgres container started fine.
+  * Make sure that docker deamon (**docker desktop**) running before running docker-compose file.
+* Run the application form the main class.
+* Use the postman collections for testing, uploaded in the project.
