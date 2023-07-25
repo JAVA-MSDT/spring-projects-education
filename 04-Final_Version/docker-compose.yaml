@@ -1,0 +1,67 @@
+services:
+# ==================== Eureka Service ===================== #
+  eureka-service:
+    container_name: eureka-service
+    build:
+      context: ./eureka
+      dockerfile: Dockerfile
+    ports:
+      - 8088:8088
+    networks:
+      resource-project-network:
+# ==================== Gateway Service ===================== #
+  gatway-service:
+    container_name: gateway-service
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    depends_on:
+      - eureka-service 
+    ports:
+      - 8080:8080
+    networks:
+      resource-project-network:
+# =============== Resource Metadata Service =============== #
+  resource-metadata-service:
+    container_name: resource-metadata-service
+    build:
+      context: ./resourcemetadata
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - 8100:8100
+    networks:
+      resource-project-network:
+# ==================== Resource Service ===================== #
+  resource-service:
+    container_name: resource-service
+    build:
+      context: ./resource
+      dockerfile: Dockerfile
+    depends_on:
+      - resource-metadata-service
+    ports:
+      - 8800:8800
+    networks:
+      resource-project-network:
+# ==================== Database Service ====================== #
+  db:
+    container_name: db_resource
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    volumes:
+      # - "${POSTGRES_LOCAL_VOLUME}:/var/lib/postgresql/data"
+      - "${INIT_SCRIPT_LOCATION}:/docker-entrypoint-initdb.d/build_tables.sql"
+    depends_on:
+      - gatway-service
+    ports:
+      - 5432:5432
+    networks:
+      resource-project-network:
+networks:
+  resource-project-network:
