@@ -1,6 +1,5 @@
 package com.javamsdt.resource.model.audio;
 
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,8 +21,11 @@ public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
+    private String extension;
+    private String originalName;
+    private String contentType;
     @Lob
     private byte[] song;
-    @Embedded
-    private Mp3Metadata mp3Metadata;
+
 }

@@ -13,6 +13,7 @@ public class ResourceUtil {
     public static String getFileExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf(AppConstants.DOT));
     }
+
     public static String getFileName(String fileName) {
         return fileName.substring(0, fileName.lastIndexOf(AppConstants.DOT));
     }
@@ -23,15 +24,4 @@ public class ResourceUtil {
                 .equalsIgnoreCase(extension);
     }
 
-    public static String getMp3Extension(String audioCompressor) {
-        if (audioCompressor != null && !audioCompressor.isEmpty()) {
-            return audioCompressor.toLowerCase();
-        } else {
-            return "mp3";
-        }
-    }
-
-    public static String getTitle(String title) {
-        return title == null ? "mp3song" : title;
-    }
 }

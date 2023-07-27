@@ -23,8 +23,8 @@ public class ImageController {
 
     private final ImageService imageService;
 
-    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
-    public ResponseEntity<Image> saveImage(@RequestPart(name = "image") MultipartFile image, @RequestPart(name = "metadata") String metadata) throws IOException {
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Image> saveImage(@RequestPart(name = "image") MultipartFile image) throws IOException {
 
         return ResponseEntity.ok(imageService.saveImage(image));
     }
@@ -39,7 +39,7 @@ public class ImageController {
     }
 
     @GetMapping("/content/name/{name}")
-    public ResponseEntity<byte[]> getImageContentById(@PathVariable("name") String name) throws IOException {
+    public ResponseEntity<byte[]> getImageContentByName(@PathVariable("name") String name) throws IOException {
         Image image = imageService.findImageByName(name);
 
         return ResponseEntity.status(HttpStatus.OK)

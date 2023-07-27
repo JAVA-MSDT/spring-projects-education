@@ -18,6 +18,40 @@
 						{
 							"key": "song",
 							"type": "file",
+							"src": "/C:/Disk_D/Audio/Arabic/Hamed Al-Shaere/Hamid El Shari   حميد الشاعري ــ مهما كبرت.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8800/api/v1/resources/songs",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get MP3 Song",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "song",
+							"type": "file",
 							"src": "/C:/Disk_D/Audio/Arabic/Hamed Al-Shaere/حسن عبد المجيد و حميد الشاعري   عيونك أمهات وبيوت   YouTube.mp3"
 						}
 					]
@@ -33,6 +67,115 @@
 						"v1",
 						"resources",
 						"songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get MP3 Song By Name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "song",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/Arabic/Hamed Al-Shaere/حسن عبد المجيد و حميد الشاعري   عيونك أمهات وبيوت   YouTube.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8800/api/v1/resources/songs/name/Hamid El Shari   حميد الشاعري ــ مهما كبرت",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"songs",
+						"name",
+						"Hamid El Shari   حميد الشاعري ــ مهما كبرت"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get MP3 Song content By Name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "song",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/Arabic/Hamed Al-Shaere/حسن عبد المجيد و حميد الشاعري   عيونك أمهات وبيوت   YouTube.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8800/api/v1/resources/songs/content/name/Hamid El Shari   حميد الشاعري ــ مهما كبرت",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"songs",
+						"content",
+						"name",
+						"Hamid El Shari   حميد الشاعري ــ مهما كبرت"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get MP3 Song Content",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "song",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/Arabic/Hamed Al-Shaere/حسن عبد المجيد و حميد الشاعري   عيونك أمهات وبيوت   YouTube.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8800/api/v1/resources/songs/content/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"songs",
+						"content",
+						"1"
 					]
 				}
 			},
