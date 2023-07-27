@@ -1,9 +1,9 @@
-# Resources
+# Resources Project
 ## Table of Content
 1) [Description](#1---description)
 2) [Project Configuration](#2---project-configuration)
     * [1 - Libraries](#1---libraries)
-    * [2 - Building & Running](#2---building-&-running)
+    * [2 - Building & Running](#2---building-and-running)
 
 ## 1 - Description 
 Application to manage resources such as files, audio, videos, and etc.
@@ -18,7 +18,7 @@ Application to manage resources such as files, audio, videos, and etc.
 * [ProjectLombok](https://projectlombok.org/) - class members generator.
 * [Apache tika](https://tika.apache.org/) - Metadata extraction.
 
-### 2 - Building & Running.
+### 2 - Building and Running.
 * [Clone the project](https://github.com/JAVA-MSDT/resources.git).
 * Import it in your favorite IDE.
 * **Build using maven**
@@ -27,4 +27,4 @@ Application to manage resources such as files, audio, videos, and etc.
 * Run docker-compose to make sure that the docker postgres container started fine.
   * Make sure that docker deamon (**docker desktop**) running before running docker-compose file.
 * Run the application form the main class.
-* Use the postman collections for testing, uploaded in the project.
+* Use the [postman collections](resource/PostmanCollections) for testing, uploaded in the project.
