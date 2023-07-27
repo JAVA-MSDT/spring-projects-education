@@ -13,6 +13,9 @@ public class ResourceUtil {
     public static String getFileExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf(AppConstants.DOT));
     }
+    public static String getFileName(String fileName) {
+        return fileName.substring(0, fileName.lastIndexOf(AppConstants.DOT));
+    }
 
     public static boolean checkFileExtension(MultipartFile file, String extension) {
         return getFileExtension

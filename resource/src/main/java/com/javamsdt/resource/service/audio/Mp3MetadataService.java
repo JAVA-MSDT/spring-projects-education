@@ -6,10 +6,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
-import org.apache.tika.parser.mp3.Mp3Parser;
+import org.apache.tika.parser.Parser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.springframework.stereotype.Service;
+import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
@@ -33,8 +35,8 @@ public class Mp3MetadataService {
         ParseContext context = new ParseContext();
 
         try {
-            Mp3Parser mp3Parser = new Mp3Parser();
-            mp3Parser.parse(inputStream, handler, metadata, context);
+            Parser parser = new AutoDetectParser();
+            parser.parse(inputStream, handler, metadata, context);
         } catch (TikaException e) {
             log.error("TikaException while extracting the Metadata ", e);
         } catch (IOException e) {
@@ -42,6 +44,19 @@ public class Mp3MetadataService {
         } catch (SAXException e) {
             log.error("SAXException while extracting the Metadata ", e);
         }
+        return metadata;
+    }
+
+    public Metadata extractMetadata(InputStream stream)
+            throws IOException, SAXException, TikaException {
+
+        Parser parser = new AutoDetectParser();
+        ContentHandler handler = new BodyContentHandler();
+        Metadata metadata = new Metadata();
+        ParseContext context = new ParseContext();
+//        String contentType = detectDocType(stream);
+//        System.out.println("contentType:: " + contentType);
+        parser.parse(stream, handler, metadata, context);
         return metadata;
     }
 }

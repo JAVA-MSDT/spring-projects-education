@@ -18,12 +18,12 @@
 						{
 							"key": "song",
 							"type": "file",
-							"src": "/C:/Disk_D/Audio/Arabic/Hamed Al-Shaere/اجمل من كل البشر - حميد الشاعرى (192 kbps).mp3"
+							"src": "/C:/Disk_D/Audio/Arabic/Hamed Al-Shaere/حسن عبد المجيد و حميد الشاعري   عيونك أمهات وبيوت   YouTube.mp3"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8800/api/v1/songs",
+					"raw": "localhost:8800/api/v1/resources/songs",
 					"host": [
 						"localhost"
 					],
@@ -31,7 +31,208 @@
 					"path": [
 						"api",
 						"v1",
+						"resources",
 						"songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/SEREN/Pictures/41-43/41-43 Area.jpg"
+						},
+						{
+							"key": "metadata",
+							"value": "{\"title\":\"Title\", \"genre\":\"Genre\"}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8800/api/v1/resources/images",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Image Bytes by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/SEREN/Pictures/41-43/03 - 30.06.2023.png"
+						},
+						{
+							"key": "metadata",
+							"value": "{\"title\":\"Title\", \"genre\":\"Genre\"}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8800/api/v1/resources/images/content/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"images",
+						"content",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Image Bytes by Name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/SEREN/Pictures/41-43/03 - 30.06.2023.png"
+						},
+						{
+							"key": "metadata",
+							"value": "{\"title\":\"Title\", \"genre\":\"Genre\"}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8800/api/v1/resources/images/content/name/41-43 Area",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"images",
+						"content",
+						"name",
+						"41-43 Area"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Image by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/SEREN/Pictures/41-43/03 - 30.06.2023.png"
+						},
+						{
+							"key": "metadata",
+							"value": "{\"title\":\"Title\", \"genre\":\"Genre\"}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8800/api/v1/resources/images/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"images",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Image by Name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/SEREN/Pictures/41-43/03 - 30.06.2023.png"
+						},
+						{
+							"key": "metadata",
+							"value": "{\"title\":\"Title\", \"genre\":\"Genre\"}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8800/api/v1/resources/images/name/41-43 Area",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"images",
+						"name",
+						"41-43 Area"
 					]
 				}
 			},
@@ -56,7 +257,7 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8800/api/v1/songs/2",
+					"raw": "localhost:8800/api/v1/resources/songs/1",
 					"host": [
 						"localhost"
 					],
@@ -64,8 +265,9 @@
 					"path": [
 						"api",
 						"v1",
+						"resources",
 						"songs",
-						"2"
+						"1"
 					]
 				}
 			},

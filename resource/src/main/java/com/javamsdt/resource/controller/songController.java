@@ -1,5 +1,7 @@
 package com.javamsdt.resource.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.javamsdt.resource.model.audio.AudioFile;
 import com.javamsdt.resource.model.audio.Song;
 import com.javamsdt.resource.service.audio.SongService;
 import com.javamsdt.resource.util.AppConstants;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -56,6 +59,21 @@ public class songController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Accepting MP3 file only and not %s .", songExtension));
         }
     }
+
+    @PostMapping(value = "/parts", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Long> saveSongForm(@RequestPart() MultipartFile song , @RequestPart() String audioFile) throws IOException, TikaException, SAXException {
+        System.out.println(audioFile);
+
+        ObjectMapper mapper = new ObjectMapper();
+        AudioFile audio = mapper.readValue(audioFile, AudioFile.class);
+
+        System.out.println(audio.getGenre());
+        System.out.println(audio.getTitle());
+
+        return ResponseEntity.ok(1L);
+
+    }
+
 
     @DeleteMapping("/delete-songs")
     public ResponseEntity<?> deleteSongs(@RequestParam(name = "ids") Long[] ids) {
