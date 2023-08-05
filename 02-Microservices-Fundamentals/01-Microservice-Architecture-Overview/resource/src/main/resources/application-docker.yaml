@@ -1,0 +1,48 @@
+##############################################
+################ Server Value ################
+##############################################
+server:
+  port: 8101
+  error:
+    include-message: ALWAYS
+##############################################
+########## Custom Application Value ##########
+##############################################
+api:
+  version: /api/v1/resources
+mp3:
+  metadata:
+    url: http://resource-metadata-service:8100/api/v1/resources-metadata/mp3-metadata
+##############################################
+############# Application Value ##############
+##############################################
+spring:
+  application:
+    name: resource
+  ##############################################
+  ############### Database Value ###############
+  ##############################################
+  jpa:
+    show-sql: true
+    hibernate:
+      jdbc:
+        lob:
+          non_contextual_creation: true
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      # Hibernate ddl auto (create, create-drop, validate, update)
+      ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://db_resource:5432/resource
+    username: resource
+    password: resource
+  ##############################################
+  ############ Multipart file Value ############
+  ##############################################
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 50MB
+      max-request-size: 75MB
+

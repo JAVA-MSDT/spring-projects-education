@@ -1,0 +1,63 @@
+##############################################
+################ Server Value ################
+##############################################
+server:
+  port: 8101
+  error:
+    include-message: ALWAYS
+##############################################
+########## Custom Application Value ##########
+##############################################
+api:
+  version: /api/v1
+mp3:
+  metadata:
+    url: http://localhost:8100/api/v1/resources-metadata/mp3-metadata
+##############################################
+############# Application Value ##############
+##############################################
+spring:
+  application:
+    name: resource
+  ##############################################
+  ############### Database Value ###############
+  ##############################################
+  jpa:
+    show-sql: true
+    hibernate:
+      jdbc:
+        lob:
+          non_contextual_creation: true
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      # Hibernate ddl auto (create, create-drop, validate, update)
+      ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/resource
+    username: resource
+    password: resource
+  ##############################################
+  ############### Cloud AWS Value ##############
+  ##############################################
+  cloud:
+    aws:
+      s3:
+        endpoint: http://s3.localhost.localstack.cloud:4566 # http://127.0.0.1:4566
+        region: eu-central-1
+        bucket:
+          resources: resources
+      credentials:
+        access-key: none
+        secret-key: none
+      region:
+        static: eu-central-1
+  ##############################################
+  ############ Multipart file Value ############
+  ##############################################
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 50MB
+      max-request-size: 75MB
+
