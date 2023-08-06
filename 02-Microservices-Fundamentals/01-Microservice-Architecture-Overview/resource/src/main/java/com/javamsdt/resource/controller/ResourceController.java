@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("${api.version}/resources")
+@RequestMapping("${api.version}")
 @RequiredArgsConstructor
 public class ResourceController {
     private final ResourceService resourceService;
@@ -29,6 +29,11 @@ public class ResourceController {
     @GetMapping
     public List<Resource> getResources() {
         return resourceService.getResources();
+    }
+
+    @GetMapping(value = "/extension/{extension}")
+    public List<Resource> getResourcesByExtension(@PathVariable(name = "extension") String extension) {
+        return resourceService.getResourcesByExtension(extension);
     }
 
     @GetMapping("/{id}")

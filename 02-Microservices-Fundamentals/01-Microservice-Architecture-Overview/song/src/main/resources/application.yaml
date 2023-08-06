@@ -2,23 +2,24 @@
 ################ Server Value ################
 ##############################################
 server:
-  port: 8101
+  port: 8103
   error:
     include-message: ALWAYS
 ##############################################
 ########## Custom Application Value ##########
 ##############################################
 api:
-  version: /api/v1/resources
-mp3:
-  metadata:
-    url: http://localhost:8100/api/v1/resources-metadata/mp3-metadata
+  version: /api/v1/songs
+downstream:
+  url:
+    resources: http://localhost:8101/api/v1/resources
+    resources-processor: http://localhost:8102/api/v1/resources-processor
 ##############################################
 ############# Application Value ##############
 ##############################################
 spring:
   application:
-    name: resource
+    name: song
   ##############################################
   ############### Database Value ###############
   ##############################################
@@ -36,21 +37,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/resource
     username: resource
     password: resource
-  ##############################################
-  ############### Cloud AWS Value ##############
-  ##############################################
-  cloud:
-    aws:
-      s3:
-        endpoint: http://s3.localhost.localstack.cloud:4566 # http://127.0.0.1:4566
-        region: eu-central-1
-        bucket:
-          resources: resources
-      credentials:
-        access-key: none
-        secret-key: none
-      region:
-        static: eu-central-1
   ##############################################
   ############ Multipart file Value ############
   ##############################################

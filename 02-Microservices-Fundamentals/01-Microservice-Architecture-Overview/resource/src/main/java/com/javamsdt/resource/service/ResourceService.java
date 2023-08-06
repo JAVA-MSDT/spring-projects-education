@@ -33,6 +33,10 @@ public class ResourceService {
         return resourceRepository.findAll();
     }
 
+    public List<Resource> getResourcesByExtension(String extension) {
+        return resourceRepository.findAllByExtension(extension);
+    }
+
     public Resource saveResource(MultipartFile resource) throws IOException {
         return resourceRepository.save(resourceFromMultipartFile(resource));
     }
