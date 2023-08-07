@@ -11,8 +11,8 @@
 * Song service used to perform the following actions;
   * CRUD operations for song resources regardless of the file type.
   ### TODO
-  * Connecting to [Resource service](./resource) to store the song in S3 cloud, then return a url.
-  * Connecting to [Resource Processor](./resource_processor) to store the song metadata for further process.
+  * Connecting to [Resource service](../resource) to store the song in S3 cloud, then return a url.
+  * Connecting to [Resource Processor](../resource_processor) to store the song metadata for further process.
 ## 02 - Project Configuration
 ### 01 - Libraries
 * [Java](https://www.openlogic.com/openjdk-downloads) V17 - [Direct download](https://builds.openlogic.com/downloadJDK/openlogic-openjdk/17.0.6+10/openlogic-openjdk-17.0.6+10-windows-x64.zip)
