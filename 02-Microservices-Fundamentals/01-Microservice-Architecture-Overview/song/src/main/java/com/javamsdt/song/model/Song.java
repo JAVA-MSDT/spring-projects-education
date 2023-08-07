@@ -1,5 +1,7 @@
 package com.javamsdt.song.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +22,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,7 @@
 package com.javamsdt.resource.awsservice;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
@@ -43,5 +44,12 @@ public class StorageService {
         log.info("Retrieving object summaries for bucket '{}'", s3Config.getBucketName());
         ObjectListing objectListing = amazonS3.listObjects(s3Config.getBucketName());
         return objectListing.getObjectSummaries();
+    }
+
+    public void deleteFile(final String keyName) {
+        log.info("Deleting file with name= " + keyName);
+        final DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(s3Config.getBucketName(), keyName);
+        amazonS3.deleteObject(deleteObjectRequest);
+        log.info("File deleted successfully.");
     }
 }

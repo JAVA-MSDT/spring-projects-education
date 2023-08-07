@@ -34,6 +34,7 @@ public class Mp3Metadata {
     private int channels;
     private int audioSampleRate;
     private String logComment;
+    @Column(name = "mp3_version")
     private String version;
     private String composer;
     private String audioCompressor;

@@ -56,7 +56,12 @@ public class ResourceService {
     }
 
     public void deleteResource(Long id) {
+        Resource resource = findResourceById(id);
+        storageService.deleteFile(resource.getOriginalName());
         resourceRepository.delete(findResourceById(id));
+    }
+    public void deleteResourceFromS3(String name) {
+        storageService.deleteFile(name);
     }
 
     private Resource findResourceById(Long id) {

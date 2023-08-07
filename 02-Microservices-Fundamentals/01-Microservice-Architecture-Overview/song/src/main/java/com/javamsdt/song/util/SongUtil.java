@@ -3,8 +3,14 @@ package com.javamsdt.song.util;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -34,6 +40,11 @@ public class SongUtil {
     }
 
     public static String getTitle(String title) {
-        return title == null ? "mp3song" : title;
+        return title == null ? "song" : title;
+    }
+
+    public static Resource fileSystemResource(MultipartFile multipartSong, File file) throws IOException {
+        multipartSong.transferTo(file);
+        return new FileSystemResource(file);
     }
 }

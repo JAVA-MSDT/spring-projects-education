@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "d08a54f9-9d21-4493-beaa-4b1bdfb973af",
+		"name": "Song Service - Microservices Fundamentals",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9368472"
+	},
+	"item": [
+		{
+			"name": "Save Song",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "song",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/ENA/Michael Jackson/Michael Jackson - They Don't Care About Us.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8103/api/v1/songs/mp3s",
+					"host": [
+						"localhost"
+					],
+					"port": "8103",
+					"path": [
+						"api",
+						"v1",
+						"songs",
+						"mp3s"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All MP3 Songs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "resource",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/ENA/Michael Jackson/dangerous.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8103/api/v1/songs/mp3s",
+					"host": [
+						"localhost"
+					],
+					"port": "8103",
+					"path": [
+						"api",
+						"v1",
+						"songs",
+						"mp3s"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get MP3 Songs By Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "resource",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/ENA/Michael Jackson/dangerous.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8103/api/v1/songs/mp3s/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8103",
+					"path": [
+						"api",
+						"v1",
+						"songs",
+						"mp3s",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get MP3 content By Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "resource",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/ENA/Michael Jackson/dangerous.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8103/api/v1/songs/mp3s/mp3/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8103",
+					"path": [
+						"api",
+						"v1",
+						"songs",
+						"mp3s",
+						"mp3",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Resources By Ids Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8103/api/v1/songs/mp3s/delete-mp3s?ids=1, 2",
+					"host": [
+						"localhost"
+					],
+					"port": "8103",
+					"path": [
+						"api",
+						"v1",
+						"songs",
+						"mp3s",
+						"delete-mp3s"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "1, 2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

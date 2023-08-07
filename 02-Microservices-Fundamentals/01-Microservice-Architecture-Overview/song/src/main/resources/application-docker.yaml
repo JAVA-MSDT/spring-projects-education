@@ -10,6 +10,10 @@ server:
 ##############################################
 api:
   version: /api/v1/songs
+downstream:
+  url:
+    resources: http://resources:8101/api/v1/resources
+    resources-processor: http://resources_processor:8102/api/v1/resources-processor
 ##############################################
 ############# Application Value ##############
 ##############################################

@@ -10,9 +10,6 @@ server:
 ##############################################
 api:
   version: /api/v1/resources
-mp3:
-  metadata:
-    url: http://resource-metadata-service:8100/api/v1/resources-metadata/mp3-metadata
 ##############################################
 ############# Application Value ##############
 ##############################################

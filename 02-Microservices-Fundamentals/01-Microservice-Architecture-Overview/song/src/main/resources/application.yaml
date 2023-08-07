@@ -40,6 +40,9 @@ spring:
   ##############################################
   ############ Multipart file Value ############
   ##############################################
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
   servlet:
     multipart:
       enabled: true

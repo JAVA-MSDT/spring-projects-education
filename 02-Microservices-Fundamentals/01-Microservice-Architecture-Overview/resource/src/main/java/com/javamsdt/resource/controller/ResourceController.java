@@ -50,4 +50,9 @@ public class ResourceController {
     public ResponseEntity<?> deleteResources(@RequestParam(name = "ids") Long[] ids) {
         return resourceService.deleteResources(ids);
     }
+    @DeleteMapping("/delete-s3/{name}")
+    public ResponseEntity<?> deleteResourcesFromS3(@PathVariable("name") String name) {
+        resourceService.deleteResourceFromS3(name);
+        return ResponseEntity.ok().build();
+    }
 }
