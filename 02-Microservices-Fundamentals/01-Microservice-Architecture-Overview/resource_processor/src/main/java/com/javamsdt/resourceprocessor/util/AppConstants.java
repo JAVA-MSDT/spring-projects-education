@@ -1,4 +1,4 @@
-package com.javamsdt.resource.util;
+package com.javamsdt.resourceprocessor.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

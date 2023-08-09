@@ -1,4 +1,4 @@
-package com.javamsdt.resource.util;
+package com.javamsdt.resourceprocessor.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -23,5 +23,17 @@ public class ResourceUtil {
         return getFileExtension
                 (Objects.requireNonNull(file.getOriginalFilename()))
                 .equalsIgnoreCase(extension);
+    }
+
+    public static String getMp3Extension(String audioCompressor) {
+        if (audioCompressor != null && !audioCompressor.isEmpty()) {
+            return audioCompressor.toLowerCase();
+        } else {
+            return "mp3";
+        }
+    }
+
+    public static String getTitle(String title) {
+        return title == null ? "mp3song" : title;
     }
 }

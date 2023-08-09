@@ -1,0 +1,34 @@
+LocalStack S3 Emulator:
+Install
+=======
+
+Home page: https://github.com/localstack/localstack
+https://docs.localstack.cloud/getting-started/quickstart/
+
+Local Install:
+=============
+Download the latest release for your platform on lhttps://github.com/localstack/localstack-cli/releases/tag/v2.2.0
+Add it to the path variable.
+
+Run it locally:
+===============
+After adding localstack to the path,
+Make sure that you Docker is running on your machine.
+then open the CMD then type
+localstack start
+
+## Using aws CLI
+Make sure that you have Paython installed in your system then type in a new cmd instance
+pip install awscli
+pip install awscli-local
+
+## Creating a bucket in S3 AWS
+
+#### Locally
+type in cmd
+awslocal --endpoint-url=http://localhost:4566 s3api create-bucket --bucket bucket-name --region us-east-1
+
+#### End Point to End Point
+type in cmd
+aws --endpoint-url=http://localhost:4566 s3api create-bucket --bucket bucket-name --region us-east-1
+

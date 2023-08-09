@@ -1,0 +1,52 @@
+##############################################
+################ Server Value ################
+##############################################
+server:
+  port: 8103
+  error:
+    include-message: ALWAYS
+##############################################
+########## Custom Application Value ##########
+##############################################
+api:
+  version: /api/v1/songs
+downstream:
+  url:
+    resources: http://localhost:8101/api/v1/resources
+    resources-processor: http://localhost:8102/api/v1/resources-processor
+##############################################
+############# Application Value ##############
+##############################################
+spring:
+  application:
+    name: song
+  ##############################################
+  ############### Database Value ###############
+  ##############################################
+  jpa:
+    show-sql: true
+    hibernate:
+      jdbc:
+        lob:
+          non_contextual_creation: true
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      # Hibernate ddl auto (create, create-drop, validate, update)
+      ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/resource
+    username: resource
+    password: resource
+  ##############################################
+  ############ Multipart file Value ############
+  ##############################################
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 50MB
+      max-request-size: 75MB
+
