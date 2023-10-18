@@ -2,7 +2,7 @@ export interface Image {
     id?: string;
     content: string | null;
     name: string;
-    location: string;
+    url: string;
     alt: string;
     extension: string;
 }

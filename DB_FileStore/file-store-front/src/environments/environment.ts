@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  BASE_URL: 'http://localhost:8080'
+  BASE_URL: 'http://localhost:8080/api/V1',
+
+  IMAGE_URL: () => environment.BASE_URL + '/images/',
+  PDF_URL: () => environment.BASE_URL + '/pdfs/',
+
 };
 
 /*

@@ -14,14 +14,14 @@ export class ApiService {
   get<T>(url: string): Observable<T> {
     return this.httpRequest(HTTP_CONSTANTS.GET, url, {}, {}, this.header());
   }
-  post<Contact>(url: string, body: Object) {
+  post<T>(url: string, body: Object) {
     return this.httpRequest(HTTP_CONSTANTS.POST, url, body, {}, this.header());
   }
   put<T>(url: string) {
-    this.httpRequest(HTTP_CONSTANTS.GET, url);
+    this.httpRequest(HTTP_CONSTANTS.PUT, url);
   }
   delete<T>(url: string) {
-    this.httpRequest(HTTP_CONSTANTS.GET, url);
+    this.httpRequest(HTTP_CONSTANTS.DELETE, url);
   }
   private header(): HttpHeaders {
     const header = {
