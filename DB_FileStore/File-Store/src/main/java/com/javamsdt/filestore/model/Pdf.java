@@ -22,15 +22,23 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Pdf {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Lob
     private byte[] content;
+
     @Column
     private String name;
+
     @Column
-    private String location;
+    private String url;
+
     @Column
     private String extension;
+
+    @Column(name = "content_type")
+    private String contentType;
 }

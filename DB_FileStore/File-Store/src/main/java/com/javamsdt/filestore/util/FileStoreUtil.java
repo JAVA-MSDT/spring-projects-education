@@ -9,11 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class FileStoreUtil {
 
-    public static List<String> extractFileName(String filePath) {
-        int lastDot = filePath.lastIndexOf(".");
-        return List.of(filePath.substring(0, lastDot), filePath.substring(lastDot));
-    }
-
     public static String getContentType(String fileName) {
         String defaultContentType = "application/octet-stream";
         String extension = getFileExtension(fileName, defaultContentType);
@@ -39,7 +34,7 @@ public class FileStoreUtil {
         return defaultExtension;
     }
 
-    public static String getBaseNameWithoutExtension(String fileName) {
+    public static String getFileNameWithoutExtension(String fileName) {
         String defaultFileName = "file";
         if(fileName == null) {
             return defaultFileName;
@@ -53,13 +48,5 @@ public class FileStoreUtil {
 
     private static int getLastIndex(String fileName) {
         return fileName.lastIndexOf(".");
-    }
-    public static String buildFileUrl(HttpServletRequest request, Long id) {
-        return request.getScheme() + "://"
-                + request.getServerName() + ":"
-                + request.getServerPort()
-                + request.getContextPath()
-                + request.getRequestURI() + "/"
-                + id;
     }
 }

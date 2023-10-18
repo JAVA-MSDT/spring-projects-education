@@ -1,6 +1,5 @@
 package com.javamsdt.filestore.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,5 +19,7 @@ public class PdfDto {
 
     private String location;
 
-    private String extension;
+    private String url;
+
+    private String contentType;
 }

@@ -6,10 +6,7 @@ import com.javamsdt.filestore.model.Image;
 import com.javamsdt.filestore.repository.ImageRepository;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletRequest;
 
 import com.javamsdt.filestore.util.FileStoreUtil;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +35,7 @@ public class ImageService {
     public ImageDto saveImage(MultipartFile multipartImage, String alt) throws Exception {
         String originalFilename = multipartImage.getOriginalFilename();
         Image image = new Image();
-        image.setName(FileStoreUtil.getBaseNameWithoutExtension(originalFilename));
+        image.setName(FileStoreUtil.getFileNameWithoutExtension(originalFilename));
         image.setExtension(FileStoreUtil.getFileExtension(originalFilename, "png"));
         image.setContent(multipartImage.getBytes());
         image.setAlt(alt);
