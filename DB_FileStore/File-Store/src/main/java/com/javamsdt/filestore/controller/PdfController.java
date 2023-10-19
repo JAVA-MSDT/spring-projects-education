@@ -2,9 +2,6 @@ package com.javamsdt.filestore.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.javamsdt.filestore.dto.ImageDto;
 import com.javamsdt.filestore.dto.PdfDto;
 import com.javamsdt.filestore.service.PdfService;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +26,8 @@ public class PdfController {
     private final PdfService pdfService;
 
     @PostMapping
-    PdfDto savePdf(@RequestParam("pdf") MultipartFile multipartPdf, HttpServletRequest request) throws Exception {
-        return pdfService.savePdf(multipartPdf, request);
+    PdfDto savePdf(@RequestParam("pdf") MultipartFile multipartPdf) throws Exception {
+        return pdfService.savePdf(multipartPdf);
     }
 
     @GetMapping(value = "/{id}")

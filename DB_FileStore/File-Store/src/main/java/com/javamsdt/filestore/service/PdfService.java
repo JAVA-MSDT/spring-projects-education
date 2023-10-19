@@ -3,16 +3,12 @@ package com.javamsdt.filestore.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.javamsdt.filestore.dto.PdfDto;
 import com.javamsdt.filestore.mapper.PdfMapper;
-import com.javamsdt.filestore.model.Image;
 import com.javamsdt.filestore.model.Pdf;
 import com.javamsdt.filestore.repository.PdfRepository;
 import com.javamsdt.filestore.util.FileStoreUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -35,7 +31,7 @@ public class PdfService {
     @Value("${app.api.pdf}")
     private String pdfApi;
 
-    public PdfDto savePdf(MultipartFile multipartPdf, HttpServletRequest request) throws Exception {
+    public PdfDto savePdf(MultipartFile multipartPdf) throws Exception {
         String originalFilename = multipartPdf.getOriginalFilename();
         Pdf pdf = new Pdf();
         pdf.setName(FileStoreUtil.getFileNameWithoutExtension(originalFilename));

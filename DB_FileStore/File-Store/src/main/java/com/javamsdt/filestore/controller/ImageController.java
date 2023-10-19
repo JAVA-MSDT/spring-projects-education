@@ -1,18 +1,12 @@
 package com.javamsdt.filestore.controller;
 
-import com.javamsdt.filestore.dto.ImageDto;
-import com.javamsdt.filestore.model.Image;
-import com.javamsdt.filestore.service.ImageService;
-
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.javamsdt.filestore.dto.ImageDto;
+import com.javamsdt.filestore.service.ImageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
