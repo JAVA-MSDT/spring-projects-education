@@ -1,4 +1,4 @@
-package com.springsecurity.data.model;
+package com.springsecurity.model;
 import jakarta.persistence.*;
 
 @Entity

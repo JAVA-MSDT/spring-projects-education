@@ -22,18 +22,16 @@ public class WebSecurityConfig {
         return http
                 .authorizeHttpRequests(
                         authorize -> {
+                            // authorize.requestMatchers("/", "/home").permitAll();
+//                            authorize.requestMatchers("/customers/**").hasRole("USER");
+//                            authorize.requestMatchers("/v1/customers/**").hasAnyRole("USER", "ADMIN");
+//                            authorize.requestMatchers("/orders/**").hasRole("ADMIN");
                             authorize.anyRequest().permitAll();
                         }
                 )
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
-
-    /// /      .antMatchers("/", "/home").permitAll()
-    /// /      .antMatchers("/customers/**").hasRole("USER")
-    /// /      .antMatchers("/v1/customers/**").hasAnyRole("USER", "ADMIN")
-    /// /      .antMatchers("/orders/**").hasRole("ADMIN")
-    /// /      .anyRequest().authenticated()
 
     @Bean
     public UserDetailsService users(DataSource dataSource) {

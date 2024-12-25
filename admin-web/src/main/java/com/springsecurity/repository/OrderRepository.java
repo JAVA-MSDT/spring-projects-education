@@ -1,6 +1,6 @@
-package com.springsecurity.data.repository;
+package com.springsecurity.repository;
 
-import com.springsecurity.data.model.Order;
+import com.springsecurity.model.Order;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,14 +1,9 @@
 package com.springsecurity.web;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-
-import com.springsecurity.data.model.Customer;
-import com.springsecurity.data.model.Order;
-import com.springsecurity.data.repository.CustomerRepository;
-import com.springsecurity.data.repository.OrderRepository;
+import com.springsecurity.model.Customer;
+import com.springsecurity.model.Order;
+import com.springsecurity.repository.CustomerRepository;
+import com.springsecurity.repository.OrderRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/customers")

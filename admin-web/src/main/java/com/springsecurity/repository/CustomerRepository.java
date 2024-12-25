@@ -1,6 +1,6 @@
-package com.springsecurity.data.repository;
+package com.springsecurity.repository;
 
-import com.springsecurity.data.model.Customer;
+import com.springsecurity.model.Customer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
