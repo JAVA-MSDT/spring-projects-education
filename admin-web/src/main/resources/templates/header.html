@@ -20,6 +20,9 @@
                 <li class="nav-item">
                     <a class="nav-link" th:classappend="${module == 'orders' ? 'active' : ''}" href="#" th:href="@{/orders}">Orders</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${module == 'auth' ? 'active' : ''}" href="#" th:href="@{/auth}">Log In</a>
+                </li>
             </ul>
         </div>
     </div>
