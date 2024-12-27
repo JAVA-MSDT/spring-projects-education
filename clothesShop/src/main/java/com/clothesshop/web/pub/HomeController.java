@@ -1,4 +1,4 @@
-package com.clothesshop.web;
+package com.clothesshop.web.pub;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

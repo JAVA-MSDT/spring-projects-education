@@ -1,5 +1,5 @@
 package com.clothesshop.model.clothe;
 
 public enum Gender {
-    MALE, FEMALE
+    MALE, FEMALE, UNI_SEX
 }

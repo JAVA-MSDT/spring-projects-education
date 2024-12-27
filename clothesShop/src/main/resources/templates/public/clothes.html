@@ -7,11 +7,19 @@
     <title>Clothes Shop | Clothes</title>
 </head>
 <body>
-<div th:replace="header :: header"></div>
+<div th:replace="~{shared/header :: header}"></div>
 <div class="container">
     <h1 class="text-center">Clothes</h1>
+    <a class="btn btn-danger" href="#" th:href="@{/clothes/add}">Add</a>
+    <div th:if="${deleteMessage}" class="alert alert-info">
+        <p th:text="${deleteMessage}"></p>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
     <table class="table">
         <thead>
+            <th scope="col">NO:</th>
             <th scope="col">Clothe Type</th>
             <th scope="col">Fabric</th>
             <th scope="col">Gender</th>
@@ -19,13 +27,16 @@
             <th scope="col">Actions</th>
         </thead>
         <tbody>
-            <tr th:each="clothe : ${clothes}">
+            <tr th:each="clothe, stat : ${clothes}">
+                <td th:text="${stat.index + 1}">NO:</td>
                 <td th:text="${clothe.clotheType}">Clothe Type</td>
                 <td th:text="${clothe.fabric}">Fabric</td>
                 <td th:text="${clothe.gender}">Gender</td>
                 <td th:text="${clothe.size}">Size</td>
                 <td>
                     <a class="btn btn-primary" href="#" th:href="@{/clothes/{id}(id=${clothe.id})}">Details</a>
+                    <a class="btn btn-warning" href="#" th:href="@{/clothes/update/{id}(id=${clothe.id})}">Update</a>
+                    <a class="btn btn-danger" href="#" th:href="@{/clothes/delete/{id}(id=${clothe.id})}">Delete</a>
                 </td>
             </tr>
         </tbody>

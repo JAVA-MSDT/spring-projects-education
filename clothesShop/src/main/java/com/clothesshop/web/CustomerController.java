@@ -30,7 +30,6 @@ public class CustomerController {
     @GetMapping
     public String getAllUsers(Model model){
         Iterable<Customer> customersIterable = this.customerRepository.findAll();
-        System.out.println(customersIterable.iterator().hasNext());
         List<Customer> customers = new ArrayList<>();
         customersIterable.forEach(customers::add);
         customers.sort(new Comparator<Customer>() {
