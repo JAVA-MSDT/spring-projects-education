@@ -95,3 +95,57 @@ values ('admin', 'ROLE_ADMIN');
 INSERT INTO authorities (username, authority)
 values ('admin', 'ROLE_ADMIN');
 
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (1, 1);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (2, 2);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (3, 3);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (4, 4);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (5, 5);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (6, 6);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (7, 7);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (1, 8);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (2, 9);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (3, 10);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (4, 11);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (5, 12);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (6, 13);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (7, 14);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (1, 15);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (2, 16);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (3, 17);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (4, 18);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (5, 19);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (6, 20);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (7, 1);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (1, 2);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (2, 3);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (3, 4);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (4, 5);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (5, 6);
+INSERT INTO customer_clothe (customer_id, clothe_id)
+VALUES (1, 1);

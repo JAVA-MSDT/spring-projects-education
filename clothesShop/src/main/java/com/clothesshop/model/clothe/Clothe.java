@@ -1,7 +1,11 @@
 package com.clothesshop.model.clothe;
 
+import com.clothesshop.model.Customer;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
+
+import java.util.List;
 
 
 @Entity(name = "clothe")
@@ -33,4 +37,8 @@ public class Clothe {
     private String images;
     @Column(name = "quantity_in_store")
     private int quantityInStore;
+
+    @ManyToMany(mappedBy = "clothes")
+    @ToString.Exclude
+    private List<Customer> customers;
 }

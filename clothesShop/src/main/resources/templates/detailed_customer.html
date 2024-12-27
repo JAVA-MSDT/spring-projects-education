@@ -21,13 +21,21 @@
     <div class="container" >
         <table class="table">
             <thead>
-            <th scope="col">Order Number</th>
-            <th scope="col">Order Info</th>
+            <th scope="col">Clothe Type</th>
+            <th scope="col">Fabric</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Size</th>
+            <th scope="col">Actions</th>
             </thead>
             <tbody>
-            <tr th:each="order : ${orders}">
-                <td th:text="${order.id}">Name</td>
-                <td th:text="${order.orderInfo}">Contact Email</td>
+            <tr th:each="clothe : ${customer.clothes}">
+                <td th:text="${clothe.clotheType}">Clothe Type</td>
+                <td th:text="${clothe.fabric}">Fabric</td>
+                <td th:text="${clothe.gender}">Gender</td>
+                <td th:text="${clothe.size}">Size</td>
+                <td>
+                    <a class="btn btn-primary" href="#" th:href="@{/clothes/{id}(id=${clothe.id})}">Details</a>
+                </td>
             </tr>
             </tbody>
         </table>

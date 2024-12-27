@@ -43,3 +43,13 @@ CREATE TABLE authorities
 );
 
 -- CREATE UNIQUE INDEX ix_auth-username ON authorities (username, authority);
+
+---
+CREATE TABLE customer_clothe
+(
+    customer_clothe_id    bigint auto_increment primary key,
+    customer_id BIGINT NOT NULL,
+    clothe_id   BIGINT NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers (customer_id),
+    FOREIGN KEY (clothe_id) REFERENCES clothe (id)
+);
