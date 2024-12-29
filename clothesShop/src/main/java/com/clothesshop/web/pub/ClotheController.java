@@ -41,12 +41,15 @@ public class ClotheController {
     }
 
     @PostMapping("/save")
-    public String SaveClothe(@ModelAttribute("clothe") Clothe clothe, RedirectAttributes redirectAttributes) {
-        clotheService.saveClothe(clothe);
-        redirectAttributes.addFlashAttribute("message", "Would you like to add more clothes?");
-        return (clothe.getId() != null) ?
-                "redirect:/clothes/" + clothe.getId() :
-                "redirect:/clothes/add";
+    public String saveClothe(@ModelAttribute("clothe") Clothe clothe, RedirectAttributes redirectAttributes) {
+        if(clothe.getId() == null) {
+            clotheService.saveClothe(clothe);
+            redirectAttributes.addFlashAttribute("message", "Would you like to add more clothes?");
+            return "redirect:/clothes/add";
+        } else {
+            clotheService.saveClothe(clothe);
+            return "redirect:/clothes/" + clothe.getId();
+        }
     }
 
     @GetMapping("/update/{id}")

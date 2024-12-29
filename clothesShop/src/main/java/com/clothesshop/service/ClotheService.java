@@ -26,12 +26,6 @@ public class ClotheService {
         return clotheRepository.save(clothe);
     }
 
-    public Clothe updateClothe(Long id, Clothe clothe) {
-        findClotheById(id);
-        clothe.setId(id);
-        return clotheRepository.save(clothe);
-    }
-
     public void deleteClothe(Long id) {
         clotheRepository.deleteById(id);
     }
