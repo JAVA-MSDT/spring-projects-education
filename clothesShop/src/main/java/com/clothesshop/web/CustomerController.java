@@ -1,54 +1,60 @@
 package com.clothesshop.web;
 
 import com.clothesshop.model.Customer;
-import com.clothesshop.repository.CustomerRepository;
+import com.clothesshop.service.CustomerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/customers")
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerService customerService;
 
     @GetMapping
-    public String getAllUsers(Model model){
-        Iterable<Customer> customersIterable = this.customerRepository.findAll();
-        List<Customer> customers = new ArrayList<>();
-        customersIterable.forEach(customers::add);
-        customers.sort(new Comparator<Customer>() {
-            @Override
-            public int compare(Customer o1, Customer o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
+    public String getAllCustomers(Model model) {
+        List<Customer> customers = customerService.getAllCustomers();
         model.addAttribute("customers", customers);
         model.addAttribute("module", "customers");
         return "customers";
     }
 
-    @GetMapping(path="/{id}")
-    public String getUser(@PathVariable("id")long customerId, Model model){
-        Optional<Customer> customer = this.customerRepository.findById(customerId);
-        if (customer.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "entity not found"
-            );
-        }
-        model.addAttribute("customer", customer.get());
+    @GetMapping(path = "/{id}")
+    public String getCustomerById(@PathVariable("id") long id, Model model) {
+        Customer customer = customerService.getCustomerById(id);
+
+        model.addAttribute("customer", customer);
         model.addAttribute("module", "customers");
         return "detailed_customer";
+    }
+
+
+//    @GetMapping("/update/{id}")
+//    public String updateCustomerPage(@PathVariable(value = "id") long id, Model model) {
+//        Customer customer = customerService.getCustomerById(id);
+//        model.addAttribute("customer", customer);
+//        return "private/add_update_customer";
+//    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteCustomer(@PathVariable(value = "id") long id, RedirectAttributes redirectAttributes) {
+        try {
+            customerService.deleteCustomer(id);
+        } catch (DataIntegrityViolationException e) {
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "DataIntegrityViolationException: Item with id " + id + " already used somewhere in the system");
+            return "redirect:/customers";
+        }
+        redirectAttributes.addFlashAttribute("deleteMessage", "Deleted customer with id: " + id);
+        return "redirect:/customers";
     }
 }

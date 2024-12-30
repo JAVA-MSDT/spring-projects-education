@@ -10,8 +10,16 @@
 <div th:replace="~{shared/header :: header}"></div>
 <div class="container">
     <h1 class="text-center">Customers</h1>
+    <br>
+    <div th:if="${deleteMessage}" class="alert alert-info">
+        <p th:text="${deleteMessage}"></p>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
     <table class="table">
         <thead>
+        <th scope="col">NO:</th>
             <th scope="col">Customer</th>
             <th scope="col">Contact Name</th>
             <th scope="col">Contact Email</th>
@@ -19,13 +27,16 @@
             <th scope="col">Actions</th>
         </thead>
         <tbody>
-            <tr th:each="customer : ${customers}">
+            <tr th:each="customer, stat : ${customers}">
+                <td th:text="${stat.index + 1}">NO:</td>
                 <td th:text="${customer.name}">Name</td>
                 <td th:text="${customer.contactName}">Contact Name</td>
                 <td th:text="${customer.email}">Contact Email</td>
                 <td th:text="${customer.phoneNumber}">Contact Phone</td>
                 <td>
                     <a class="btn btn-primary" href="#" th:href="@{/customers/{id}(id=${customer.id})}">Details</a>
+<!--                    <a class="btn btn-warning" href="#" th:href="@{/customers/update/{id}(id=${customer.id})}">Update</a>-->
+                    <a class="btn btn-danger" href="#" th:href="@{/customers/delete/{id}(id=${customer.id})}">Delete</a>
                 </td>
             </tr>
         </tbody>
