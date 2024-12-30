@@ -2,6 +2,7 @@ package com.clothesshop.service;
 
 import com.clothesshop.model.clothe.Clothe;
 import com.clothesshop.repository.ClotheRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ClotheService {
     private final ClotheRepository clotheRepository;
 
@@ -27,11 +29,13 @@ public class ClotheService {
     }
 
     public void deleteClothe(Long id) {
-        clotheRepository.deleteById(id);
+        Clothe clothe = findClotheById(id);
+        clothe.getCustomers().forEach(customer -> customer.getClothes().remove(clothe));
+        clotheRepository.delete(clothe);
     }
 
     private Clothe findClotheById(Long id) {
         return clotheRepository.findById(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Clothe Not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Clothe Not found"));
     }
 }
