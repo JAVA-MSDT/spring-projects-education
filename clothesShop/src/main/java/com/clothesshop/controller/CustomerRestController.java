@@ -1,9 +1,8 @@
 package com.clothesshop.controller;
 
 import com.clothesshop.model.Customer;
-import com.clothesshop.model.Order;
 import com.clothesshop.repository.CustomerRepository;
-import com.clothesshop.repository.OrderRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -20,16 +19,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/customers")
+@RequiredArgsConstructor
 public class CustomerRestController {
 
   private final CustomerRepository customerRepository;
-  private final OrderRepository orderRepository;
-
-  public CustomerRestController(CustomerRepository customerRepository, OrderRepository orderRepository) {
-    this.customerRepository = customerRepository;
-    this.orderRepository = orderRepository;
-  }
-
 
   @GetMapping
   public ResponseEntity<?> getAllUsers() {
@@ -56,17 +49,4 @@ public class CustomerRestController {
     return new ResponseEntity<>(customer, HttpStatus.OK);
   }
 
-  @GetMapping(path = "/{id}/orders")
-  public ResponseEntity<?> getUserOrders(@PathVariable("id") long customerId) {
-    Optional<Customer> customer = this.customerRepository.findById(customerId);
-    if (customer.isEmpty()) {
-      throw new ResponseStatusException(
-        HttpStatus.NOT_FOUND, "entity not found"
-      );
-    }
-    Iterable<Order> ordersIterable = this.orderRepository.findAllByCustomerId(customer.get().getId());
-    List<Order> orders = new ArrayList<>();
-    ordersIterable.forEach(orders::add);
-    return new ResponseEntity<>(orders, HttpStatus.OK);
-  }
 }

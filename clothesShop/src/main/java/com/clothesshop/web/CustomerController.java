@@ -1,9 +1,7 @@
 package com.clothesshop.web;
 
 import com.clothesshop.model.Customer;
-import com.clothesshop.model.Order;
 import com.clothesshop.repository.CustomerRepository;
-import com.clothesshop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -24,8 +22,6 @@ import java.util.Optional;
 public class CustomerController {
 
     private final CustomerRepository customerRepository;
-    private final OrderRepository orderRepository;
-
 
     @GetMapping
     public String getAllUsers(Model model){
@@ -52,10 +48,6 @@ public class CustomerController {
             );
         }
         model.addAttribute("customer", customer.get());
-        Iterable<Order> ordersIterable = this.orderRepository.findAllByCustomerId(customer.get().getId());
-        List<Order> orders = new ArrayList<>();
-        ordersIterable.forEach(orders::add);
-        model.addAttribute("orders", orders);
         model.addAttribute("module", "customers");
         return "detailed_customer";
     }

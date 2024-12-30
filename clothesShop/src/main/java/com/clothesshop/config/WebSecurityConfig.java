@@ -26,7 +26,6 @@ public class WebSecurityConfig {
                             authorize.requestMatchers(PUBLIC_URLS).permitAll();
 //                            authorize.requestMatchers("/customers/**").hasRole("USER");
 //                            authorize.requestMatchers("/v1/customers/**").hasAnyRole("USER", "ADMIN");
-//                            authorize.requestMatchers("/orders/**").hasRole("ADMIN");
                             authorize.anyRequest().permitAll();
                         }
                 )
