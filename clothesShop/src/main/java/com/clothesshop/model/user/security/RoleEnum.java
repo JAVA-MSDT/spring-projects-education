@@ -1,4 +1,4 @@
-package com.clothesshop.model.user;
+package com.clothesshop.model.user.security;
 
 public enum RoleEnum {
     ADMIN,

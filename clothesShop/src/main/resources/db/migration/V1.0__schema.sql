@@ -13,35 +13,48 @@ CREATE TABLE clothe
 
 CREATE TABLE customers
 (
-    customer_id  bigint auto_increment primary key,
-    name         varchar(64)  not null,
-    contact_name varchar(128) not null,
-    email        varchar(128) not null,
-    phone        varchar(24)  not null
+    customer_id      bigint auto_increment primary key,
+    name             varchar(64)  not null,
+    contact_name     varchar(128) not null,
+    email            varchar(128) not null,
+    phone            varchar(24)  not null,
+    user_security_id bigint
 );
 
-CREATE TABLE users
+CREATE TABLE user_security
 (
-    username VARCHAR(50)  NOT NULL PRIMARY KEY,
-    password VARCHAR(500) NOT NULL,
-    enabled  boolean
+    id                      bigint auto_increment primary key,
+    username                VARCHAR(50)  NOT NULL unique,
+    email                   varchar(128) not null unique,
+    password                VARCHAR(500) NOT NULL,
+    account_non_expired     boolean default true,
+    account_non_locked      boolean default true,
+    credentials_non_expired boolean default true,
+    enabled                 boolean default true,
+    customer_id             bigint
 );
 
-CREATE TABLE authorities
+create table roles
 (
-    username  VARCHAR(50) NOT NULL,
-    authority VARCHAR(50) NOT NULL,
-    constraint fk_authorities_users FOREIGN KEY (username) REFERENCES users (username)
+    id   BIGINT AUTO_INCREMENT PRIMARY KEY,
+    role VARCHAR(255)
 );
-
--- CREATE UNIQUE INDEX ix_auth-username ON authorities (username, authority);
 
 ---
+create table user_security_roles
+(
+    id      BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT  NOT NULL,
+    role_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user_security (id),
+    FOREIGN KEY (role_id) REFERENCES roles (id)
+);
+
 CREATE TABLE customer_clothe
 (
-    customer_clothe_id    bigint auto_increment primary key,
-    customer_id BIGINT NOT NULL,
-    clothe_id   BIGINT NOT NULL,
+    customer_clothe_id bigint auto_increment primary key,
+    customer_id        BIGINT NOT NULL,
+    clothe_id          BIGINT NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers (customer_id),
     FOREIGN KEY (clothe_id) REFERENCES clothe (id)
 );

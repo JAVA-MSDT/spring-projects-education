@@ -1,6 +1,6 @@
 package com.clothesshop.model.clothe;
 
-import com.clothesshop.model.Customer;
+import com.clothesshop.model.user.Customer;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;

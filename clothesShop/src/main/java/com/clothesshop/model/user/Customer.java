@@ -1,7 +1,8 @@
-package com.clothesshop.model;
+package com.clothesshop.model.user;
 
 
 import com.clothesshop.model.clothe.Clothe;
+import com.clothesshop.model.user.security.UserSecurity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -33,4 +34,9 @@ public class Customer {
     )
     @ToString.Exclude
     private List<Clothe> clothes;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_security_id")
+    @ToString.Exclude
+    private UserSecurity userSecurity;
 }

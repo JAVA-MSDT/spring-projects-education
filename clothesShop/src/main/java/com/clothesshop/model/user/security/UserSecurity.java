@@ -1,5 +1,7 @@
-package com.clothesshop.model.user;
+package com.clothesshop.model.user.security;
 
+import com.clothesshop.model.user.Customer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,10 +12,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "username"),
+@Table(name = "user_security", uniqueConstraints = { @UniqueConstraint(columnNames = "username"),
         @UniqueConstraint(columnNames = "email") })
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +26,7 @@ import java.util.List;
 @Builder
 @With
 @ToString
-public class User implements UserDetails {
+public class UserSecurity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +43,7 @@ public class User implements UserDetails {
 
     @NotBlank
     @Size(max = 150)
+    @JsonIgnore
     private String password;
 
     @Column(name = "account_non_expired")
@@ -50,17 +55,20 @@ public class User implements UserDetails {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @Enumerated(EnumType.STRING)
-    private RoleEnum role;
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Set<Role> roles = new HashSet<>();
+//    @Enumerated(EnumType.STRING)
+//    private RoleEnum role;
+    @ManyToMany
+    @JoinTable(name = "user_security_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // return getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-
-        System.out.println("getAuthorities:: " + role.toString());
-        return List.of(new SimpleGrantedAuthority(role.toString()));
+         return getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    @ToString.Exclude
+    private Customer customer;
+
 }

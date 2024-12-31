@@ -1,6 +1,6 @@
 package com.clothesshop.web;
 
-import com.clothesshop.model.Customer;
+import com.clothesshop.model.user.Customer;
 import com.clothesshop.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;

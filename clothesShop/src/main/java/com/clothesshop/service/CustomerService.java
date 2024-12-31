@@ -1,6 +1,6 @@
 package com.clothesshop.service;
 
-import com.clothesshop.model.Customer;
+import com.clothesshop.model.user.Customer;
 import com.clothesshop.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

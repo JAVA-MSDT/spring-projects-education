@@ -1,4 +1,4 @@
-package com.clothesshop.model.user;
+package com.clothesshop.model.user.security;
 
 import jakarta.persistence.*;
 import lombok.*;
