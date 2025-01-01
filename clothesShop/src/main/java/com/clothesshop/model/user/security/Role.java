@@ -1,16 +1,11 @@
 package com.clothesshop.model.user.security;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "roles")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@Builder
-@With
+@Data
 public class Role {
 
     @Id
@@ -18,6 +13,6 @@ public class Role {
     private Integer id;
 
     @Column(length = 20)
-    private String name;
+    private String role;
 
 }

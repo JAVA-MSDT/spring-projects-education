@@ -31,10 +31,10 @@ public class CustomerController {
     @GetMapping(path = "/{id}")
     public String getCustomerById(@PathVariable("id") long id, Model model) {
         Customer customer = customerService.getCustomerById(id);
-
         model.addAttribute("customer", customer);
+        model.addAttribute("userSecurity", customer.getUserSecurity());
         model.addAttribute("module", "customers");
-        return "detailed_customer";
+        return "private/user/user_profile";
     }
 
 
