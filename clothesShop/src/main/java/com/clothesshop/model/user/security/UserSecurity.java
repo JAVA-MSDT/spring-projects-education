@@ -55,9 +55,7 @@ public class UserSecurity implements UserDetails {
     @Column(name = "enabled")
     private boolean enabled;
 
-//    @Enumerated(EnumType.STRING)
-//    private RoleEnum role;
-    @ManyToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_security_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 

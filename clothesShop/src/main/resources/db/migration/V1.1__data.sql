@@ -77,19 +77,19 @@ values ('Wayne Enterprises', 'Bruce Wayne', 'bwayne@wayne.com', '1-515-555-1111'
 
 -- User Security --
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('Acme', 'wcoyote@acme.com', '{bcrypt}$2a$10$XlkdPQQhYcolx8bgp6nL3uNvDs8ZwDXA4KFaDencZsIhjMQO3j5lq', true, 1);
+values ('Acme', 'wcoyote@acme.com', '{bcrypt}$2a$10$E9aahtfuQQnhCVRhwVCVqOPjxuRrhppsIHpaVmFiDmMwN31wUtjLm', true, 1);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('spacely', 'gjettson@spacely.com', '{bcrypt}$2a$10$XlkdPQQhYcolx8bgp6nL3uNvDs8ZwDXA4KFaDencZsIhjMQO3j5lq', true, 2);
+values ('spacely', 'gjettson@spacely.com', '{bcrypt}$2a$10$dMHEjG7K7fhs9mQGCJrFseL2q7/CHRLi71hYt2wFkagLwfla2skSy', true, 2);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('tcal', 'tcallahan@callhhanauto.com', '{bcrypt}$2a$10$XlkdPQQhYcolx8bgp6nL3uNvDs8ZwDXA4KFaDencZsIhjMQO3j5lq', true, 3);
+values ('tcal', 'tcallahan@callhhanauto.com', '{bcrypt}$2a$10$6XlFOIFLuYLFeDEBPfSGbuQ2gfd544zugin210uL7jmSEzDoe3x8S', true, 3);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('mscott', 'mscott@dundlermifflin.com', '{bcrypt}$2a$10$XlkdPQQhYcolx8bgp6nL3uNvDs8ZwDXA4KFaDencZsIhjMQO3j5lq', true, 4);
+values ('mscott', 'mscott@dundlermifflin.com', '{bcrypt}$2a$10$fL3vnmII70wYMDPVuWscxOiP4ex8arN.4bkiL60Neo9mwJ3P7ZqE.', true, 4);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('tstark', 'tstark@stark.com', '{bcrypt}$2a$10$XlkdPQQhYcolx8bgp6nL3uNvDs8ZwDXA4KFaDencZsIhjMQO3j5lq', true, 5);
+values ('tstark', 'tstark@stark.com', '{bcrypt}$2a$10$FRcIGuqcVsBTcAJNHBdRWO70dUuz00og1Blf97t.xj.uDbPG7LbHy', true, 5);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('pgib', 'pgibbons@initec.com', '{bcrypt}$2a$10$XlkdPQQhYcolx8bgp6nL3uNvDs8ZwDXA4KFaDencZsIhjMQO3j5lq', true, 6);
+values ('pgib', 'pgibbons@initec.com', '{bcrypt}$2a$10$td4QwRtTm7QIUHminn/X5eFSISn8LJ9J8n6JfUVtQCZZsKe8AcXb2', true, 6);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('bwayne', 'bwayne@wayne.com', '{bcrypt}$2a$10$XlkdPQQhYcolx8bgp6nL3uNvDs8ZwDXA4KFaDencZsIhjMQO3j5lq', true, 7);
+values ('bwayne', 'bwayne@wayne.com', '{bcrypt}2a$10$4Uhhaxz8nyliCGcBCzlhkOqukyZrx7mXz4y48xxEQ/bMCQXXV5ZJW', true, 7);
 
 INSERT INTO roles(id, role)
 VALUES (1, 'ADMIN');

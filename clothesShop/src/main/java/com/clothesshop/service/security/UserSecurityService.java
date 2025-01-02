@@ -20,13 +20,12 @@ public class UserSecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if(isUsername(username)) {
-            return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
+            return userRepository.findByUsernameIgnoreCase(username).orElseThrow(() -> new UsernameNotFoundException(username));
         } else if (isEmail(username)) {
-            return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(username));
+            return userRepository.findByEmailIgnoreCase(username).orElseThrow(() -> new UsernameNotFoundException(username));
         }
         throw new UsernameNotFoundException("username or email not matching... " + username);
     }
-
 
 
     private static boolean isEmail(String input) {

@@ -26,7 +26,7 @@ public class Customer {
     @Column(name = "phone")
     private String phoneNumber;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "customer_clothe",
             joinColumns = @JoinColumn(name = "customer_id"),

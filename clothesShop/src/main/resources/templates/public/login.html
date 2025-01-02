@@ -12,6 +12,8 @@
     <div class="container text-center w-50">
         <div th:if="${error != null}" class="alert alert-danger" th:utext="${session[SPRING_SECURITY_LAST_EXCEPTION]}">
         </div>
+        <div th:if="${error != null}" class="alert alert-danger" th:utext="${error}">
+        </div>
         <form th:action="@{/login}" method="post" class="">
             <div class="border border-secondary p-3 rounded" style="background-color: wheat;">
                 <label class="my-2" for="username">Username</label>:
