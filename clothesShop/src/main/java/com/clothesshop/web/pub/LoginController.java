@@ -23,7 +23,6 @@ public class LoginController {
 
     @GetMapping("")
     public String loginPage(final ModelMap map, @RequestParam("error") final Optional<String> error) {
-        System.out.println("login....");
         error.ifPresent(s -> map.addAttribute("error", s));
         return "public/login";
     }
