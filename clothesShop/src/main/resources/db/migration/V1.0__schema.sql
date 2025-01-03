@@ -14,10 +14,10 @@ CREATE TABLE clothe
 CREATE TABLE customers
 (
     customer_id      bigint auto_increment primary key,
-    name             varchar(64)  not null,
-    contact_name     varchar(128) not null,
-    email            varchar(128) not null,
-    phone            varchar(24)  not null,
+    name             varchar(64)  ,
+    contact_name     varchar(128) ,
+    email            varchar(128) ,
+    phone            varchar(24)  ,
     user_security_id bigint
 );
 
@@ -43,9 +43,9 @@ create table roles
 ---
 create table user_security_roles
 (
-    id      BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT  NOT NULL,
     role_id INTEGER NOT NULL,
+    PRIMARY KEY (user_id, role_id),
     FOREIGN KEY (user_id) REFERENCES user_security (id),
     FOREIGN KEY (role_id) REFERENCES roles (id)
 );

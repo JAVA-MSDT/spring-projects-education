@@ -100,37 +100,30 @@ VALUES (3, 'VIEW_INFO');
 INSERT INTO roles(id, role)
 VALUES (4, 'VIEW_ADMIN');
 
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (1, 1, 1);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (3, 1, 2);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (4, 1, 3);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (5, 1, 4);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (6, 2, 2);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (7, 2, 3);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (8, 3, 2);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (9, 3, 3);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (10, 4, 2);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (11, 5, 3);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (12, 6, 3);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (13, 7, 3);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (14, 5, 3);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (15, 6, 3);
-INSERT INTO user_security_roles(id, user_id, role_id)
-VALUES (16, 7, 3);
-
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES (1, 1);
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES (1, 2);
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES (1, 3);
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES (1, 4);
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES (2, 2);
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES (2, 3);
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES (3, 2);
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES (3, 3);
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES ( 4, 2);
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES ( 5, 3);
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES ( 6, 3);
+INSERT INTO user_security_roles( user_id, role_id)
+VALUES ( 7, 3);
 
 INSERT INTO customer_clothe (customer_id, clothe_id)
 VALUES (1, 1);

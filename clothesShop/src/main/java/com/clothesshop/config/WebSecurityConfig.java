@@ -23,21 +23,20 @@ import java.util.Map;
 @EnableWebSecurity
 public class WebSecurityConfig {
     private static final String BCRYPT = "bcrypt";
-    private static final String[] PUBLIC_URLS = {"/", "/clothes", "/login*"};
+    private static final String[] PUBLIC_URLS = {"/", "/clothes", "/login*", "/register*"};
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationFailureHandler authenticationFailureHandler) throws Exception {
         return http
                 .authorizeHttpRequests(
                         authorize -> {
                             authorize.requestMatchers(PUBLIC_URLS).permitAll();
-//                            authorize.requestMatchers("/customers/**").hasRole("USER");
-//                            authorize.requestMatchers("/v1/customers/**").hasAnyRole("USER", "ADMIN");
                             authorize.anyRequest().authenticated();
                         }
                 )
                 .formLogin(formLogin ->
                         formLogin.loginPage("/login")
-                                .successForwardUrl("/login/profile")
+                                .successForwardUrl("/profile")
                                 .failureHandler(authenticationFailureHandler)
                                 .permitAll())
                 .logout(formLogout -> formLogout.deleteCookies("JSESSIONID")

@@ -32,36 +32,36 @@ public class UserSecurity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email address")
     @Size(max = 50)
-    @Email
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Username is required")
     @Size(max = 20)
     private String username;
 
-    @NotBlank
-    @Size(max = 150)
+    @NotBlank(message = "Password is required")
+    @Size(min = 3, message = "Password must be at least 6 characters long")
     @JsonIgnore
     private String password;
 
-    @Column(name = "account_non_expired")
+    @Column(name = "account_non_expired", columnDefinition = "DEFAULT true")
     private boolean accountNonExpired;
-    @Column(name = "account_non_locked")
+    @Column(name = "account_non_locked", columnDefinition = "DEFAULT true")
     private boolean accountNonLocked;
-    @Column(name = "credentials_non_expired")
+    @Column(name = "credentials_non_expired", columnDefinition = "DEFAULT true")
     private boolean credentialsNonExpired;
-    @Column(name = "enabled")
+    @Column(name = "enabled", columnDefinition = "DEFAULT true")
     private boolean enabled;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "user_security_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-         return getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toList());
+         return getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_"+role.getRole())).collect(Collectors.toList());
     }
 
     @OneToOne(cascade = CascadeType.ALL)
