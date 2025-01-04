@@ -41,12 +41,15 @@ public class UserSecurityService implements UserDetailsService {
 
     private void setNewUserSecurity(UserSecurity userSecurity) {
         userSecurity.setPassword(passwordEncoder.encode(userSecurity.getPassword()));
-        userSecurity.setCustomer(new Customer());
         userSecurity.setEnabled(true);
         userSecurity.setAccountNonExpired(true);
         userSecurity.setAccountNonLocked(true);
         userSecurity.setCredentialsNonExpired(true);
         userSecurity.getRoles().add(roleService.findByRoleName("USER"));
+
+        Customer customer = new Customer();
+        customer.setUserSecurity(userSecurity);
+        userSecurity.setCustomer(customer);
     }
 
     private static boolean isEmail(String input) {

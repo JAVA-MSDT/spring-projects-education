@@ -1,4 +1,4 @@
-package com.clothesshop.web;
+package com.clothesshop.web.priv;
 
 import com.clothesshop.model.user.Customer;
 import com.clothesshop.service.CustomerService;
@@ -37,13 +37,6 @@ public class CustomerController {
         return "private/user/user_profile";
     }
 
-
-//    @GetMapping("/update/{id}")
-//    public String updateCustomerPage(@PathVariable(value = "id") long id, Model model) {
-//        Customer customer = customerService.getCustomerById(id);
-//        model.addAttribute("customer", customer);
-//        return "private/add_update_customer";
-//    }
 
     @GetMapping("/delete/{id}")
     public String deleteCustomer(@PathVariable(value = "id") long id, RedirectAttributes redirectAttributes) {

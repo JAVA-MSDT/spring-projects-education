@@ -2,6 +2,7 @@ package com.clothesshop.web.pub;
 
 import com.clothesshop.model.user.security.UserSecurity;
 import com.clothesshop.service.security.UserSecurityService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,19 +25,18 @@ public class RegisterController {
     }
 
     @PostMapping
-    public String register( @ModelAttribute("userSecurity") UserSecurity userSecurity, BindingResult bindingResult,
-            @RequestParam("repeatPassword") String repeatPassword,
-            Model model, RedirectAttributes redirectAttributes) {
+    public String register(@Valid @ModelAttribute("userSecurity") UserSecurity userSecurity, BindingResult bindingResult,
+                           @RequestParam("repeatPassword") String repeatPassword,
+                           Model model, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors() || !userSecurity.getPassword().equals(repeatPassword)) {
             if (!userSecurity.getPassword().equals(repeatPassword)) {
                 model.addAttribute("passwordError", "Passwords do not match.");
             }
-            return "public/register"; // Return to the registration page
+            return "public/register";
         }
-
-        userSecurityService.register(userSecurity);
-        redirectAttributes.addAttribute("username", userSecurity.getUsername());
-        return "redirect:/login"; // Redirect to login page after successful registration
+        UserSecurity user = userSecurityService.register(userSecurity);
+        redirectAttributes.addAttribute("username", user.getUsername());
+        return "redirect:/login";
     }
 }

@@ -42,7 +42,7 @@ public class UserSecurity implements UserDetails {
     private String username;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 3, message = "Password must be at least 6 characters long")
+    @Size(min = 6, message = "Password must be at least 6 characters long")
     @JsonIgnore
     private String password;
 

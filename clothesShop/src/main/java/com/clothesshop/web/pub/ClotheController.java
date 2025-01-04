@@ -4,6 +4,7 @@ import com.clothesshop.model.clothe.Clothe;
 import com.clothesshop.service.ClotheService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,7 @@ public class ClotheController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addClothePage(Model model) {
         Clothe clothe = new Clothe();
         model.addAttribute("clothe", clothe);

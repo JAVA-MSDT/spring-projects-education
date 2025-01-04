@@ -13,6 +13,10 @@
         <div class="col-lg-6 mx-auto">
             <p class="lead mb-4">Welcome to Clothes Shop</p>
         </div>
+        <!-- Display all roles -->
+        <p>Roles:
+            <span th:each="role : ${#authentication.authorities}" th:text="${role}"></span>
+        </p>
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

@@ -3,10 +3,9 @@ package com.clothesshop.config;
 import com.clothesshop.handler.CustomAuthenticationFailureHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,9 +20,10 @@ import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class WebSecurityConfig {
     private static final String BCRYPT = "bcrypt";
-    private static final String[] PUBLIC_URLS = {"/", "/clothes", "/login*", "/register*"};
+    private static final String[] PUBLIC_URLS = {"/", "/clothes/**", "/login*", "/register*"};
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationFailureHandler authenticationFailureHandler) throws Exception {
@@ -35,20 +35,18 @@ public class WebSecurityConfig {
                         }
                 )
                 .formLogin(formLogin ->
-                        formLogin.loginPage("/login")
-                                .successForwardUrl("/profile")
+                        formLogin
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/profile")
                                 .failureHandler(authenticationFailureHandler)
                                 .permitAll())
-                .logout(formLogout -> formLogout.deleteCookies("JSESSIONID")
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/")
-                        .permitAll())
+                .logout(formLogout ->
+                        formLogout
+                                .deleteCookies("JSESSIONID")
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .logoutSuccessUrl("/")
+                                .permitAll())
                 .build();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
     }
 
     @Bean

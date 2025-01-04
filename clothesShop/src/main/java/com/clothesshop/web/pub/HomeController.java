@@ -16,7 +16,7 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/profile")
+    @GetMapping("profile")
     public String getProfile(@AuthenticationPrincipal UserSecurity userSecurity, Model model) {
         if (userSecurity != null) {
             model.addAttribute("customer", userSecurity.getCustomer());
