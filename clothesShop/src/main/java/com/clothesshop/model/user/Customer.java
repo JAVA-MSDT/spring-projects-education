@@ -25,6 +25,8 @@ public class Customer {
     private String email;
     @Column(name = "phone")
     private String phoneNumber;
+    @Column(name = "address")
+    private String address;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

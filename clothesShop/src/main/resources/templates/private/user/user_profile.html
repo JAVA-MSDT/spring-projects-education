@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      th:with="hasAdminRule=${@securityUtils.hasRole('ROLE_ADMIN')}"
+      lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,49 +14,66 @@
 <body>
 <div th:replace="~{shared/header :: header}"></div>
 <div class="container">
+    <div class="row">
+        <div class="col-12" style="margin-bottom: -40px">
+            <img th:src="@{/images/user_banner.jpg}"
+                 alt="Clothes Banner"
+                 width="100%" height="300px"/>
+        </div>
+        <div class="col-3">
+            <img th:src="@{/images/user_avatar.jpg}"
+                 alt="Clothes Banner"
+                 class="border border-4 border-dark rounded-circle"
+                 width="250px" height="250px"/>
+        </div>
+        <div class="col-9 d-flex flex-column align-items-start justify-content-end">
+            <h3 class="d-block" th:text="${customer.name}">Customer Name</h3>
+            <h3 class="d-block" th:text="${customer.clothes.size()} + ' Clothes'">Clothes</h3>
+        </div>
+    </div>
+    <hr>
     <div class="align-items-start container">
         <div class="row">
-            <div class="col-2">
-                <ul class="nav flex-column nav-pills col-2" id="v-pills-tab" role="tablist"
-                    aria-orientation="vertical">
-                    <li class="nav-item">
-                        <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-profile" type="button" role="tab"
-                                aria-controls="v-pills-profile"
-                                aria-selected="true">Profile
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" id="v-pills-clothe-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-clothe" type="button" role="tab" aria-controls="v-pills-clothe"
-                                aria-selected="false">Clothe
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-messages" type="button" role="tab"
-                                aria-controls="v-pills-messages"
-                                aria-selected="false">Messages
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-settings" type="button" role="tab"
-                                aria-controls="v-pills-settings"
-                                aria-selected="false">Settings
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-content col-10" id="v-pills-tabContent">
+            <ul class="nav nav-tabs justify-content-start" id="v-pills-tab" role="tablist"
+                aria-orientation="vertical">
+                <li class="nav-item">
+                    <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-profile" type="button" role="tab"
+                            aria-controls="v-pills-profile"
+                            aria-selected="true">Profile
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="v-pills-clothe-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-clothe" type="button" role="tab" aria-controls="v-pills-clothe"
+                            aria-selected="false">Clothe
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-messages" type="button" role="tab"
+                            aria-controls="v-pills-messages"
+                            aria-selected="false">Messages
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-settings" type="button" role="tab"
+                            aria-controls="v-pills-settings"
+                            aria-selected="false">Settings
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
                      aria-labelledby="v-pills-profile-tab">
-                    <div class="card">
+                    <div class="card border-0">
                         <div class="card-body">
                             <h3 class="card-title" th:text="${customer.name}">Customer Name</h3>
                             <h5 class="card-subtitle" th:text="${customer.contactName}">Contact Name</h5>
                             <p th:text="'Email Address: ' + ${customer.email}">Email address: foo </p>
                             <p th:text="'Phone Number: ' + ${customer.phoneNumber}">Phone Number</p>
+                            <p th:text="${customer.address}">Address</p>
                             <a class="btn btn-primary btn-sm" href="#" th:href="@{mailto:{to}(to=${customer.email})}">Send
                                 Email</a>
                         </div>
@@ -93,15 +113,16 @@
                         <div class="card-body">
                             <h3 class="card-title" th:text="${userSecurity.username}">Username</h3>
                             <p th:text="'Email Address: ' + ${userSecurity.email}">Email address </p>
-                           <div class="row border rounded bg-light pt-2">
-                               <div class="col-2">Roles</div>
-                               <div class="col-10">
-                                   <div th:each="role : ${userSecurity.roles}">
-                                       <p th:text="${role.role}">Role</p>
-                                   </div>
-                               </div>
+                            <div class="row border rounded bg-light pt-2"
+                                 th:if="${hasAdminRule}">
+                                <div class="col-2">Roles</div>
+                                <div class="col-10">
+                                    <div th:each="role : ${userSecurity.roles}">
+                                        <p th:text="${role.role}">Role</p>
+                                    </div>
+                                </div>
 
-                           </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -14,10 +14,11 @@ CREATE TABLE clothe
 CREATE TABLE customers
 (
     customer_id      bigint auto_increment primary key,
-    name             varchar(64)  ,
-    contact_name     varchar(128) ,
-    email            varchar(128) ,
-    phone            varchar(24)  ,
+    name             varchar(64),
+    contact_name     varchar(128),
+    email            varchar(128),
+    phone            varchar(24),
+    address          varchar(500),
     user_security_id bigint
 );
 

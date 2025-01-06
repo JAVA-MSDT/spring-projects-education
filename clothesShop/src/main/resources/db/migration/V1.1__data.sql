@@ -60,20 +60,20 @@ INSERT INTO clothe (clothe_type, fabric, gender, size, age_type, description, im
 VALUES ('T_SHIRT', 'COTTON', 'MALE', 'S', 'CHILD', 'Plain cotton kids t-shirt', '{"image24.jpg"}', 10);
 
 -- Customers --
-INSERT INTO customers (name, contact_name, email, phone, user_security_id)
-values ('Acme', 'Wylie Coyote', 'wcoyote@acme.com', '1-515-555-2348', 1);
-INSERT INTO customers (name, contact_name, email, phone, user_security_id)
-values ('Spacely Space Sprockets', 'George Jettson', 'gjettson@spacely.com', '1-515-555-2350', 2);
-INSERT INTO customers (name, contact_name, email, phone, user_security_id)
-values ('Callahan Auto', 'Thomas Callhan', 'tcallahan@callhhanauto.com', '1-515-555-2333', 3);
-INSERT INTO customers (name, contact_name, email, phone, user_security_id)
-values ('Dundler Mifflin Inc', 'Michael Scott', 'mscott@dundlermifflin.com', '1-515-555-2320', 4);
-INSERT INTO customers (name, contact_name, email, phone, user_security_id)
-values ('Stark Industries', 'Tony Stark', 'tstark@stark.com', '1-515-555-7777', 5);
-INSERT INTO customers (name, contact_name, email, phone, user_security_id)
-values ('Initech', 'Peter Gibbons', 'pgibbons@initec.com', '1-515-555-0666', 6);
-INSERT INTO customers (name, contact_name, email, phone, user_security_id)
-values ('Wayne Enterprises', 'Bruce Wayne', 'bwayne@wayne.com', '1-515-555-1111', 7);
+INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
+values ('Acme', 'Wylie Coyote', 'wcoyote@acme.com', '1-515-555-2348', 'Customer Full Address',1);
+INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
+values ('Spacely Space Sprockets', 'George Jettson', 'gjettson@spacely.com', '1-515-555-2350', 'Customer Full Address',2);
+INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
+values ('Callahan Auto', 'Thomas Callhan', 'tcallahan@callhhanauto.com', '1-515-555-2333', 'Customer Full Address',3);
+INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
+values ('Dundler Mifflin Inc', 'Michael Scott', 'mscott@dundlermifflin.com', '1-515-555-2320', 'Customer Full Address',4);
+INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
+values ('Stark Industries', 'Tony Stark', 'tstark@stark.com', '1-515-555-7777', 'Customer Full Address',5);
+INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
+values ('Initech', 'Peter Gibbons', 'pgibbons@initec.com', '1-515-555-0666', 'Customer Full Address',6);
+INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
+values ('Wayne Enterprises', 'Bruce Wayne', 'bwayne@wayne.com', '1-515-555-1111', 'Customer Full Address',7);
 
 -- User Security --
 INSERT INTO user_security (username, email, password, enabled, customer_id)
