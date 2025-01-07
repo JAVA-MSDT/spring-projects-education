@@ -1,5 +1,6 @@
 package com.clothesshop.service.security;
 
+import com.clothesshop.dto.UserRegister;
 import com.clothesshop.model.user.Customer;
 import com.clothesshop.model.user.security.UserSecurity;
 import com.clothesshop.repository.user.UserRepository;
@@ -34,13 +35,16 @@ public class UserSecurityService implements UserDetailsService {
         throw new UsernameNotFoundException("username or email not matching... " + username);
     }
 
-    public UserSecurity register(UserSecurity userSecurity) {
-        setNewUserSecurity(userSecurity);
-        return userRepository.save(userSecurity);
+    public UserSecurity register(UserRegister userRegister) {
+        return userRepository.save(setNewUserSecurity(userRegister));
     }
 
-    private void setNewUserSecurity(UserSecurity userSecurity) {
-        userSecurity.setPassword(passwordEncoder.encode(userSecurity.getPassword()));
+    private UserSecurity setNewUserSecurity(UserRegister userRegister) {
+
+        UserSecurity userSecurity = new UserSecurity();
+        userSecurity.setUsername(userRegister.username());
+        userSecurity.setEmail(userRegister.email());
+        userSecurity.setPassword(passwordEncoder.encode(userRegister.password()));
         userSecurity.setEnabled(true);
         userSecurity.setAccountNonExpired(true);
         userSecurity.setAccountNonLocked(true);
@@ -50,6 +54,8 @@ public class UserSecurityService implements UserDetailsService {
         Customer customer = new Customer();
         customer.setUserSecurity(userSecurity);
         userSecurity.setCustomer(customer);
+
+        return userSecurity;
     }
 
     private static boolean isEmail(String input) {

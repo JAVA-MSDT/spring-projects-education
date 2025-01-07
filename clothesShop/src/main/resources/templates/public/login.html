@@ -16,7 +16,8 @@
         <form th:action="@{/login}" method="post" class="">
             <div class="border border-secondary p-3 rounded" style="background-color: wheat;">
                 <label class="my-2" for="username">Username</label>:
-                <input type="text" th:value="${username != null ? username : ''}" id="username" name="username" class="form-control form-control-lg"
+                <input type="text" th:value="${username != null ? username : ''}" id="username" name="username"
+                       class="form-control form-control-lg"
                        autofocus="autofocus"/>
                 <label class="my-2" for="password">Password</label>:
                 <input type="password" id="password" name="password" class="form-control form-control-lg"/>
@@ -28,6 +29,7 @@
         </p>
     </div>
 </div>
+<div th:replace="~{shared/footer :: footer}"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 </body>
