@@ -1,6 +1,9 @@
 package com.clothesshop.web.pub;
 
 import com.clothesshop.model.user.security.UserSecurity;
+import com.clothesshop.repository.user.UserRepository;
+import com.clothesshop.service.security.UserSecurityService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class HomeController {
 
+    private final UserSecurityService userRepository;
     @GetMapping
     public String getHome(Model model){
         return "index";
@@ -19,6 +24,7 @@ public class HomeController {
     @GetMapping("profile")
     public String getProfile(@AuthenticationPrincipal UserSecurity userSecurity, Model model) {
         if (userSecurity != null) {
+            userSecurity = (UserSecurity) userRepository.loadUserByUsername(userSecurity.getUsername());
             model.addAttribute("customer", userSecurity.getCustomer());
             model.addAttribute("userSecurity", userSecurity);
         }

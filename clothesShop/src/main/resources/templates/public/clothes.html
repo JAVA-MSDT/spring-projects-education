@@ -25,6 +25,7 @@
         <th scope="col">Fabric</th>
         <th scope="col">Gender</th>
         <th scope="col">Size</th>
+        <th scope="col">Quantity</th>
         <th scope="col">Actions</th>
         </thead>
         <tbody>
@@ -34,6 +35,7 @@
             <td th:text="${clothe.fabric}">Fabric</td>
             <td th:text="${clothe.gender}">Gender</td>
             <td th:text="${clothe.size}">Size</td>
+            <td th:text="${clothe.quantityInStore}">Quantity</td>
             <td>
                 <a class="btn btn-primary" href="#" th:href="@{/clothes/{id}(id=${clothe.id})}">Details</a>
                 <a class="btn btn-warning" href="#" th:href="@{/clothes/update/{id}(id=${clothe.id})}">Update</a>

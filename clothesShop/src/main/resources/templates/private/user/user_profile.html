@@ -98,6 +98,10 @@
                                 <td th:text="${clothe.size}">Size</td>
                                 <td>
                                     <a class="btn btn-primary" href="#" th:href="@{/clothes/{id}(id=${clothe.id})}">Details</a>
+                                    <a class="btn btn-danger"
+                                       href="#"
+                                       th:href="@{customers/{customerId}/remove-clothe/{id}(id=${clothe.id}, customerId=${customer.id})}">
+                                        Remove</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -131,7 +135,20 @@
     </div>
 </div>
 <div th:replace="~{shared/footer :: footer}"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const hash = window.location.hash;
+        if (hash) {
+            const tabButton = document.querySelector(`button[data-bs-target="${hash}"]`);
+            if (tabButton) {
+                const tab = new bootstrap.Tab(tabButton);
+                tab.show();
+            }
+        }
+    });
+</script>
 </body>
 </html>

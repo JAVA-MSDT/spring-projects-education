@@ -1,9 +1,14 @@
 package com.clothesshop.web.priv;
 
 import com.clothesshop.model.user.Customer;
+import com.clothesshop.model.user.security.UserSecurity;
+import com.clothesshop.service.ClotheService;
 import com.clothesshop.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +24,7 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final ClotheService clotheService;
 
     @GetMapping
     public String getAllCustomers(Model model) {
@@ -37,6 +43,31 @@ public class CustomerController {
         return "private/user/user_profile";
     }
 
+    @GetMapping(path = "/{customerId}/remove-clothe/{id}")
+    public String removeClotheFromMyList(@PathVariable(value = "id") long id,
+                                       @PathVariable(value = "customerId") long customerId,
+                                       RedirectAttributes redirectAttributes) {
+        try {
+            customerService.removeClotheFromCustomer(customerId, id);
+            return "redirect:/profile#v-pills-clothe";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("removeClothMessage", e.getLocalizedMessage());
+            return "redirect:/profile";
+        }
+    }
+
+    @GetMapping(path = "/add-clothe/{id}")
+    public String AddClotheToMyList(@PathVariable(value = "id") long id,
+                                    @AuthenticationPrincipal UserSecurity userSecurity,
+                                       RedirectAttributes redirectAttributes) {
+        try {
+            customerService.addClotheToCustomer(userSecurity.getCustomer().getId(), id);
+            return "redirect:/profile#v-pills-clothe";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("removeClothMessage", e.getLocalizedMessage());
+            return "redirect:/profile";
+        }
+    }
 
     @GetMapping("/delete/{id}")
     public String deleteCustomer(@PathVariable(value = "id") long id, RedirectAttributes redirectAttributes) {

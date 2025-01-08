@@ -1,5 +1,6 @@
 package com.clothesshop.service;
 
+import com.clothesshop.model.clothe.Clothe;
 import com.clothesshop.model.user.Customer;
 import com.clothesshop.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
@@ -15,6 +16,7 @@ import java.util.List;
 @Transactional
 public class CustomerService {
     private final CustomerRepository customerRepository;
+    private final ClotheService clotheService;
 
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
@@ -30,6 +32,24 @@ public class CustomerService {
 
     public void deleteCustomer(Long id) {
         customerRepository.deleteById(id);
+    }
+
+    public void removeClotheFromCustomer(Long customerId, Long clotheId) {
+        Customer customer = findById(customerId);
+        Clothe clothe = clotheService.getClotheById(clotheId);
+        customer.getClothes().remove(clothe);
+        clothe.getCustomers().remove( customer );
+        saveCustomer(customer);
+        clotheService.addClotheToClothe(clotheId, 1);
+    }
+
+    public void addClotheToCustomer(Long customerId, Long clotheId) {
+        Customer customer = findById(customerId);
+        Clothe clothe = clotheService.getClotheById(clotheId);
+        customer.getClothes().add(clothe);
+        clothe.getCustomers().add( customer );
+        saveCustomer(customer);
+        clotheService.removeClotheFromClothe(clotheId, 1);
     }
 
     private Customer findById(Long id) {

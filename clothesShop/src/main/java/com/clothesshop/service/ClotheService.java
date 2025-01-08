@@ -34,6 +34,20 @@ public class ClotheService {
         clotheRepository.delete(clothe);
     }
 
+    public void addClotheToClothe(Long id, int amount) {
+        Clothe clothe = findClotheById(id);
+        clothe.setQuantityInStore(clothe.getQuantityInStore() + amount);
+        clotheRepository.save(clothe);
+    }
+
+    public void removeClotheFromClothe(Long id, int amount) {
+        Clothe clothe = findClotheById(id);
+        int clothsInStore = clothe.getQuantityInStore();
+        // TODO: Check the clothes amount to not be make sure no error related to clothes amount in the the store and the taken
+        clothe.setQuantityInStore(clothe.getQuantityInStore() - amount);
+        clotheRepository.save(clothe);
+    }
+
     private Clothe findClotheById(Long id) {
         return clotheRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Clothe Not found"));
