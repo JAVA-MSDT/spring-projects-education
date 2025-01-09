@@ -43,7 +43,10 @@ public class ClotheService {
     public void removeClotheFromClothe(Long id, int amount) {
         Clothe clothe = findClotheById(id);
         int clothsInStore = clothe.getQuantityInStore();
-        // TODO: Check the clothes amount to not be make sure no error related to clothes amount in the the store and the taken
+        if (amount > clothsInStore) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    getRemoveClotheErrorMessage(clothe, amount));
+        }
         clothe.setQuantityInStore(clothe.getQuantityInStore() - amount);
         clotheRepository.save(clothe);
     }
@@ -51,5 +54,12 @@ public class ClotheService {
     private Clothe findClotheById(Long id) {
         return clotheRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Clothe Not found"));
+    }
+
+    private String getRemoveClotheErrorMessage(Clothe clothe, int amount) {
+        return "Clothe (" +
+                clothe.getClotheType() + ", " + clothe.getFabric() + ", " + clothe.getAgeType() + ", "
+                + clothe.getGender() + ") in the store are less than the amount you asking for, Clothes in the store = "
+                + clothe.getQuantityInStore() + ", Amount you are asking = " + amount + ".";
     }
 }

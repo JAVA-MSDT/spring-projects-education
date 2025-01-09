@@ -38,7 +38,7 @@ public class CustomerService {
         Customer customer = findById(customerId);
         Clothe clothe = clotheService.getClotheById(clotheId);
         customer.getClothes().remove(clothe);
-        clothe.getCustomers().remove( customer );
+        clothe.getCustomers().remove(customer);
         saveCustomer(customer);
         clotheService.addClotheToClothe(clotheId, 1);
     }
@@ -47,7 +47,7 @@ public class CustomerService {
         Customer customer = findById(customerId);
         Clothe clothe = clotheService.getClotheById(clotheId);
         customer.getClothes().add(clothe);
-        clothe.getCustomers().add( customer );
+        clothe.getCustomers().add(customer);
         saveCustomer(customer);
         clotheService.removeClotheFromClothe(clotheId, 1);
     }

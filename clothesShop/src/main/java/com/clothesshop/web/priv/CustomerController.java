@@ -45,8 +45,8 @@ public class CustomerController {
 
     @GetMapping(path = "/{customerId}/remove-clothe/{id}")
     public String removeClotheFromMyList(@PathVariable(value = "id") long id,
-                                       @PathVariable(value = "customerId") long customerId,
-                                       RedirectAttributes redirectAttributes) {
+                                         @PathVariable(value = "customerId") long customerId,
+                                         RedirectAttributes redirectAttributes) {
         try {
             customerService.removeClotheFromCustomer(customerId, id);
             return "redirect:/profile#v-pills-clothe";
@@ -57,16 +57,9 @@ public class CustomerController {
     }
 
     @GetMapping(path = "/add-clothe/{id}")
-    public String AddClotheToMyList(@PathVariable(value = "id") long id,
-                                    @AuthenticationPrincipal UserSecurity userSecurity,
-                                       RedirectAttributes redirectAttributes) {
-        try {
-            customerService.addClotheToCustomer(userSecurity.getCustomer().getId(), id);
-            return "redirect:/profile#v-pills-clothe";
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("removeClothMessage", e.getLocalizedMessage());
-            return "redirect:/profile";
-        }
+    public String AddClotheToMyList(@PathVariable(value = "id") long id, @AuthenticationPrincipal UserSecurity userSecurity) {
+        customerService.addClotheToCustomer(userSecurity.getCustomer().getId(), id);
+        return "redirect:/profile#v-pills-clothe";
     }
 
     @GetMapping("/delete/{id}")
