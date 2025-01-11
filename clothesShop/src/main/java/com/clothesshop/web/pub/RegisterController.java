@@ -3,6 +3,7 @@ package com.clothesshop.web.pub;
 import com.clothesshop.dto.UserRegister;
 import com.clothesshop.model.user.security.UserSecurity;
 import com.clothesshop.service.security.UserSecurityService;
+import com.clothesshop.util.UserUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,9 @@ public class RegisterController {
                            BindingResult bindingResult,
                            Model model, RedirectAttributes redirectAttributes) {
 
-        boolean isPasswordsMatched = !userRegister.password().equals(userRegister.repeatPassword());
-        if (bindingResult.hasErrors() || isPasswordsMatched) {
-            if (isPasswordsMatched) {
+        boolean isPasswordsNotMatched = UserUtil.isPasswordsNotMatched(userRegister);
+        if (bindingResult.hasErrors() || isPasswordsNotMatched) {
+            if (isPasswordsNotMatched) {
                 model.addAttribute("passwordError", "Passwords do not match.");
             }
             return "public/register";
@@ -44,4 +45,5 @@ public class RegisterController {
         redirectAttributes.addAttribute("username", user.getUsername());
         return "redirect:/login";
     }
+
 }
