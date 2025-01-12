@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml"
-      th:with="hasAdminRule=${@securityUtils.hasRole('ROLE_ADMIN')}"
+      th:with="hasAdminRule=${@securityUtils.hasRole('ROLE_ADMIN')},
+      isSameLoggedInUser=${#authentication.name} == ${userSecurity.username}"
       lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -13,7 +14,7 @@
 </head>
 <body>
 <div th:replace="~{shared/header :: header}"></div>
-<div class="container">
+<div class="container mb-2">
     <div class="row">
         <div class="col-12" style="margin-bottom: -40px">
             <img th:src="@{/images/user_banner.jpg}"
@@ -67,16 +68,49 @@
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
                      aria-labelledby="v-pills-profile-tab">
-                    <div class="card border-0">
-                        <div class="card-body">
-                            <h3 class="card-title" th:text="${customer.name}">Customer Name</h3>
-                            <h5 class="card-subtitle" th:text="${customer.contactName}">Contact Name</h5>
-                            <p th:text="'Email Address: ' + ${customer.email}">Email address: foo </p>
-                            <p th:text="'Phone Number: ' + ${customer.phoneNumber}">Phone Number</p>
-                            <p th:text="${customer.address}">Address</p>
-                            <a class="btn btn-primary btn-sm" href="#" th:href="@{mailto:{to}(to=${customer.email})}">Send
-                                Email</a>
-                        </div>
+                    <div class="container text-left w-50">
+                        <form th:action="@{/update-customer}" method="post" class="needs-validation" novalidate>
+                            <div class="border border-secondary p-3 rounded">
+                                <!-- Name Field -->
+                                <label class="my-2" for="customerName">Name</label>
+                                <input type="text" th:value="${customer.name != null ? customer.name : 'Default'}"
+                                       id="customerName" name="customerName"
+                                       class="form-control form-control-lg"
+                                       required autofocus/>
+                                <!-- Contact Name Field -->
+                                <label class="my-2" for="contactName">Contact Name</label>
+                                <input type="text"
+                                       th:value="${customer.contactName != null ? customer.contactName : 'Default'}"
+                                       id="contactName" name="contactName" class="form-control form-control-lg"
+                                       required/>
+                                <!-- Email Field -->
+                                <label class="my-2" for="email">Email</label>
+                                <input type="email" th:value="${customer.email != null ? customer.email : 'Default'}"
+                                       id="email" name="email" class="form-control form-control-lg"
+                                       required/>
+
+                                <!-- Phone Number Field -->
+                                <label class="my-2" for="phoneNumber">Phone Number</label>
+                                <input type="text"
+                                       th:value="${customer.phoneNumber != null ? customer.phoneNumber : 'Default'}"
+                                       id="phoneNumber" name="phoneNumber"
+                                       class="form-control form-control-lg"
+                                       required minlength="6"/>
+                                <!-- Address Field -->
+                                <label class="my-2" for="address">Address</label>
+                                <input type="text" th:value="${customer.address != null ? customer.address : 'Default'}"
+                                       id="address" name="address" class="form-control form-control-lg"
+                                       required/>
+
+                                <!-- Submit Button -->
+                                <input class="btn btn-primary btn-lg btn-block my-3" type="submit" value="Register"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <a class="btn btn-primary btn-sm" href="#" th:href="@{mailto:{to}(to=${customer.email})}">Send
+                            Email</a>
+                        <a class="btn btn-secondary btn-sm" href="#" th:if="${isSameLoggedInUser}">Update Details</a>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-clothe" role="tabpanel"
