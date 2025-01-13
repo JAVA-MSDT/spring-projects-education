@@ -69,12 +69,14 @@
                 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
                      aria-labelledby="v-pills-profile-tab">
                     <div class="container text-left w-50">
-                        <form th:action="@{/update-customer}" method="post" class="needs-validation" novalidate>
+                        <form th:object="${customer}" th:action="@{/customers/update-customer-basic}" method="post"
+                              class="needs-validation" novalidate>
+                            <input type="hidden" name="id" th:value="${customer.id}"/>
                             <div class="border border-secondary p-3 rounded">
                                 <!-- Name Field -->
-                                <label class="my-2" for="customerName">Name</label>
+                                <label class="my-2" for="name">Name</label>
                                 <input type="text" th:value="${customer.name != null ? customer.name : 'Default'}"
-                                       id="customerName" name="customerName"
+                                       id="name" name="name"
                                        class="form-control form-control-lg"
                                        required autofocus/>
                                 <!-- Contact Name Field -->
@@ -103,7 +105,8 @@
                                        required/>
 
                                 <!-- Submit Button -->
-                                <input class="btn btn-primary btn-lg btn-block my-3" type="submit" value="Register"/>
+                                <input class="btn btn-primary btn-lg btn-block my-3" type="submit"
+                                       value="Update Details"/>
                             </div>
                         </form>
                     </div>

@@ -13,12 +13,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public String handleException(Exception ex, Model model) {
-        if(ex instanceof ResponseStatusException) {
+        if (ex instanceof ResponseStatusException) {
             model.addAttribute("errorMessage", ex.getLocalizedMessage());
             return ERROR_PAGE;
         }
 
-        if(ex instanceof AuthorizationDeniedException) {
+        if (ex instanceof AuthorizationDeniedException) {
             model.addAttribute("errorMessage", ex.getLocalizedMessage());
             return ERROR_PAGE;
         }

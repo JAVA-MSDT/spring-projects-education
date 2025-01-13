@@ -44,7 +44,7 @@ public class ClotheController {
 
     @PostMapping("/save")
     public String saveClothe(@ModelAttribute("clothe") Clothe clothe, RedirectAttributes redirectAttributes) {
-        if(clothe.getId() == null) {
+        if (clothe.getId() == null) {
             clotheService.saveClothe(clothe);
             redirectAttributes.addFlashAttribute("message", "Would you like to add more clothes?");
             return "redirect:/clothes/add";

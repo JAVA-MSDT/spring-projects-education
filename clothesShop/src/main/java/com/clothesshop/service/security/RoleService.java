@@ -13,6 +13,6 @@ public class RoleService {
     private final RoleRepository roleRepository;
 
     public Role findByRoleName(String roleName) {
-        return roleRepository.findByRole(roleName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Role not found"));
+        return roleRepository.findByRole(roleName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found"));
     }
 }

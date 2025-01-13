@@ -1,7 +1,6 @@
 package com.clothesshop.web.pub;
 
 import com.clothesshop.model.user.security.UserSecurity;
-import com.clothesshop.repository.user.UserRepository;
 import com.clothesshop.service.security.UserSecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     private final UserSecurityService userRepository;
+
     @GetMapping
-    public String getHome(Model model){
+    public String getHome(Model model) {
         return "index";
     }
 

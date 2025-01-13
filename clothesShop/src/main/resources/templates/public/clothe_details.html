@@ -31,7 +31,8 @@
             <td th:text="${clothe.quantityInStore}">Quantity</td>
             <td>
                 <a class="btn btn-warning" href="#" th:href="@{/clothes/update/{id}(id=${clothe.id})}">Update</a>
-                <a class="btn btn-danger" href="#" th:href="@{/customers/add-clothe/{id}(id=${clothe.id})}">Add To My List</a>
+                <a class="btn btn-danger" href="#" th:href="@{/customers/add-clothe/{id}(id=${clothe.id})}">Add To My
+                    List</a>
                 <a class="btn btn-danger" href="#" th:href="@{/clothes/delete/{id}(id=${clothe.id})}">Delete</a>
             </td>
         </tr>

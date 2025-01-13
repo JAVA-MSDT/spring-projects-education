@@ -14,6 +14,7 @@ public class ClothesShopApplication implements ApplicationRunner {
 
     private final DelegatingPasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(ClothesShopApplication.class, args);
     }

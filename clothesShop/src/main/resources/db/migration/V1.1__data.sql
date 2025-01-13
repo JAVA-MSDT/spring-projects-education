@@ -21,7 +21,8 @@ INSERT INTO clothe (clothe_type, fabric, gender, size, age_type, description, im
 VALUES ('DRESS', 'OTHER', 'FEMALE', 'M', 'ADULT', 'Floral printed dress', '{"image9.jpg"}', 7);
 
 INSERT INTO clothe (clothe_type, fabric, gender, size, age_type, description, images, quantity_in_store)
-VALUES ('T_SHIRT', 'COTTON', 'FEMALE', 'XXS', 'CHILD', 'Graphic t-shirt for kids', '{"image10.jpg", "image11.jpg"}', 25);
+VALUES ('T_SHIRT', 'COTTON', 'FEMALE', 'XXS', 'CHILD', 'Graphic t-shirt for kids', '{"image10.jpg", "image11.jpg"}',
+        25);
 
 INSERT INTO clothe (clothe_type, fabric, gender, size, age_type, description, images, quantity_in_store)
 VALUES ('SHIRT', 'JEANS', 'MALE', 'XXL', 'ADULT', 'Denim shirt', '{"image12.jpg"}', 8);
@@ -61,29 +62,34 @@ VALUES ('T_SHIRT', 'COTTON', 'MALE', 'S', 'CHILD', 'Plain cotton kids t-shirt', 
 
 -- Customers --
 INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Acme', 'Wylie Coyote', 'wcoyote@acme.com', '1-515-555-2348', 'Customer Full Address',1);
+values ('Acme', 'Wylie Coyote', 'wcoyote@acme.com', '1-515-555-2348', 'Customer Full Address', 1);
 INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Spacely Space Sprockets', 'George Jettson', 'gjettson@spacely.com', '1-515-555-2350', 'Customer Full Address',2);
+values ('Spacely Space Sprockets', 'George Jettson', 'gjettson@spacely.com', '1-515-555-2350', 'Customer Full Address',
+        2);
 INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Callahan Auto', 'Thomas Callhan', 'tcallahan@callhhanauto.com', '1-515-555-2333', 'Customer Full Address',3);
+values ('Callahan Auto', 'Thomas Callhan', 'tcallahan@callhhanauto.com', '1-515-555-2333', 'Customer Full Address', 3);
 INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Dundler Mifflin Inc', 'Michael Scott', 'mscott@dundlermifflin.com', '1-515-555-2320', 'Customer Full Address',4);
+values ('Dundler Mifflin Inc', 'Michael Scott', 'mscott@dundlermifflin.com', '1-515-555-2320', 'Customer Full Address',
+        4);
 INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Stark Industries', 'Tony Stark', 'tstark@stark.com', '1-515-555-7777', 'Customer Full Address',5);
+values ('Stark Industries', 'Tony Stark', 'tstark@stark.com', '1-515-555-7777', 'Customer Full Address', 5);
 INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Initech', 'Peter Gibbons', 'pgibbons@initec.com', '1-515-555-0666', 'Customer Full Address',6);
+values ('Initech', 'Peter Gibbons', 'pgibbons@initec.com', '1-515-555-0666', 'Customer Full Address', 6);
 INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Wayne Enterprises', 'Bruce Wayne', 'bwayne@wayne.com', '1-515-555-1111', 'Customer Full Address',7);
+values ('Wayne Enterprises', 'Bruce Wayne', 'bwayne@wayne.com', '1-515-555-1111', 'Customer Full Address', 7);
 
 -- User Security --
 INSERT INTO user_security (username, email, password, enabled, customer_id)
 values ('Acme', 'wcoyote@acme.com', '{bcrypt}$2a$10$E9aahtfuQQnhCVRhwVCVqOPjxuRrhppsIHpaVmFiDmMwN31wUtjLm', true, 1);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('spacely', 'gjettson@spacely.com', '{bcrypt}$2a$10$dMHEjG7K7fhs9mQGCJrFseL2q7/CHRLi71hYt2wFkagLwfla2skSy', true, 2);
+values ('spacely', 'gjettson@spacely.com', '{bcrypt}$2a$10$dMHEjG7K7fhs9mQGCJrFseL2q7/CHRLi71hYt2wFkagLwfla2skSy', true,
+        2);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('tcal', 'tcallahan@callhhanauto.com', '{bcrypt}$2a$10$6XlFOIFLuYLFeDEBPfSGbuQ2gfd544zugin210uL7jmSEzDoe3x8S', true, 3);
+values ('tcal', 'tcallahan@callhhanauto.com', '{bcrypt}$2a$10$6XlFOIFLuYLFeDEBPfSGbuQ2gfd544zugin210uL7jmSEzDoe3x8S',
+        true, 3);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('mscott', 'mscott@dundlermifflin.com', '{bcrypt}$2a$10$fL3vnmII70wYMDPVuWscxOiP4ex8arN.4bkiL60Neo9mwJ3P7ZqE.', true, 4);
+values ('mscott', 'mscott@dundlermifflin.com', '{bcrypt}$2a$10$fL3vnmII70wYMDPVuWscxOiP4ex8arN.4bkiL60Neo9mwJ3P7ZqE.',
+        true, 4);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
 values ('tstark', 'tstark@stark.com', '{bcrypt}$2a$10$FRcIGuqcVsBTcAJNHBdRWO70dUuz00og1Blf97t.xj.uDbPG7LbHy', true, 5);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
@@ -100,30 +106,30 @@ VALUES (3, 'VIEW_INFO');
 INSERT INTO roles(id, role)
 VALUES (4, 'VIEW_ADMIN');
 
-INSERT INTO user_security_roles( user_id, role_id)
+INSERT INTO user_security_roles(user_id, role_id)
 VALUES (1, 1);
-INSERT INTO user_security_roles( user_id, role_id)
+INSERT INTO user_security_roles(user_id, role_id)
 VALUES (1, 2);
-INSERT INTO user_security_roles( user_id, role_id)
+INSERT INTO user_security_roles(user_id, role_id)
 VALUES (1, 3);
-INSERT INTO user_security_roles( user_id, role_id)
+INSERT INTO user_security_roles(user_id, role_id)
 VALUES (1, 4);
-INSERT INTO user_security_roles( user_id, role_id)
+INSERT INTO user_security_roles(user_id, role_id)
 VALUES (2, 2);
-INSERT INTO user_security_roles( user_id, role_id)
+INSERT INTO user_security_roles(user_id, role_id)
 VALUES (2, 3);
-INSERT INTO user_security_roles( user_id, role_id)
+INSERT INTO user_security_roles(user_id, role_id)
 VALUES (3, 2);
-INSERT INTO user_security_roles( user_id, role_id)
+INSERT INTO user_security_roles(user_id, role_id)
 VALUES (3, 3);
-INSERT INTO user_security_roles( user_id, role_id)
-VALUES ( 4, 2);
-INSERT INTO user_security_roles( user_id, role_id)
-VALUES ( 5, 3);
-INSERT INTO user_security_roles( user_id, role_id)
-VALUES ( 6, 3);
-INSERT INTO user_security_roles( user_id, role_id)
-VALUES ( 7, 3);
+INSERT INTO user_security_roles(user_id, role_id)
+VALUES (4, 2);
+INSERT INTO user_security_roles(user_id, role_id)
+VALUES (5, 3);
+INSERT INTO user_security_roles(user_id, role_id)
+VALUES (6, 3);
+INSERT INTO user_security_roles(user_id, role_id)
+VALUES (7, 3);
 
 INSERT INTO customer_clothe (customer_id, clothe_id)
 VALUES (1, 1);

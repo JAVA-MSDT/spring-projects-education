@@ -6,14 +6,10 @@ import com.clothesshop.service.ClotheService;
 import com.clothesshop.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -74,4 +70,11 @@ public class CustomerController {
         redirectAttributes.addFlashAttribute("deleteMessage", "Deleted customer with id: " + id);
         return "redirect:/customers";
     }
+
+    @PostMapping(path = "/update-customer-basic")
+    public String updateCustomerBasicDetails(@ModelAttribute("customer") Customer customer) {
+        System.out.println("Customer: " + customer);
+        return "redirect:/profile#v-pills-profile";
+    }
+
 }
