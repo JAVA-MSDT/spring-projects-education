@@ -2,7 +2,6 @@ package com.clothesshop.web.priv;
 
 import com.clothesshop.model.user.Customer;
 import com.clothesshop.model.user.security.UserSecurity;
-import com.clothesshop.service.ClotheService;
 import com.clothesshop.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,7 +19,6 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
-    private final ClotheService clotheService;
 
     @GetMapping
     public String getAllCustomers(Model model) {
@@ -73,7 +71,7 @@ public class CustomerController {
 
     @PostMapping(path = "/update-customer-basic")
     public String updateCustomerBasicDetails(@ModelAttribute("customer") Customer customer) {
-        System.out.println("Customer: " + customer);
+        customerService.updateCustomerBasicDetails(customer);
         return "redirect:/profile#v-pills-profile";
     }
 

@@ -1,5 +1,6 @@
 package com.clothesshop.service;
 
+import com.clothesshop.mapper.CustomerMapper;
 import com.clothesshop.model.clothe.Clothe;
 import com.clothesshop.model.user.Customer;
 import com.clothesshop.repository.CustomerRepository;
@@ -17,6 +18,7 @@ import java.util.List;
 public class CustomerService {
     private final CustomerRepository customerRepository;
     private final ClotheService clotheService;
+    private final CustomerMapper customerMapper;
 
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
@@ -52,8 +54,13 @@ public class CustomerService {
         clotheService.removeClotheFromClothe(clotheId, 1);
     }
 
+    public void updateCustomerBasicDetails(Customer customer) {
+        Customer oldCustomer = findById(customer.getId());
+        customerMapper.mapCustomerBasicDetails(customer, oldCustomer);
+        customerRepository.save(oldCustomer);
+    }
+
     private Customer findById(Long id) {
-        return customerRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer with id: " + id + " Not found"));
+        return customerRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer with id: " + id + " Not found"));
     }
 }
