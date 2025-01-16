@@ -68,64 +68,103 @@
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
                      aria-labelledby="v-pills-profile-tab">
-                    <div class="container text-left w-50">
+                    <div class="container text-left">
                         <form th:object="${customer}" th:action="@{/customers/update-customer-basic}" method="post"
                               class="needs-validation" novalidate>
                             <input type="hidden" name="id" th:value="${customer.id}"/>
-                            <div class="p-3">
-                                <!-- Name Field -->
-                                <label class="my-2" for="name">Name</label>
-                                <input disabled
-                                       type="text" th:value="${customer.name != null ? customer.name : 'Default'}"
-                                       id="name" name="name"
-                                       class="form-control form-control-lg border-0 update-details-input"
-                                       required autofocus/>
-                                <!-- Contact Name Field -->
-                                <label class="my-2" for="contactName">Contact Name</label>
-                                <input disabled
-                                       type="text"
-                                       th:value="${customer.contactName != null ? customer.contactName : 'Default'}"
-                                       id="contactName" name="contactName"
-                                       class="form-control form-control-lg border-0 update-details-input"
-                                       required/>
-                                <!-- Email Field -->
-                                <label class="my-2" for="email">Email</label>
-                                <input disabled
-                                       type="email" th:value="${customer.email != null ? customer.email : 'Default'}"
-                                       id="email" name="email"
-                                       class="form-control form-control-lg border-0 update-details-input"
-                                       required/>
-
-                                <!-- Phone Number Field -->
-                                <label class="my-2" for="phoneNumber">Phone Number</label>
-                                <input disabled
-                                       type="text"
-                                       th:value="${customer.phoneNumber != null ? customer.phoneNumber : 'Default'}"
-                                       id="phoneNumber" name="phoneNumber"
-                                       class="form-control form-control-lg border-0 update-details-input"
-                                       required minlength="6"/>
-                                <!-- Address Field -->
-                                <label class="my-2" for="address">Address</label>
-                                <input disabled
-                                       type="text" th:value="${customer.address != null ? customer.address : 'Default'}"
-                                       id="address" name="address"
-                                       class="form-control form-control-lg border-0 update-details-input"
-                                       required/>
-
-                                <!-- Submit Button -->
-                                <input id="update-details-btn"
-                                       disabled
-                                       class="btn btn-primary btn-lg btn-block my-3"
-                                       type="hidden"
-                                       value="Update Details"/>
+                            <!-- Name Field -->
+                            <div class="row p-2">
+                                <div class="col-sm-2">
+                                    <label class="my-2" for="name">Name</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <input disabled
+                                           type="text" th:value="${customer.name != null ? customer.name : 'Default'}"
+                                           id="name" name="name"
+                                           class="form-control form-control-lg border-0 update-details-input"
+                                           required autofocus/>
+                                </div>
+                            </div>
+                            <!-- Contact Name Field -->
+                            <div class="row p-2">
+                                <div class="col-sm-2">
+                                    <label class="my-2" for="contactName">Contact Name</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <input disabled
+                                           type="text"
+                                           th:value="${customer.contactName != null ? customer.contactName : 'Default'}"
+                                           id="contactName" name="contactName"
+                                           class="form-control form-control-lg border-0 update-details-input"
+                                           required/>
+                                </div>
+                            </div>
+                            <!-- Email Field -->
+                            <div class="row p-2">
+                                <div class="col-sm-2">
+                                    <label class="my-2" for="email">Email</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <input disabled
+                                           type="email"
+                                           th:value="${customer.email != null ? customer.email : 'Default'}"
+                                           id="email" name="email"
+                                           class="form-control form-control-lg border-0 update-details-input"
+                                           required/>
+                                </div>
+                            </div>
+                            <!-- Phone Number Field -->
+                            <div class="row p-2">
+                                <div class="col-sm-2">
+                                    <label class="my-2" for="phoneNumber">Phone Number</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <input disabled
+                                           type="text"
+                                           th:value="${customer.phoneNumber != null ? customer.phoneNumber : 'Default'}"
+                                           id="phoneNumber" name="phoneNumber"
+                                           class="form-control form-control-lg border-0 update-details-input"
+                                           required minlength="6"/>
+                                </div>
+                            </div>
+                            <!-- Address Field -->
+                            <div class="row p-2">
+                                <div class="col-sm-2">
+                                    <label class="my-2" for="address">Address</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <input disabled
+                                           type="text"
+                                           th:value="${customer.address != null ? customer.address : 'Default'}"
+                                           id="address" name="address"
+                                           class="form-control form-control-lg border-0 update-details-input"
+                                           required/>
+                                </div>
+                            </div>
+                            <!-- Form Buttons -->
+                            <div class="row p-2">
+                                <div class="col-sm-4 p-2">
+                                    <a class="btn btn-primary w-100" href="#"
+                                       th:href="@{mailto:{to}(to=${customer.email})}">Send
+                                        Email</a>
+                                </div>
+                                <div class="col-sm-4 p-2">
+                                    <a id="update-details-trigger" class="btn btn-info w-100"
+                                       onclick="activateUpdate()"
+                                       th:if="${isSameLoggedInUser}">Update Details</a>
+                                </div>
+                                <div class="col-sm-4 p-2">
+                                    <input id="update-details-btn"
+                                           disabled
+                                           class="btn btn-primary w-100"
+                                           type="hidden"
+                                           value="Update Details"/>
+                                </div>
                             </div>
                         </form>
                     </div>
                     <div>
-                        <a class="btn btn-primary btn-sm" href="#" th:href="@{mailto:{to}(to=${customer.email})}">Send
-                            Email</a>
-                        <a id="update-details-trigger" class="btn btn-secondary btn-sm" onclick="activateUpdate()"
-                           th:if="${isSameLoggedInUser}">Update Details</a>
+
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-clothe" role="tabpanel"
@@ -209,11 +248,15 @@
             submitBasicDetailsBtn.type = "submit";
 
             updateDetailsTrigger.innerText = "Cancel Update"
+            updateDetailsTrigger.classList.remove("btn-info")
+            updateDetailsTrigger.classList.add("btn-warning")
         } else {
             submitBasicDetailsBtn.disabled = true;
             submitBasicDetailsBtn.type = "hidden";
 
             updateDetailsTrigger.innerText = "Update Details";
+            updateDetailsTrigger.classList.add("btn-info")
+            updateDetailsTrigger.classList.remove("btn-warning")
         }
 
         Array.from(basicDetailsInputs)
