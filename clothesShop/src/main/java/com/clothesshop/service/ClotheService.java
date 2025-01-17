@@ -24,8 +24,8 @@ public class ClotheService {
         return findClotheById(id);
     }
 
-    public Clothe saveClothe(Clothe clothe) {
-        return clotheRepository.save(clothe);
+    public void saveClothe(Clothe clothe) {
+        clotheRepository.save(clothe);
     }
 
     public void deleteClothe(Long id) {
@@ -48,6 +48,12 @@ public class ClotheService {
                     getRemoveClotheErrorMessage(clothe, amount));
         }
         clothe.setQuantityInStore(clothe.getQuantityInStore() - amount);
+        clotheRepository.save(clothe);
+    }
+
+    public void updateClotheImage(Long id, String url) {
+        Clothe clothe = findClotheById(id);
+        clothe.setImages(url);
         clotheRepository.save(clothe);
     }
 

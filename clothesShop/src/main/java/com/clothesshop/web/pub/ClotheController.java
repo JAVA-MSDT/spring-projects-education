@@ -24,8 +24,8 @@ import java.util.List;
 public class ClotheController {
 
     private final ClotheService clotheService;
-    @Value("${images.clothes}")
-    private String clothesPicturesPath;
+    @Value("${clothes.shop.files}")
+    private String clothesShopFiles;
 
     @GetMapping
     public String getAllClothes(Model model) {
@@ -83,13 +83,14 @@ public class ClotheController {
     }
 
     @PostMapping("/update-clothe-image")
-    public String updateClotheImage(@RequestParam("id") Long id, @RequestParam("clotheImage") MultipartFile clotheImage, RedirectAttributes redirectAttributes) throws IOException {
-
+    public String updateClotheImage(@RequestParam("id") Long id, @RequestParam("clotheImage") MultipartFile clotheImage) throws IOException {
         String imageName = clotheImage.getOriginalFilename();
-        Path imagePath = Paths.get(clothesPicturesPath + imageName);
+        Path imagePath = Paths.get(clothesShopFiles + imageName);
         Files.createDirectories(imagePath.getParent());
         clotheImage.transferTo(imagePath.toFile());
 
+        String imageUrl = "/images/clothes/" + imageName;
+        clotheService.updateClotheImage(id, imageUrl);
         return "redirect:/clothes/" + id;
     }
 
