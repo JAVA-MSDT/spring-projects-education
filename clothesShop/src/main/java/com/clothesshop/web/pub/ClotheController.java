@@ -3,13 +3,19 @@ package com.clothesshop.web.pub;
 import com.clothesshop.model.clothe.Clothe;
 import com.clothesshop.service.ClotheService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -18,6 +24,8 @@ import java.util.List;
 public class ClotheController {
 
     private final ClotheService clotheService;
+    @Value("${images.clothes}")
+    private String clothesPicturesPath;
 
     @GetMapping
     public String getAllClothes(Model model) {
@@ -74,5 +82,15 @@ public class ClotheController {
         return "redirect:/clothes";
     }
 
+    @PostMapping("/update-clothe-image")
+    public String updateClotheImage(@RequestParam("id") Long id, @RequestParam("clotheImage") MultipartFile clotheImage, RedirectAttributes redirectAttributes) throws IOException {
+
+        String imageName = clotheImage.getOriginalFilename();
+        Path imagePath = Paths.get(clothesPicturesPath + imageName);
+        Files.createDirectories(imagePath.getParent());
+        clotheImage.transferTo(imagePath.toFile());
+
+        return "redirect:/clothes/" + id;
+    }
 
 }
