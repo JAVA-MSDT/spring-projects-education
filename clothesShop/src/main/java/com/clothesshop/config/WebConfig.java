@@ -8,12 +8,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Value("${clothes.shop.files}")
-    private String clothesShopFiles;
+    @Value("${images.folder}")
+    private String imagesFolder;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/clothes/**")
-                .addResourceLocations("file:" + clothesShopFiles);
+                .addResourceLocations("file:" + imagesFolder);
     }
 }

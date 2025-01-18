@@ -18,7 +18,7 @@
     <div th:if="${errorMessage}" class="alert alert-danger">
         <p th:text="${errorMessage}"></p>
     </div>
-    <table class="table">
+    <table class="table table-success table-striped">
         <thead>
         <th scope="col">NO:</th>
         <th scope="col">Clothe Type</th>
@@ -26,6 +26,7 @@
         <th scope="col">Gender</th>
         <th scope="col">Size</th>
         <th scope="col">Quantity</th>
+        <th scope="col">Image</th>
         <th scope="col">Actions</th>
         </thead>
         <tbody>
@@ -36,6 +37,9 @@
             <td th:text="${clothe.gender}">Gender</td>
             <td th:text="${clothe.size}">Size</td>
             <td th:text="${clothe.quantityInStore}">Quantity</td>
+            <td>
+                <img th:src="${clothe.images}" alt="Clothes Banner" srcset="" width="50px" height="50px"/>
+            </td>
             <td>
                 <a class="btn btn-primary" href="#" th:href="@{/clothes/{id}(id=${clothe.id})}">Details</a>
                 <a class="btn btn-warning" href="#" th:href="@{/clothes/update/{id}(id=${clothe.id})}">Update</a>
