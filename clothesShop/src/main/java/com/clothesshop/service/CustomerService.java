@@ -60,6 +60,12 @@ public class CustomerService {
         customerRepository.save(oldCustomer);
     }
 
+    public void updateCustomerProfileImage(Long id, String imageUrl) {
+        Customer customer = findById(id);
+        customer.setProfilePictureUrl(imageUrl);
+        saveCustomer(customer);
+    }
+
     private Customer findById(Long id) {
         return customerRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer with id: " + id + " Not found"));
     }

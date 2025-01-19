@@ -25,6 +25,7 @@
         <th scope="col">Contact Name</th>
         <th scope="col">Contact Email</th>
         <th scope="col">Contact Phone</th>
+        <th scope="col">Profile Picture</th>
         <th scope="col">Actions</th>
         </thead>
         <tbody>
@@ -34,6 +35,9 @@
             <td th:text="${customer.contactName}">Contact Name</td>
             <td th:text="${customer.email}">Contact Email</td>
             <td th:text="${customer.phoneNumber}">Contact Phone</td>
+            <td>
+                <img th:src="${customer.profilePictureUrl}" alt="Clothes Banner" srcset="" width="50px" height="50px"/>
+            </td>
             <td>
                 <a class="btn btn-primary" href="#" th:href="@{/customers/{id}(id=${customer.id})}">Details</a>
                 <!--                    <a class="btn btn-warning" href="#" th:href="@{/customers/update/{id}(id=${customer.id})}">Update</a>-->

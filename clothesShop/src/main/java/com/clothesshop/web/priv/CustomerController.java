@@ -3,20 +3,27 @@ package com.clothesshop.web.priv;
 import com.clothesshop.model.user.Customer;
 import com.clothesshop.model.user.security.UserSecurity;
 import com.clothesshop.service.CustomerService;
+import com.clothesshop.util.ResourcesUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RequestMapping("/customers")
 @RequiredArgsConstructor
 public class CustomerController {
+
+    @Value("${users.images.folder}")
+    private String userImagesFolder;
 
     private final CustomerService customerService;
 
@@ -72,6 +79,15 @@ public class CustomerController {
     @PostMapping(path = "/update-customer-basic")
     public String updateCustomerBasicDetails(@ModelAttribute("customer") Customer customer) {
         customerService.updateCustomerBasicDetails(customer);
+        return "redirect:/profile#v-pills-profile";
+    }
+
+    @PostMapping("/update-customer-profile-image")
+    public String updateCustomerProfileImage(@RequestParam("id") Long id, @RequestParam("customerProfileImage") MultipartFile customerProfileImage) throws IOException {
+
+        String imageName = ResourcesUtil.saveImageToFolder(customerProfileImage, userImagesFolder);
+        String imageUrl = "/images/clothes/" + imageName;
+        customerService.updateCustomerProfileImage(id, imageUrl);
         return "redirect:/profile#v-pills-profile";
     }
 

@@ -78,26 +78,42 @@ VALUES ('T_SHIRT', 'COTTON', 'MALE', 'S', 'CHILD', 'Plain cotton kids t-shirt',
         '/images/clothes/Plain cotton kids t-shirt.png', 10);
 
 -- Customers --
-INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Acme', 'Wylie Coyote', 'wcoyote@acme.com', '1-515-555-2348', 'Customer Full Address', 1);
-INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
+INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
+                       user_security_id)
+values ('Ahmed', 'Samy', 'serenitydiver@hotmail.com', '+48-000-000000', 'Warsaw, Poland',
+        '/images/users/ahmed-samy-profile.jpg',
+        '/images/users/banner', 1);
+INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
+                       user_security_id)
 values ('Spacely Space Sprockets', 'George Jettson', 'gjettson@spacely.com', '1-515-555-2350', 'Customer Full Address',
+        '/images/users/Spacely-profile.png', '/images/users/banner',
         2);
-INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Callahan Auto', 'Thomas Callhan', 'tcallahan@callhhanauto.com', '1-515-555-2333', 'Customer Full Address', 3);
-INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
+INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
+                       user_security_id)
+values ('Callahan Auto', 'Thomas Callhan', 'tcallahan@callhhanauto.com', '1-515-555-2333', 'Customer Full Address',
+        '/images/users/Callahan Auto-profile.png', '/images/users/banner', 3);
+INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
+                       user_security_id)
 values ('Dundler Mifflin Inc', 'Michael Scott', 'mscott@dundlermifflin.com', '1-515-555-2320', 'Customer Full Address',
+        '/images/users/Michael Scott-profile.png', '/images/users/banner',
         4);
-INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Stark Industries', 'Tony Stark', 'tstark@stark.com', '1-515-555-7777', 'Customer Full Address', 5);
-INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Initech', 'Peter Gibbons', 'pgibbons@initec.com', '1-515-555-0666', 'Customer Full Address', 6);
-INSERT INTO customers (name, contact_name, email, phone, address, user_security_id)
-values ('Wayne Enterprises', 'Bruce Wayne', 'bwayne@wayne.com', '1-515-555-1111', 'Customer Full Address', 7);
+INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
+                       user_security_id)
+values ('Stark Industries', 'Tony Stark', 'tstark@stark.com', '1-515-555-7777', 'Customer Full Address',
+        '/images/users/Tony Stark-profile.png', '/images/users/banner', 5);
+INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
+                       user_security_id)
+values ('Marya', 'Samy', 'marya.samy@mail.com', '1-515-555-0666', 'Customer Full Address',
+        '/images/users/Matya-profile.png', '/images/users/banner', 6);
+INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
+                       user_security_id)
+values ('Wayne Enterprises', 'Bruce Wayne', 'bwayne@wayne.com', '1-515-555-1111', 'Customer Full Address',
+        '/images/users/Bruce Wayne-profile.png', '/images/users/banner', 7);
 
 -- User Security --
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('Acme', 'wcoyote@acme.com', '{bcrypt}$2a$10$E9aahtfuQQnhCVRhwVCVqOPjxuRrhppsIHpaVmFiDmMwN31wUtjLm', true, 1);
+values ('serenity', 'serenitydiver@hotmail.com', '{bcrypt}$2a$10$E9aahtfuQQnhCVRhwVCVqOPjxuRrhppsIHpaVmFiDmMwN31wUtjLm',
+        true, 1);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
 values ('spacely', 'gjettson@spacely.com', '{bcrypt}$2a$10$dMHEjG7K7fhs9mQGCJrFseL2q7/CHRLi71hYt2wFkagLwfla2skSy', true,
         2);
@@ -110,7 +126,8 @@ values ('mscott', 'mscott@dundlermifflin.com', '{bcrypt}$2a$10$fL3vnmII70wYMDPVu
 INSERT INTO user_security (username, email, password, enabled, customer_id)
 values ('tstark', 'tstark@stark.com', '{bcrypt}$2a$10$FRcIGuqcVsBTcAJNHBdRWO70dUuz00og1Blf97t.xj.uDbPG7LbHy', true, 5);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('pgib', 'pgibbons@initec.com', '{bcrypt}$2a$10$td4QwRtTm7QIUHminn/X5eFSISn8LJ9J8n6JfUVtQCZZsKe8AcXb2', true, 6);
+values ('marya', 'marya.samy@mail.com', '{bcrypt}$2a$10$td4QwRtTm7QIUHminn/X5eFSISn8LJ9J8n6JfUVtQCZZsKe8AcXb2', true,
+        6);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
 values ('bwayne', 'bwayne@wayne.com', '{bcrypt}2a$10$4Uhhaxz8nyliCGcBCzlhkOqukyZrx7mXz4y48xxEQ/bMCQXXV5ZJW', true, 7);
 

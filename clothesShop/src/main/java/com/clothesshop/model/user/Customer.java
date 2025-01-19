@@ -27,6 +27,10 @@ public class Customer {
     private String phoneNumber;
     @Column(name = "address")
     private String address;
+    @Column(name = "profile_picture_url")
+    private String profilePictureUrl;
+    @Column(name = "banner_picture_url")
+    private String bannerPictureUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
