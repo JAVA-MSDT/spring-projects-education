@@ -30,4 +30,9 @@ public class HomeController {
         }
         return "private/user/user_profile";
     }
+
+    @GetMapping("/account-settings")
+    public String getAccountSettings(Model model) {
+        return "private/user/account_settings";
+    }
 }
