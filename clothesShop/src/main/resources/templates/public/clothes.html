@@ -11,7 +11,7 @@
 <div th:replace="~{shared/header :: header}"></div>
 <div class="container">
     <h1 class="text-center">Clothes</h1>
-    <a class="btn btn-danger" href="#" th:href="@{/clothes/add}">Add</a>
+    <a class="btn btn-danger" th:if="${@securityUtils.hasRole('ROLE_ADMIN')}" href="#" th:href="@{/clothes/add}">Add</a>
     <div th:if="${deleteMessage}" class="alert alert-info">
         <p th:text="${deleteMessage}"></p>
     </div>

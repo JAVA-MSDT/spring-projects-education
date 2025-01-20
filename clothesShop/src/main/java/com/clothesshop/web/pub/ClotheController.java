@@ -81,6 +81,7 @@ public class ClotheController {
     }
 
     @PostMapping("/update-clothe-image")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String updateClotheImage(@RequestParam("id") Long id, @RequestParam("clotheImage") MultipartFile clotheImage) throws IOException {
         String imageName = ResourcesUtil.saveImageToFolder(clotheImage, clothesImagesFolder);
 

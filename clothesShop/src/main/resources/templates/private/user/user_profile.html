@@ -22,10 +22,19 @@
                  width="100%" height="300px"/>
         </div>
         <div class="col-3">
-            <img th:src="${customer.profilePictureUrl}"
-                 alt="Customer Profile Picture"
-                 class="border border-4 border-dark rounded-circle"
-                 width="250px" height="250px"/>
+            <div>
+                <img th:if="${customer.profilePictureUrl != null}"
+                     th:src="${customer.profilePictureUrl}"
+                     alt="Customer Profile Picture"
+                     class="border border-4 border-dark rounded-circle"
+                     width="250px" height="250px"/>
+                <img th:if="${customer.profilePictureUrl == null}"
+                     th:src="@{/images/user_avatar.jpg}"
+                     alt="Customer Profile Picture"
+                     class="border border-4 border-dark rounded-circle"
+                     width="250px" height="250px"/>
+            </div>
+            <!-- Profile Image Form-->
             <form id="upload-customer-profile-image-form"
                   style="display: none"
                   enctype="multipart/form-data"
@@ -36,13 +45,34 @@
                 <input type="file" name="customerProfileImage" accept="image/*" required/>
                 <input id="upload-customer-profile-image"
                        onclick="hideUploadCustomerProfileImage()"
+                       class="btn btn-info w-100 mt-2"
+                       type="submit"
+                       value="Upload Profile image"/>
+            </form>
+            <!-- Banner Image Form-->
+            <form id="upload-customer-banner-image-form"
+                  style="display: none"
+                  enctype="multipart/form-data"
+                  th:action="@{/customers/update-customer-banner-image}"
+                  method="post"
+                  class="p-2 mb-2">
+                <input type="hidden" name="id" th:value="${customer.id}"/>
+                <input type="file" name="customerBannerImage" accept="image/*" required/>
+                <input id="upload-customer-banner-image"
+                       onclick="hideUploadCustomerBannerImage()"
                        class="btn btn-primary w-100 mt-2"
                        type="submit"
-                       value="Upload image"/>
+                       value="Upload Banner image"/>
             </form>
-            <div class="p-2">
-                <a id="update-customer-profile-image-trigger" class="btn btn-info w-100"
-                   onclick="showUploadCustomerProfileImage()">Update Image</a>
+            <div class="p-2 row">
+                <div class="col-md-6">
+                    <a id="update-customer-profile-image-trigger" class="btn btn-sm btn-outline-info w-100"
+                       onclick="showUploadCustomerProfileImage()">Update Profile Image</a>
+                </div>
+                <div class="col-md-6">
+                    <a id="update-customer-banner-image-trigger" class="btn btn-sm btn-outline-primary w-100 float-end"
+                       onclick="showUploadCustomerBannerImage()">Update Banner Image</a>
+                </div>
             </div>
         </div>
         <div class="col-9 d-flex flex-column align-items-start justify-content-end">
@@ -245,17 +275,29 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script>
-    const uploadImageForm = document.getElementById("upload-customer-profile-image-form");
-    const triggerUpdateBtn = document.getElementById("update-customer-profile-image-trigger");
+    const uploadProfileImageForm = document.getElementById("upload-customer-profile-image-form");
+    const triggerProfileUpdateBtn = document.getElementById("update-customer-profile-image-trigger");
+    const uploadBannerImageForm = document.getElementById("upload-customer-banner-image-form");
+    const triggerBannerUpdateBtn = document.getElementById("update-customer-banner-image-trigger");
 
     function showUploadCustomerProfileImage() {
-        uploadImageForm.style.display = "block"
-        triggerUpdateBtn.style.display = "none";
+        uploadProfileImageForm.style.display = "block"
+        triggerProfileUpdateBtn.style.display = "none";
     }
 
     function hideUploadCustomerProfileImage() {
-        uploadImageForm.style.display = "none"
-        triggerUpdateBtn.style.display = "block";
+        uploadProfileImageForm.style.display = "none"
+        triggerProfileUpdateBtn.style.display = "block";
+    }
+
+    function showUploadCustomerBannerImage() {
+        uploadBannerImageForm.style.display = "block"
+        triggerBannerUpdateBtn.style.display = "none";
+    }
+
+    function hideUploadCustomerBannerImage() {
+        uploadBannerImageForm.style.display = "none"
+        triggerBannerUpdateBtn.style.display = "block";
     }
 
     document.addEventListener("DOMContentLoaded", function () {
