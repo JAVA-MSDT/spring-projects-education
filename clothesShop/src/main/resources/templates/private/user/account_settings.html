@@ -18,51 +18,103 @@
         <div class="col-sm-2">
             <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
                  aria-orientation="vertical">
-                <button class="btn btn-link text-start" id="v-pills-home-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                <button class="btn btn-link text-start" id="v-pills-contact-info-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-contact-info" type="button" role="tab"
+                        aria-controls="v-pills-contact-info"
                         aria-selected="true">Contact Info
                 </button>
-                <button class="btn btn-link text-start" id="v-pills-profile-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
+                <button class="btn btn-link text-start" id="v-pills-change-email-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-change-email" type="button" role="tab"
+                        aria-controls="v-pills-change-email"
                         aria-selected="false">Change Email
                 </button>
-                <button class="btn btn-link text-start" id="v-pills-disabled-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-disabled" type="button" role="tab" aria-controls="v-pills-disabled"
+                <button class="btn btn-link text-start" id="v-pills-change-password-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-change-password" type="button" role="tab"
+                        aria-controls="v-pills-change-password"
                         aria-selected="false">Change Password
                 </button>
-                <button class="btn btn-link text-start" id="v-pills-messages-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages"
+                <button class="btn btn-link text-start" id="v-pills-linked-accounts-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-linked-accounts" type="button" role="tab"
+                        aria-controls="v-pills-linked-accounts"
                         aria-selected="false">Linked Accounts
                 </button>
-                <button class="btn btn-link text-start" id="v-pills-settings-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings"
+                <button class="btn btn-link text-start" id="v-pills-email-preferences-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-email-preferences" type="button" role="tab"
+                        aria-controls="v-pills-email-preferences"
                         aria-selected="false">Email Preferences
                 </button>
             </div>
         </div>
         <div class="col-sm-10">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-                     aria-labelledby="v-pills-home-tab" tabindex="0">
+                <div class="tab-pane fade show active" id="v-pills-contact-info" role="tabpanel"
+                     aria-labelledby="v-pills-contact-info-tab" tabindex="0">
                     <h2>Contact Info</h2>
                     <hr>
+                    <div class="row">
+                        <div class="col-lg-4 mb-4" style="height: 350px">
+                            <h3 class="mb-2">Profile picture</h3>
+                            <img th:src="@{/images/user_avatar.jpg}"
+                                 alt="Customer Profile Picture"
+                                 class="border border-4 border-dark rounded-circle"
+                                 width="250px" height="250px"/>
+                            <!-- Profile Image Form-->
+                            <form id="upload-customer-profile-image-form"
+                                  enctype="multipart/form-data"
+                                  th:action="@{/customers/update-customer-profile-image}"
+                                  method="post"
+                                  class="p-2 mb-2">
+                                <input type="hidden" name="id" th:value="customer.id"/>
+                                <input type="file" name="customerProfileImage" accept="image/*" required/>
+                                <input id="upload-customer-profile-image"
+                                       class="btn btn-info mt-2"
+                                       type="submit"
+                                       value="Upload Profile image"/>
+                            </form>
+                        </div>
+                        <div class="col-lg-8 mb-4" style="height: 350px">
+                            <h3 class="mb-2">Banner picture</h3>
+                            <img class="w-100 h-75" th:src="@{/images/user_banner.jpg}"
+                                 alt="Clothes Banner"/>
+                            <!-- Banner Image Form-->
+                            <form id="upload-customer-banner-image-form"
+                                  enctype="multipart/form-data"
+                                  th:action="@{/customers/update-customer-banner-image}"
+                                  method="post"
+                                  class="p-2 mb-2">
+                                <input type="hidden" name="id" th:value="customer.id"/>
+                                <input type="file" name="customerBannerImage" accept="image/*" required/>
+                                <input id="upload-customer-banner-image"
+                                       class="btn btn-primary mt-2"
+                                       type="submit"
+                                       value="Upload Banner image"/>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
+                <div class="tab-pane fade" id="v-pills-change-email" role="tabpanel"
+                     aria-labelledby="v-pills-change-email-tab"
                      tabindex="0">
                     <h2>Change Email</h2>
                     <hr>
                 </div>
-                <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab"
+                <div class="tab-pane fade" id="v-pills-change-password" role="tabpanel"
+                     aria-labelledby="v-pills-change-password-tab"
                      tabindex="0">
                     <h2>Change Password</h2>
                     <hr>
                 </div>
-                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"
+                <div class="tab-pane fade" id="v-pills-linked-accounts" role="tabpanel"
+                     aria-labelledby="v-pills-linked-accounts-tab"
                      tabindex="0">
                     <h2>Linked Accounts</h2>
                     <hr>
                 </div>
-                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab"
+                <div class="tab-pane fade" id="v-pills-email-preferences" role="tabpanel"
+                     aria-labelledby="v-pills-email-preferences-tab"
                      tabindex="0">
                     <h2>Email Preferences</h2>
                     <hr>
