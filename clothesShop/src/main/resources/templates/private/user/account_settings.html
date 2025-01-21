@@ -13,9 +13,9 @@
 </head>
 <body>
 <div th:replace="~{shared/header :: header}"></div>
-<div class="container-fluid py-4">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-2 bg-dark py-4">
             <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
                  aria-orientation="vertical">
                 <button class="btn btn-link text-start" id="v-pills-contact-info-tab" data-bs-toggle="pill"
@@ -23,15 +23,10 @@
                         aria-controls="v-pills-contact-info"
                         aria-selected="true">Contact Info
                 </button>
-                <button class="btn btn-link text-start" id="v-pills-change-email-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-change-email" type="button" role="tab"
-                        aria-controls="v-pills-change-email"
-                        aria-selected="false">Change Email
-                </button>
-                <button class="btn btn-link text-start" id="v-pills-change-password-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-change-password" type="button" role="tab"
-                        aria-controls="v-pills-change-password"
-                        aria-selected="false">Change Password
+                <button class="btn btn-link text-start" id="v-pills-security-settings-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-security-settings" type="button" role="tab"
+                        aria-controls="v-pills-security-settings"
+                        aria-selected="false">Security Settings
                 </button>
                 <button class="btn btn-link text-start" id="v-pills-linked-accounts-tab" data-bs-toggle="pill"
                         data-bs-target="#v-pills-linked-accounts" type="button" role="tab"
@@ -45,7 +40,7 @@
                 </button>
             </div>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-10 py-4">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-contact-info" role="tabpanel"
                      aria-labelledby="v-pills-contact-info-tab" tabindex="0">
@@ -91,21 +86,199 @@
                             </form>
                         </div>
                     </div>
-                    <div class="row">
-
+                    <hr>
+                    <div class="row my-2">
+                        <div class="col-12 text-left">
+                            <h3>Basic Details</h3>
+                            <form th:action="@{/customers/update-customer-basic}" method="post"
+                                  class="needs-validation" novalidate>
+                                <input type="hidden" name="id" th:value="customer.id"/>
+                                <!-- Name Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="name">Name</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="text" th:value="customer.name"
+                                                id="name" name="name"
+                                                class="form-control form-control-lg update-details-input"
+                                                required autofocus/>
+                                    </div>
+                                </div>
+                                <!-- Contact Name Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="contactName">Contact Name</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="text"
+                                                th:value="customer.contactName"
+                                                id="contactName" name="contactName"
+                                                class="form-control form-control-lg update-details-input"
+                                                required/>
+                                    </div>
+                                </div>
+                                <!-- Email Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="email">Email</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="email"
+                                                th:value="customer.email"
+                                                id="email" name="email"
+                                                class="form-control form-control-lg update-details-input"
+                                                required/>
+                                    </div>
+                                </div>
+                                <!-- Phone Number Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="phoneNumber">Phone Number</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="text"
+                                                th:value="customer.phoneNumber"
+                                                id="phoneNumber" name="phoneNumber"
+                                                class="form-control form-control-lg update-details-input"
+                                                required minlength="6"/>
+                                    </div>
+                                </div>
+                                <!-- Address Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="address">Address</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="text"
+                                                th:value="customer.address"
+                                                id="address" name="address"
+                                                class="form-control form-control-lg update-details-input"
+                                                required/>
+                                    </div>
+                                </div>
+                                <!-- Form Buttons -->
+                                <div class="row p-2">
+                                    <div class="col-sm-4 p-2">
+                                        <input id="update-details-btn"
+                                               class="btn btn-primary w-100"
+                                               type="submit"
+                                               value="Update Details"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-change-email" role="tabpanel"
-                     aria-labelledby="v-pills-change-email-tab"
+                <div class="tab-pane fade" id="v-pills-security-settings" role="tabpanel"
+                     aria-labelledby="v-pills-security-settings-tab"
                      tabindex="0">
-                    <h2>Change Email</h2>
+                    <h2>Security Settings</h2>
                     <hr>
-                </div>
-                <div class="tab-pane fade" id="v-pills-change-password" role="tabpanel"
-                     aria-labelledby="v-pills-change-password-tab"
-                     tabindex="0">
-                    <h2>Change Password</h2>
-                    <hr>
+                    <div class="row my-2">
+                        <div class="col-12 text-left my-4">
+                            <h3>Email Settings</h3>
+                            <form th:action="@{/customers/update-email}" method="post"
+                                  class="needs-validation" novalidate>
+                                <input type="hidden" name="id" th:value="customer.id"/>
+                                <!-- Current Email Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="currentEmail">Current Email</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input disabled
+                                               type="email"
+                                               id="currentEmail" name="currentEmail"
+                                               class="form-control form-control-lg update-details-input"
+                                               required autofocus/>
+                                    </div>
+                                </div>
+                                <!-- New Email Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="newEmail">New Email</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="email"
+                                                id="newEmail" name="newEmail"
+                                                class="form-control form-control-lg update-details-input"
+                                                required/>
+                                    </div>
+                                </div>
+                                <!-- Form Buttons -->
+                                <div class="row p-2">
+                                    <div class="col-sm-4 p-2">
+                                        <input id="update-email-btn"
+                                               class="btn btn-primary w-100"
+                                               type="submit"
+                                               value="Update Email"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-12 text-left my-4">
+                            <h3>Password Settings</h3>
+                            <form th:action="@{/customers/update-password}" method="post"
+                                  class="needs-validation" novalidate>
+                                <input type="hidden" name="id" th:value="customer.id"/>
+                                <!-- Current Password Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="currentPassword">Current Password</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="password"
+                                                id="currentPassword" name="currentPassword"
+                                                class="form-control form-control-lg update-details-input"
+                                                required autofocus/>
+                                    </div>
+                                </div>
+                                <!-- New Password Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="newPassword">New Password</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="password"
+                                                id="newPassword" name="newPassword"
+                                                class="form-control form-control-lg update-details-input"
+                                                required/>
+                                    </div>
+                                </div>
+                                <!-- Repeat Password Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="repeatPassword">Repeat Password</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="password"
+                                                id="repeatPassword" name="repeatPassword"
+                                                class="form-control form-control-lg update-details-input"
+                                                required/>
+                                    </div>
+                                </div>
+                                <!-- Form Buttons -->
+                                <div class="row p-2">
+                                    <div class="col-sm-4 p-2">
+                                        <input id="update-password-btn"
+                                               class="btn btn-primary w-100"
+                                               type="submit"
+                                               value="Update Password"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-linked-accounts" role="tabpanel"
                      aria-labelledby="v-pills-linked-accounts-tab"
