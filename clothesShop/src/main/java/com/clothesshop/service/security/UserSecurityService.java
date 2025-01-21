@@ -38,4 +38,12 @@ public class UserSecurityService implements UserDetailsService {
         return userRepository.save(userSecurity);
     }
 
+    public void saveUserSecurity(UserSecurity userSecurity) {
+        userRepository.save(userSecurity);
+    }
+
+    public UserSecurity getUserSecurityById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
 }

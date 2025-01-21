@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml"
-      th:with="hasAdminRule=${@securityUtils.hasRole('ROLE_ADMIN')}"
+      th:with="hasAdminRule=${@securityUtils.hasRole('ROLE_ADMIN')},
+                customer=${userSecurity.customer}"
       lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -42,14 +43,15 @@
         </div>
         <div class="col-sm-10 py-4">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-contact-info" role="tabpanel"
+                <div th:classappend="${fragment == 'v-pills-contact-info'} ? 'show active' : ''" class="tab-pane fade"
+                     id="v-pills-contact-info" role="tabpanel"
                      aria-labelledby="v-pills-contact-info-tab" tabindex="0">
                     <h2>Contact Info</h2>
                     <hr>
                     <div class="row">
                         <div class="col-lg-4 mb-4" style="height: 350px">
                             <h3 class="mb-2">Profile picture</h3>
-                            <img th:src="@{/images/user_avatar.jpg}"
+                            <img th:src="${customer.profilePictureUrl}"
                                  alt="Customer Profile Picture"
                                  class="border border-4 border-dark rounded-circle"
                                  width="250px" height="250px"/>
@@ -59,7 +61,7 @@
                                   th:action="@{/customers/update-customer-profile-image}"
                                   method="post"
                                   class="p-2 mb-2">
-                                <input type="hidden" name="id" th:value="customer.id"/>
+                                <input type="hidden" name="id" th:value="${customer.id}"/>
                                 <input type="file" name="customerProfileImage" accept="image/*" required/>
                                 <input id="upload-customer-profile-image"
                                        class="btn btn-info mt-2"
@@ -77,7 +79,7 @@
                                   th:action="@{/customers/update-customer-banner-image}"
                                   method="post"
                                   class="p-2 mb-2">
-                                <input type="hidden" name="id" th:value="customer.id"/>
+                                <input type="hidden" name="id" th:value="${customer.id}"/>
                                 <input type="file" name="customerBannerImage" accept="image/*" required/>
                                 <input id="upload-customer-banner-image"
                                        class="btn btn-primary mt-2"
@@ -92,7 +94,7 @@
                             <h3>Basic Details</h3>
                             <form th:action="@{/customers/update-customer-basic}" method="post"
                                   class="needs-validation" novalidate>
-                                <input type="hidden" name="id" th:value="customer.id"/>
+                                <input type="hidden" name="id" th:value="${customer.id}"/>
                                 <!-- Name Field -->
                                 <div class="row p-2">
                                     <div class="col-sm-2">
@@ -100,7 +102,7 @@
                                     </div>
                                     <div class="col-sm-10">
                                         <input
-                                                type="text" th:value="customer.name"
+                                                type="text" th:value="${customer.name}"
                                                 id="name" name="name"
                                                 class="form-control form-control-lg update-details-input"
                                                 required autofocus/>
@@ -114,7 +116,7 @@
                                     <div class="col-sm-10">
                                         <input
                                                 type="text"
-                                                th:value="customer.contactName"
+                                                th:value="${customer.contactName}"
                                                 id="contactName" name="contactName"
                                                 class="form-control form-control-lg update-details-input"
                                                 required/>
@@ -128,7 +130,7 @@
                                     <div class="col-sm-10">
                                         <input
                                                 type="email"
-                                                th:value="customer.email"
+                                                th:value="${customer.email}"
                                                 id="email" name="email"
                                                 class="form-control form-control-lg update-details-input"
                                                 required/>
@@ -142,7 +144,7 @@
                                     <div class="col-sm-10">
                                         <input
                                                 type="text"
-                                                th:value="customer.phoneNumber"
+                                                th:value="${customer.phoneNumber}"
                                                 id="phoneNumber" name="phoneNumber"
                                                 class="form-control form-control-lg update-details-input"
                                                 required minlength="6"/>
@@ -156,7 +158,7 @@
                                     <div class="col-sm-10">
                                         <input
                                                 type="text"
-                                                th:value="customer.address"
+                                                th:value="${customer.address}"
                                                 id="address" name="address"
                                                 class="form-control form-control-lg update-details-input"
                                                 required/>
@@ -175,7 +177,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-security-settings" role="tabpanel"
+                <div class="tab-pane fade"
+                     th:classappend="${fragment == 'v-pills-security-settings'} ? 'show active' : ''"
+                     id="v-pills-security-settings" role="tabpanel"
                      aria-labelledby="v-pills-security-settings-tab"
                      tabindex="0">
                     <h2>Security Settings</h2>
@@ -183,9 +187,9 @@
                     <div class="row my-2">
                         <div class="col-12 text-left my-4">
                             <h3>Email Settings</h3>
-                            <form th:action="@{/customers/update-email}" method="post"
+                            <form th:action="@{/user-security/update-email}" method="post"
                                   class="needs-validation" novalidate>
-                                <input type="hidden" name="id" th:value="customer.id"/>
+                                <input type="hidden" name="id" th:value="${userSecurity.id}"/>
                                 <!-- Current Email Field -->
                                 <div class="row p-2">
                                     <div class="col-sm-2">
@@ -194,6 +198,7 @@
                                     <div class="col-sm-10">
                                         <input disabled
                                                type="email"
+                                               th:value="${userSecurity.email}"
                                                id="currentEmail" name="currentEmail"
                                                class="form-control form-control-lg update-details-input"
                                                required autofocus/>
@@ -225,20 +230,27 @@
                         </div>
                         <div class="col-12 text-left my-4">
                             <h3>Password Settings</h3>
-                            <form th:action="@{/customers/update-password}" method="post"
+                            <div th:if="${passwordUpdateSuccess != null}"
+                                 th:utext="${passwordUpdateSuccess}"
+                                 class="alert alert-info p-2"></div>
+                            <form th:object="${passwordUpdate}" th:action="@{/user-security/update-password}"
+                                  method="post"
                                   class="needs-validation" novalidate>
-                                <input type="hidden" name="id" th:value="customer.id"/>
+                                <input type="hidden" name="id" th:value="${userSecurity.id}"/>
                                 <!-- Current Password Field -->
                                 <div class="row p-2">
                                     <div class="col-sm-2">
                                         <label class="my-2" for="currentPassword">Current Password</label>
                                     </div>
                                     <div class="col-sm-10">
-                                        <input
-                                                type="password"
-                                                id="currentPassword" name="currentPassword"
-                                                class="form-control form-control-lg update-details-input"
-                                                required autofocus/>
+                                        <input th:field="*{currentPassword}"
+                                               type="password"
+                                               id="currentPassword" name="currentPassword"
+                                               class="form-control form-control-lg update-details-input"
+                                               required autofocus/>
+                                        <div th:if="${#fields.hasErrors('currentPassword')}"
+                                             th:errors="*{currentPassword}"
+                                             class="alert alert-danger"></div>
                                     </div>
                                 </div>
                                 <!-- New Password Field -->
@@ -247,11 +259,13 @@
                                         <label class="my-2" for="newPassword">New Password</label>
                                     </div>
                                     <div class="col-sm-10">
-                                        <input
-                                                type="password"
-                                                id="newPassword" name="newPassword"
-                                                class="form-control form-control-lg update-details-input"
-                                                required/>
+                                        <input th:field="*{newPassword}"
+                                               type="password"
+                                               id="newPassword" name="newPassword"
+                                               class="form-control form-control-lg update-details-input"
+                                               required/>
+                                        <div th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"
+                                             class="alert alert-danger"></div>
                                     </div>
                                 </div>
                                 <!-- Repeat Password Field -->
@@ -260,11 +274,13 @@
                                         <label class="my-2" for="repeatPassword">Repeat Password</label>
                                     </div>
                                     <div class="col-sm-10">
-                                        <input
-                                                type="password"
-                                                id="repeatPassword" name="repeatPassword"
-                                                class="form-control form-control-lg update-details-input"
-                                                required/>
+                                        <input th:field="*{repeatPassword}"
+                                               type="password"
+                                               id="repeatPassword" name="repeatPassword"
+                                               class="form-control form-control-lg update-details-input"
+                                               required/>
+                                        <div th:if="${#fields.hasErrors('repeatPassword')}"
+                                             th:errors="*{repeatPassword}" class="alert alert-danger"></div>
                                     </div>
                                 </div>
                                 <!-- Form Buttons -->
@@ -329,8 +345,10 @@
 
     document.addEventListener("DOMContentLoaded", function () {
         const hash = window.location.hash;
-        if (hash) {
-            const tabButton = document.querySelector(`button[data-bs-target="${hash}"]`);
+        const serverFragment = /*[[${fragment}]]*/ '';
+        const tabHash = hash || `#${serverFragment}`;
+        if (tabHash) {
+            const tabButton = document.querySelector(`button[data-bs-target="${tabHash}"]`);
             if (tabButton) {
                 const tab = new bootstrap.Tab(tabButton);
                 tab.show();
@@ -358,17 +376,6 @@
             updateDetailsTrigger.classList.add("btn-info")
             updateDetailsTrigger.classList.remove("btn-warning")
         }
-
-        Array.from(basicDetailsInputs)
-            .forEach(input => {
-                if (input.disabled) {
-                    input.disabled = false;
-                    input.classList.remove("border-0")
-                } else {
-                    input.disabled = true;
-                    input.classList.add("border-0")
-                }
-            })
     }
 </script>
 </body>

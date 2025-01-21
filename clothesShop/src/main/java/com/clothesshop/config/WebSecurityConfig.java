@@ -23,7 +23,7 @@ import java.util.Map;
 @EnableMethodSecurity
 public class WebSecurityConfig {
     private static final String BCRYPT = "bcrypt";
-    private static final String[] PUBLIC_URLS = {"/", "/account-settings", "/clothes/**", "/login*", "/register*", "/images/**"};
+    private static final String[] PUBLIC_URLS = {"/", "/clothes/**", "/login*", "/register*", "/images/**"};
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationFailureHandler authenticationFailureHandler) throws Exception {
