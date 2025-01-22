@@ -43,7 +43,7 @@ public class UserSecurityService implements UserDetailsService {
     }
 
     public UserSecurity getUserSecurityById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findByIdWithRoles(id).orElse(null);
     }
 
 }

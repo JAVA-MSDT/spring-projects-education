@@ -79,16 +79,23 @@ public class CustomerController {
     @PostMapping(path = "/update-customer-basic")
     public String updateCustomerBasicDetails(@ModelAttribute("customer") Customer customer) {
         customerService.updateCustomerBasicDetails(customer);
-        return "redirect:/profile#v-pills-profile";
+        return "redirect:/user-security/account-settings#v-pills-contact-info";
     }
 
     @PostMapping("/update-customer-profile-image")
     public String updateCustomerProfileImage(@RequestParam("id") Long id, @RequestParam("customerProfileImage") MultipartFile customerProfileImage) throws IOException {
-
         String imageName = ResourcesUtil.saveImageToFolder(customerProfileImage, userImagesFolder);
-        String imageUrl = "/images/clothes/" + imageName;
+        String imageUrl = "/images/users/" + imageName;
         customerService.updateCustomerProfileImage(id, imageUrl);
-        return "redirect:/profile#v-pills-profile";
+        return "redirect:/user-security/account-settings#v-pills-contact-info";
+    }
+
+    @PostMapping("/update-customer-banner-image")
+    public String updateCustomerBannerImage(@RequestParam("id") Long id, @RequestParam("customerBannerImage") MultipartFile customerBannerImage) throws IOException {
+        String imageName = ResourcesUtil.saveImageToFolder(customerBannerImage, userImagesFolder);
+        String imageUrl = "/images/users/" + imageName;
+        customerService.updateCustomerBannerImage(id, imageUrl);
+        return "redirect:/user-security/account-settings#v-pills-contact-info";
     }
 
 }

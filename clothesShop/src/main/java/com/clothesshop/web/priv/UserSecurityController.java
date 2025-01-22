@@ -24,9 +24,10 @@ public class UserSecurityController {
 
     @GetMapping("/account-settings")
     public String getAccountSettings(Model model, @AuthenticationPrincipal UserSecurity userSecurity) {
+        UserSecurity userSecurityDB = userSecurityService.getUserSecurityById(userSecurity.getId());
         PasswordUpdate passwordUpdate = PasswordUpdate.defaultInstance();
         model.addAttribute("passwordUpdate", passwordUpdate);
-        model.addAttribute("userSecurity", userSecurityService.getUserSecurityById(userSecurity.getId()));
+        model.addAttribute("userSecurity", userSecurityDB);
         model.addAttribute("fragment", "v-pills-contact-info");
         return "private/user/account_settings";
     }

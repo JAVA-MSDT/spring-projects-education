@@ -17,63 +17,26 @@
 <div class="container mb-2">
     <div class="row">
         <div class="col-12" style="margin-bottom: -40px">
-            <img th:src="@{/images/user_banner.jpg}"
+            <img th:if="${customer.bannerPictureUrl != null}"
+                 th:src="${customer.bannerPictureUrl}"
+                 alt="Clothes Banner"
+                 width="100%" height="300px"/>
+            <img th:if="${customer.bannerPictureUrl == null}"
+                 th:src="@{/images/user_banner.jpg}"
                  alt="Clothes Banner"
                  width="100%" height="300px"/>
         </div>
         <div class="col-3">
-            <div>
-                <img th:if="${customer.profilePictureUrl != null}"
-                     th:src="${customer.profilePictureUrl}"
-                     alt="Customer Profile Picture"
-                     class="border border-4 border-dark rounded-circle"
-                     width="250px" height="250px"/>
-                <img th:if="${customer.profilePictureUrl == null}"
-                     th:src="@{/images/user_avatar.jpg}"
-                     alt="Customer Profile Picture"
-                     class="border border-4 border-dark rounded-circle"
-                     width="250px" height="250px"/>
-            </div>
-            <!-- Profile Image Form-->
-            <form id="upload-customer-profile-image-form"
-                  style="display: none"
-                  enctype="multipart/form-data"
-                  th:action="@{/customers/update-customer-profile-image}"
-                  method="post"
-                  class="p-2 mb-2">
-                <input type="hidden" name="id" th:value="${customer.id}"/>
-                <input type="file" name="customerProfileImage" accept="image/*" required/>
-                <input id="upload-customer-profile-image"
-                       onclick="hideUploadCustomerProfileImage()"
-                       class="btn btn-info w-100 mt-2"
-                       type="submit"
-                       value="Upload Profile image"/>
-            </form>
-            <!-- Banner Image Form-->
-            <form id="upload-customer-banner-image-form"
-                  style="display: none"
-                  enctype="multipart/form-data"
-                  th:action="@{/customers/update-customer-banner-image}"
-                  method="post"
-                  class="p-2 mb-2">
-                <input type="hidden" name="id" th:value="${customer.id}"/>
-                <input type="file" name="customerBannerImage" accept="image/*" required/>
-                <input id="upload-customer-banner-image"
-                       onclick="hideUploadCustomerBannerImage()"
-                       class="btn btn-primary w-100 mt-2"
-                       type="submit"
-                       value="Upload Banner image"/>
-            </form>
-            <div class="p-2 row">
-                <div class="col-md-6">
-                    <a id="update-customer-profile-image-trigger" class="btn btn-sm btn-outline-info w-100"
-                       onclick="showUploadCustomerProfileImage()">Update Profile Image</a>
-                </div>
-                <div class="col-md-6">
-                    <a id="update-customer-banner-image-trigger" class="btn btn-sm btn-outline-primary w-100 float-end"
-                       onclick="showUploadCustomerBannerImage()">Update Banner Image</a>
-                </div>
-            </div>
+            <img th:if="${customer.profilePictureUrl != null}"
+                 th:src="${customer.profilePictureUrl}"
+                 alt="Customer Profile Picture"
+                 class="border border-4 border-dark rounded-circle"
+                 width="250px" height="250px"/>
+            <img th:if="${customer.profilePictureUrl == null}"
+                 th:src="@{/images/user_avatar.jpg}"
+                 alt="Customer Profile Picture"
+                 class="border border-4 border-dark rounded-circle"
+                 width="250px" height="250px"/>
         </div>
         <div class="col-9 d-flex flex-column align-items-start justify-content-end">
             <h3 class="d-block" th:text="${customer.name}">Customer Name</h3>
@@ -105,21 +68,12 @@
                             aria-selected="false">Messages
                     </button>
                 </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
-                            data-bs-target="#v-pills-settings" type="button" role="tab"
-                            aria-controls="v-pills-settings"
-                            aria-selected="false">Settings
-                    </button>
-                </li>
             </ul>
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
                      aria-labelledby="v-pills-profile-tab">
                     <div class="container text-left">
-                        <form th:object="${customer}" th:action="@{/customers/update-customer-basic}" method="post"
-                              class="needs-validation" novalidate>
-                            <input type="hidden" name="id" th:value="${customer.id}"/>
+                        <form th:object="${customer}">
                             <!-- Name Field -->
                             <div class="row p-2">
                                 <div class="col-sm-2">
@@ -129,8 +83,7 @@
                                     <input disabled
                                            type="text" th:value="${customer.name != null ? customer.name : 'Default'}"
                                            id="name" name="name"
-                                           class="form-control form-control-lg border-0 update-details-input"
-                                           required autofocus/>
+                                           class="form-control form-control-lg border-0 update-details-input"/>
                                 </div>
                             </div>
                             <!-- Contact Name Field -->
@@ -143,8 +96,7 @@
                                            type="text"
                                            th:value="${customer.contactName != null ? customer.contactName : 'Default'}"
                                            id="contactName" name="contactName"
-                                           class="form-control form-control-lg border-0 update-details-input"
-                                           required/>
+                                           class="form-control form-control-lg border-0 update-details-input"/>
                                 </div>
                             </div>
                             <!-- Email Field -->
@@ -157,8 +109,7 @@
                                            type="email"
                                            th:value="${customer.email != null ? customer.email : 'Default'}"
                                            id="email" name="email"
-                                           class="form-control form-control-lg border-0 update-details-input"
-                                           required/>
+                                           class="form-control form-control-lg border-0 update-details-input"/>
                                 </div>
                             </div>
                             <!-- Phone Number Field -->
@@ -171,8 +122,7 @@
                                            type="text"
                                            th:value="${customer.phoneNumber != null ? customer.phoneNumber : 'Default'}"
                                            id="phoneNumber" name="phoneNumber"
-                                           class="form-control form-control-lg border-0 update-details-input"
-                                           required minlength="6"/>
+                                           class="form-control form-control-lg border-0 update-details-input"/>
                                 </div>
                             </div>
                             <!-- Address Field -->
@@ -185,28 +135,7 @@
                                            type="text"
                                            th:value="${customer.address != null ? customer.address : 'Default'}"
                                            id="address" name="address"
-                                           class="form-control form-control-lg border-0 update-details-input"
-                                           required/>
-                                </div>
-                            </div>
-                            <!-- Form Buttons -->
-                            <div class="row p-2">
-                                <div class="col-sm-4 p-2">
-                                    <a class="btn btn-primary w-100" href="#"
-                                       th:href="@{mailto:{to}(to=${customer.email})}">Send
-                                        Email</a>
-                                </div>
-                                <div class="col-sm-4 p-2">
-                                    <a id="update-details-trigger" class="btn btn-info w-100"
-                                       onclick="activateUpdate()"
-                                       th:if="${isSameLoggedInUser}">Update Details</a>
-                                </div>
-                                <div class="col-sm-4 p-2">
-                                    <input id="update-details-btn"
-                                           disabled
-                                           class="btn btn-primary w-100"
-                                           type="hidden"
-                                           value="Update Details"/>
+                                           class="form-control form-control-lg border-0 update-details-input"/>
                                 </div>
                             </div>
                         </form>
@@ -243,25 +172,6 @@
                 </div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     <h2>Under Construction.....</h2>
-                </div>
-                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                    <h2>Settings Zone </h2>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title" th:text="${userSecurity.username}">Username</h3>
-                            <p th:text="'Email Address: ' + ${userSecurity.email}">Email address </p>
-                            <div class="row border rounded bg-light pt-2"
-                                 th:if="${hasAdminRule}">
-                                <div class="col-2">Roles</div>
-                                <div class="col-10">
-                                    <div th:each="role : ${userSecurity.roles}">
-                                        <p th:text="${role.role}">Role</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

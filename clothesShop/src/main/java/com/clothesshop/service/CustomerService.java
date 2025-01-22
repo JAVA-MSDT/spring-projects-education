@@ -66,6 +66,12 @@ public class CustomerService {
         saveCustomer(customer);
     }
 
+    public void updateCustomerBannerImage(Long id, String imageUrl) {
+        Customer customer = findById(id);
+        customer.setBannerPictureUrl(imageUrl);
+        saveCustomer(customer);
+    }
+
     private Customer findById(Long id) {
         return customerRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer with id: " + id + " Not found"));
     }

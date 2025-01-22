@@ -51,7 +51,13 @@
                     <div class="row">
                         <div class="col-lg-4 mb-4" style="height: 350px">
                             <h3 class="mb-2">Profile picture</h3>
-                            <img th:src="${customer.profilePictureUrl}"
+                            <img th:if="${customer.profilePictureUrl != null}"
+                                 th:src="${customer.profilePictureUrl}"
+                                 alt="Customer Profile Picture"
+                                 class="border border-4 border-dark rounded-circle"
+                                 width="250px" height="250px"/>
+                            <img th:if="${customer.profilePictureUrl == null}"
+                                 th:src="@{/images/user_avatar.jpg}"
                                  alt="Customer Profile Picture"
                                  class="border border-4 border-dark rounded-circle"
                                  width="250px" height="250px"/>
@@ -71,8 +77,14 @@
                         </div>
                         <div class="col-lg-8 mb-4" style="height: 350px">
                             <h3 class="mb-2">Banner picture</h3>
-                            <img class="w-100 h-75" th:src="@{/images/user_banner.jpg}"
-                                 alt="Clothes Banner"/>
+                            <img class="w-100 h-75"
+                                 th:if="${customer.bannerPictureUrl != null}"
+                                 th:src="${customer.bannerPictureUrl}"
+                                 alt="Customer Banner"/>
+                            <img class="w-100 h-75"
+                                 th:if="${customer.bannerPictureUrl == null}"
+                                 th:src="@{/images/user_banner.jpg}"
+                                 alt="Customer Banner"/>
                             <!-- Banner Image Form-->
                             <form id="upload-customer-banner-image-form"
                                   enctype="multipart/form-data"
@@ -293,6 +305,18 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div class="col-12 text-left my-4">
+                            <div class="row border rounded bg-light pt-2"
+                                 th:if="${hasAdminRule}">
+                                <div class="col-2">Roles</div>
+                                <div class="col-10">
+                                    <div th:each="role : ${userSecurity.roles}">
+                                        <p th:text="${role.role}">Role</p>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>

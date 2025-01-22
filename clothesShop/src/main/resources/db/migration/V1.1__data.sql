@@ -82,33 +82,33 @@ INSERT INTO customers (name, contact_name, email, phone, address, profile_pictur
                        user_security_id)
 values ('Ahmed', 'Samy', 'serenitydiver@hotmail.com', '+48-000-000000', 'Warsaw, Poland',
         '/images/users/ahmed-samy-profile.jpg',
-        '/images/users/banner', 1);
+        '/images/users/ahmed-samy-banner.jpg', 1);
 INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
                        user_security_id)
 values ('Spacely Space Sprockets', 'George Jettson', 'gjettson@spacely.com', '1-515-555-2350', 'Customer Full Address',
-        '/images/users/Spacely-profile.png', '/images/users/banner',
+        '/images/users/Spacely-profile.png', '/images/users/Spacely-banner.jpg',
         2);
 INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
                        user_security_id)
 values ('Callahan Auto', 'Thomas Callhan', 'tcallahan@callhhanauto.com', '1-515-555-2333', 'Customer Full Address',
-        '/images/users/Callahan Auto-profile.png', '/images/users/banner', 3);
+        '/images/users/Callahan Auto-profile.png', '/images/users/Callahan Auto-banner.jpg', 3);
 INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
                        user_security_id)
 values ('Dundler Mifflin Inc', 'Michael Scott', 'mscott@dundlermifflin.com', '1-515-555-2320', 'Customer Full Address',
-        '/images/users/Michael Scott-profile.png', '/images/users/banner',
+        '/images/users/Michael Scott-profile.png', '/images/users/Michael Scott-banner.jpg',
         4);
 INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
                        user_security_id)
 values ('Stark Industries', 'Tony Stark', 'tstark@stark.com', '1-515-555-7777', 'Customer Full Address',
-        '/images/users/Tony Stark-profile.png', '/images/users/banner', 5);
+        '/images/users/Tony Stark-profile.png', '/images/users/Tony Stark-banner.jpg', 5);
 INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
                        user_security_id)
 values ('Marya', 'Samy', 'marya.samy@mail.com', '1-515-555-0666', 'Customer Full Address',
-        '/images/users/Matya-profile.png', '/images/users/banner', 6);
+        '/images/users/Marya-profile.png', '/images/users/Marya-banner.jpg', 6);
 INSERT INTO customers (name, contact_name, email, phone, address, profile_picture_url, banner_picture_url,
                        user_security_id)
 values ('Wayne Enterprises', 'Bruce Wayne', 'bwayne@wayne.com', '1-515-555-1111', 'Customer Full Address',
-        '/images/users/Bruce Wayne-profile.png', '/images/users/banner', 7);
+        '/images/users/Bruce Wayne-profile.png', '/images/users/Bruce Wayne-banner.jpg', 7);
 
 -- User Security --
 INSERT INTO user_security (username, email, password, enabled, customer_id)

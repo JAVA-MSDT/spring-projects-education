@@ -30,6 +30,9 @@ public class ClothesShopApplication implements ApplicationRunner {
         System.out.println(passwordEncoder.encode("bwayne"));
 
         userRepository.findAll()
-                .forEach(System.out::println);
+                .forEach(user -> {
+                    System.out.println("User:: " + user);
+                    System.out.println("Customer:: " + user.getCustomer());
+                });
     }
 }
