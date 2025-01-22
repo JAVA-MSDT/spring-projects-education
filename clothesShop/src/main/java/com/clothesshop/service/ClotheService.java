@@ -4,11 +4,11 @@ import com.clothesshop.model.clothe.Clothe;
 import com.clothesshop.repository.ClotheRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,8 +16,8 @@ import java.util.List;
 public class ClotheService {
     private final ClotheRepository clotheRepository;
 
-    public List<Clothe> getAllClothes() {
-        return clotheRepository.findAll();
+    public Page<Clothe> getAllClothes(Pageable pageable) {
+        return clotheRepository.findAll(pageable);
     }
 
     public Clothe getClotheById(Long id) {

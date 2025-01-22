@@ -6,6 +6,10 @@ import com.clothesshop.util.ResourcesUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/clothes")
@@ -25,11 +28,24 @@ public class ClotheController {
     @Value("${clothes.images.folder}")
     private String clothesImagesFolder;
 
-    @GetMapping
-    public String getAllClothes(Model model) {
-        List<Clothe> clothes = clotheService.getAllClothes();
-        model.addAttribute("clothes", clothes);
-        model.addAttribute("module", "clothes");
+    @GetMapping()
+    public String getAllClothesPag(@RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "10") int size,
+                                   @RequestParam(defaultValue = "id") String sortBy,
+                                   @RequestParam(defaultValue = "asc") String sortDir,
+                                   Model model) {
+
+        Sort.Direction direction = sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+        Page<Clothe> clothePage = clotheService.getAllClothes(pageable);
+
+        model.addAttribute("clothes", clothePage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", clothePage.getTotalPages());
+        model.addAttribute("totalItems", clothePage.getTotalElements());
+        model.addAttribute("size", size);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortDir", sortDir);
         return "public/clothes";
     }
 

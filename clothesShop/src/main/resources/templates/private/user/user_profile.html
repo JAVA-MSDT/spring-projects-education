@@ -182,31 +182,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script>
-    const uploadProfileImageForm = document.getElementById("upload-customer-profile-image-form");
-    const triggerProfileUpdateBtn = document.getElementById("update-customer-profile-image-trigger");
-    const uploadBannerImageForm = document.getElementById("upload-customer-banner-image-form");
-    const triggerBannerUpdateBtn = document.getElementById("update-customer-banner-image-trigger");
-
-    function showUploadCustomerProfileImage() {
-        uploadProfileImageForm.style.display = "block"
-        triggerProfileUpdateBtn.style.display = "none";
-    }
-
-    function hideUploadCustomerProfileImage() {
-        uploadProfileImageForm.style.display = "none"
-        triggerProfileUpdateBtn.style.display = "block";
-    }
-
-    function showUploadCustomerBannerImage() {
-        uploadBannerImageForm.style.display = "block"
-        triggerBannerUpdateBtn.style.display = "none";
-    }
-
-    function hideUploadCustomerBannerImage() {
-        uploadBannerImageForm.style.display = "none"
-        triggerBannerUpdateBtn.style.display = "block";
-    }
-
     document.addEventListener("DOMContentLoaded", function () {
         const hash = window.location.hash;
         if (hash) {
@@ -217,39 +192,6 @@
             }
         }
     });
-
-    function activateUpdate() {
-        let submitBasicDetailsBtn = document.getElementById("update-details-btn");
-        let updateDetailsTrigger = document.getElementById("update-details-trigger");
-        let basicDetailsInputs = document.getElementsByClassName("update-details-input");
-
-        if (submitBasicDetailsBtn.disabled === true) {
-            submitBasicDetailsBtn.disabled = false;
-            submitBasicDetailsBtn.type = "submit";
-
-            updateDetailsTrigger.innerText = "Cancel Update"
-            updateDetailsTrigger.classList.remove("btn-info")
-            updateDetailsTrigger.classList.add("btn-warning")
-        } else {
-            submitBasicDetailsBtn.disabled = true;
-            submitBasicDetailsBtn.type = "hidden";
-
-            updateDetailsTrigger.innerText = "Update Details";
-            updateDetailsTrigger.classList.add("btn-info")
-            updateDetailsTrigger.classList.remove("btn-warning")
-        }
-
-        Array.from(basicDetailsInputs)
-            .forEach(input => {
-                if (input.disabled) {
-                    input.disabled = false;
-                    input.classList.remove("border-0")
-                } else {
-                    input.disabled = true;
-                    input.classList.add("border-0")
-                }
-            })
-    }
 </script>
 </body>
 </html>
