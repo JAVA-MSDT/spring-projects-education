@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      th:with="hasAdminRule=${@securityUtils.hasRole('ROLE_ADMIN')}"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
@@ -26,7 +29,7 @@
                     <a class="nav-link" th:classappend="${module == 'clothes' ? 'active' : ''}" href="#"
                        th:href="@{/clothes}">Clothes</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" th:if="${hasAdminRule}">
                     <a class="nav-link" th:classappend="${module == 'customers' ? 'active' : ''}" href="#"
                        th:href="@{/customers}">Customers</a>
                 </li>

@@ -10,7 +10,6 @@
 <body>
 <div th:replace="~{shared/header :: header}"></div>
 <div class="container py-4">
-    <h1 class="text-center">Clothes</h1>
     <a class="btn btn-danger" th:if="${@securityUtils.hasRole('ROLE_ADMIN')}" href="#" th:href="@{/clothes/add}">Add</a>
     <div th:if="${deleteMessage}" class="alert alert-info">
         <p th:text="${deleteMessage}"></p>
@@ -20,66 +19,90 @@
     </div>
     <!-- Sorting Links -->
     <!-- Filter, Sort, and Items Per Page Form -->
-    <form id="filterForm" class="row text-center my-4 border rounded py-2 pt-3 shadow bg-body-tertiary"
-          th:action="@{/clothes}"
-          method="get">
-        <!-- Sort By -->
-        <div class="col-auto">
+    <div class="row text-center my-4 border rounded py-2 pt-3 shadow bg-body-tertiary ">
+        <form id="filterForm" class="col-auto"
+              th:action="@{/clothes}"
+              method="get">
             <div class="row">
-                <div class="col-auto d-flex align-items-center">
-                    <label for="sortBy" class="form-label text-center">Sort By:</label>
-                </div>
+                <!-- Sort By -->
                 <div class="col-auto">
-                    <select class="form-select" name="sortBy" id="sortBy" style="width: 150px"
-                            th:onchange="applyFilter()">
-                        <option th:selected="${sortBy == null}" value="">None</option>
-                        <option value="clotheType" th:selected="${sortBy == 'clotheType'}">Type</option>
-                        <option value="fabric" th:selected="${sortBy == 'fabric'}">Fabric</option>
-                        <option value="size" th:selected="${sortBy == 'size'}">Size</option>
-                        <option value="gender" th:selected="${sortBy == 'gender'}">Gender</option>
-                    </select>
+                    <div class="row">
+                        <div class="col-auto d-flex align-items-center">
+                            <label for="sortBy" class="form-label text-center">Sort By:</label>
+                        </div>
+                        <div class="col-auto">
+                            <select class="form-select" name="sortBy" id="sortBy" style="width: 150px"
+                                    onchange="applyFilter()">
+                                <option th:selected="${sortBy == null}" value="">None</option>
+                                <option value="clotheType" th:selected="${sortBy == 'clotheType'}">Type</option>
+                                <option value="fabric" th:selected="${sortBy == 'fabric'}">Fabric</option>
+                                <option value="size" th:selected="${sortBy == 'size'}">Size</option>
+                                <option value="gender" th:selected="${sortBy == 'gender'}">Gender</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sort Direction -->
+                <div class="col-auto">
+                    <div class="row">
+                        <div class="col-auto">
+                            <label class="form-label text-center">Sort Direction:</label>
+                        </div>
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sortDir" id="sortAsc" value="asc"
+                                       th:checked="${sortDir == 'asc'}" onchange="applyFilter()">
+                                <label class="form-check-label" for="sortAsc">Ascending</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sortDir" id="sortDesc" value="desc"
+                                       th:checked="${sortDir == 'desc'}" onchange="applyFilter()">
+                                <label class="form-check-label" for="sortDesc">Descending</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Items Per Page -->
+                <div class="col-auto">
+                    <div class="row">
+                        <div class="col-auto d-flex align-items-center">
+                            <label for="itemsPerPage" class="form-label">Items Per Page:</label>
+                        </div>
+                        <div class="col-auto">
+                            <select class="form-select" name="size" id="itemsPerPage" style="width: 150px"
+                                    th:onchange="applyFilter()">
+                                <option value="5" th:selected="${size == 5}">5</option>
+                                <option value="10" th:selected="${size == 10}">10</option>
+                                <option value="20" th:selected="${size == 20}">20</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Sort Direction -->
+        </form>
+        <!-- Display Items As -->
         <div class="col-auto">
             <div class="row">
                 <div class="col-auto">
-                    <label class="form-label text-center">Sort Direction:</label>
+                    <label class="form-label text-center">Display items as:</label>
                 </div>
                 <div class="col-auto">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sortDir" id="sortAsc" value="asc"
-                               th:checked="${sortDir == 'asc'}" th:onchange="applyFilter()">
-                        <label class="form-check-label" for="sortAsc">Ascending</label>
+                        <input class="form-check-input" type="radio" name="displayMode" id="displayCard" value="card"
+                               onchange="toggleDisplay('card')">
+                        <label class="form-check-label" for="displayCard">Display Card</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sortDir" id="sortDesc" value="desc"
-                               th:checked="${sortDir == 'desc'}" th:onchange="applyFilter()">
-                        <label class="form-check-label" for="sortDesc">Descending</label>
+                        <input class="form-check-input" type="radio" name="displayMode" id="displayTable" value="table"
+                               onchange="toggleDisplay('table')">
+                        <label class="form-check-label" for="displayTable">display Table</label>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Items Per Page -->
-        <div class="col-auto">
-            <div class="row">
-                <div class="col-auto d-flex align-items-center">
-                    <label for="itemsPerPage" class="form-label">Items Per Page:</label>
-                </div>
-                <div class="col-auto">
-                    <select class="form-select" name="size" id="itemsPerPage" style="width: 150px"
-                            th:onchange="applyFilter()">
-                        <option value="5" th:selected="${size == 5}">5</option>
-                        <option value="10" th:selected="${size == 10}">10</option>
-                        <option value="20" th:selected="${size == 20}">20</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </form>
+    </div>
     <!-- Top Pagination -->
     <nav th:if="${totalPages > 1}">
         <ul class="pagination justify-content-center">
@@ -108,47 +131,65 @@
             </li>
         </ul>
     </nav>
-    <!-- Table for Clothes -->
-    <table class="table table-bordered table-success table-striped">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Type</th>
-            <th>Fabric</th>
-            <th>Gender</th>
-            <th>Size</th>
-            <th>Age Type</th>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>Image</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="clothe, stat : ${clothes}">
-            <td th:text="${stat.index + 1}"></td>
-            <td th:text="${clothe.clotheType}"></td>
-            <td th:text="${clothe.fabric}"></td>
-            <td th:text="${clothe.gender}"></td>
-            <td th:text="${clothe.size}"></td>
-            <td th:text="${clothe.ageType}"></td>
-            <td th:text="${clothe.description}"></td>
-            <td th:text="${clothe.quantityInStore}"></td>
-            <td>
-                <img th:src="${clothe.images}" alt="Clothes Banner" srcset="" width="50px" height="50px"/>
-            </td>
-            <td>
-                <a class="btn btn-primary" href="#" th:href="@{/clothes/{id}(id=${clothe.id})}">Details</a>
-                <a class="btn btn-warning" href="#" th:href="@{/clothes/update/{id}(id=${clothe.id})}">Update</a>
-                <a class="btn btn-danger" href="#" th:href="@{/clothes/delete/{id}(id=${clothe.id})}">Delete</a>
-            </td>
-        </tr>
-        <tr th:if="${clothes.isEmpty()}">
-            <td colspan="8" class="text-center">No clothes found.</td>
-        </tr>
-        </tbody>
-    </table>
-
+    <div class="itemsWrapper">
+        <!-- Table for Clothes -->
+        <table id="tableView" class="table table-bordered table-success table-striped d-none">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Type</th>
+                <th>Fabric</th>
+                <th>Gender</th>
+                <th>Size</th>
+                <th>Age Type</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="clothe, stat : ${clothes}">
+                <td th:text="${stat.index + 1}"></td>
+                <td th:text="${clothe.clotheType}"></td>
+                <td th:text="${clothe.fabric}"></td>
+                <td th:text="${clothe.gender}"></td>
+                <td th:text="${clothe.size}"></td>
+                <td th:text="${clothe.ageType}"></td>
+                <td th:text="${clothe.description}"></td>
+                <td th:text="${clothe.quantityInStore}"></td>
+                <td>
+                    <img th:src="${clothe.images}" alt="Clothes Picture" srcset="" width="50px" height="50px"/>
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="#" th:href="@{/clothes/{id}(id=${clothe.id})}">Details</a>
+                    <a class="btn btn-warning" href="#" th:href="@{/clothes/update/{id}(id=${clothe.id})}">Update</a>
+                    <a class="btn btn-danger" href="#" th:href="@{/clothes/delete/{id}(id=${clothe.id})}">Delete</a>
+                </td>
+            </tr>
+            <tr th:if="${clothes.isEmpty()}">
+                <td colspan="8" class="text-center">No clothes found.</td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- Cards for Clothes -->
+        <div id="cardView" class="row row-cols-1 row-cols-md-3 g-4 mb-3 d-none">
+            <div class="col" th:each="clothe, stat : ${clothes}">
+                <div class="card h-100 border rounded py-2 shadow bg-body-tertiary">
+                    <div class="p-2">
+                        <img th:src="${clothe.images}" alt="Clothes Picture" class="w-100"/>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${clothe.clotheType}"></h5>
+                        <p class="card-text" th:text="${clothe.description}"></p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href="#" th:href="@{/clothes/{id}(id=${clothe.id})}">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bottom Pagination -->
     <nav th:if="${totalPages > 1}">
         <ul class="pagination justify-content-center">
@@ -180,9 +221,42 @@
 </div>
 <div th:replace="~{shared/footer :: footer}"></div>
 <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const itemsWrapper = document.getElementById("itemsWrapper");
+        // Retrieve display mode from local storage
+        const storedMode = localStorage.getItem("displayMode") || "card";
+
+        // Set the default display mode based on local storage
+        toggleDisplay(storedMode);
+
+        // Set the correct radio button as checked
+        if (storedMode === "card") {
+            document.getElementById("displayCard").checked = true;
+        } else if (storedMode === "table") {
+            document.getElementById("displayTable").checked = true;
+        }
+
+        itemsWrapper.classList.remove("d-none");
+    });
+
     function applyFilter() {
-        console.log("Apply Filter");
         document.getElementById("filterForm").submit();
+    }
+
+    function toggleDisplay(mode) {
+        const cardView = document.getElementById("cardView");
+        const tableView = document.getElementById("tableView");
+
+        localStorage.setItem("displayMode", mode);
+
+        if (mode === "card") {
+            cardView.classList.remove("d-none");
+            tableView.classList.add("d-none");
+        } else {
+            cardView.classList.add("d-none");
+            tableView.classList.remove("d-none");
+        }
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
