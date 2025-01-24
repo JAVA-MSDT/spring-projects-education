@@ -199,6 +199,9 @@
                     <div class="row my-2">
                         <div class="col-12 text-left my-4">
                             <h3>Email Settings</h3>
+                            <div th:if="${emailUpdateSuccess != null}"
+                                 th:utext="${emailUpdateSuccess}"
+                                 class="alert alert-info p-2"></div>
                             <form th:action="@{/user-security/update-email}" method="post"
                                   class="needs-validation" novalidate>
                                 <input type="hidden" name="id" th:value="${userSecurity.id}"/>
@@ -263,6 +266,11 @@
                                         <div th:if="${#fields.hasErrors('currentPassword')}"
                                              th:errors="*{currentPassword}"
                                              class="alert alert-danger"></div>
+                                        <div th:if="${wrongPassword}"
+                                             th:utext="${wrongPassword}"
+                                             class="alert alert-danger">
+                                            <a href="">Forget Password</a>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- New Password Field -->

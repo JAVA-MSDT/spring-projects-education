@@ -9,10 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -32,6 +29,14 @@ public class UserSecurityController {
         return "private/user/account_settings";
     }
 
+    @PostMapping("/update-email")
+    public String updateEmail(@RequestParam("newEmail") String newEmail, @RequestParam("id") Long id,
+                              RedirectAttributes redirectAttributes) {
+        userSecurityService.updateUserSecurityEmail(id, newEmail);
+        redirectAttributes.addFlashAttribute("emailUpdateSuccess", "Email updated successfully");
+        return "redirect:/user-security/account-settings#v-pills-security-settings";
+    }
+
     @PostMapping("/update-password")
     public String updatePassword(@Valid @ModelAttribute("passwordUpdate") PasswordUpdate passwordUpdate,
                                  BindingResult bindingResult, Model model, @AuthenticationPrincipal UserSecurity userSecurity,
@@ -40,6 +45,12 @@ public class UserSecurityController {
             model.addAttribute("userSecurity", userSecurity);
             model.addAttribute("fragment", "v-pills-security-settings");
             return "private/user/account_settings";
+        }
+
+        if (!userSecurityService.updateUserSecurityPassword(passwordUpdate)) {
+            System.out.println("userSecurityService.updateUserSecurityPassword(passwordUpdate):: " + userSecurityService.updateUserSecurityPassword(passwordUpdate));
+            redirectAttributes.addFlashAttribute("wrongPassword", "Your current password is incorrect.");
+            return "redirect:/user-security/account-settings#v-pills-security-settings";
         }
         redirectAttributes.addFlashAttribute("passwordUpdateSuccess", "Password updated successfully");
         return "redirect:/user-security/account-settings#v-pills-security-settings";
