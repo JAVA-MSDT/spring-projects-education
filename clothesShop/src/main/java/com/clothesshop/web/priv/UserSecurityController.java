@@ -47,12 +47,12 @@ public class UserSecurityController {
             return "private/user/account_settings";
         }
 
-        if (!userSecurityService.updateUserSecurityPassword(passwordUpdate)) {
-            System.out.println("userSecurityService.updateUserSecurityPassword(passwordUpdate):: " + userSecurityService.updateUserSecurityPassword(passwordUpdate));
-            redirectAttributes.addFlashAttribute("wrongPassword", "Your current password is incorrect.");
-            return "redirect:/user-security/account-settings#v-pills-security-settings";
+        boolean success = userSecurityService.updateUserSecurityPassword(passwordUpdate);
+        if (success) {
+            redirectAttributes.addFlashAttribute("passwordUpdateSuccess", "Password updated successfully.");
+        } else {
+            redirectAttributes.addFlashAttribute("wrongPassword", "Current password is incorrect.");
         }
-        redirectAttributes.addFlashAttribute("passwordUpdateSuccess", "Password updated successfully");
         return "redirect:/user-security/account-settings#v-pills-security-settings";
     }
 }

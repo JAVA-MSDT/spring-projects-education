@@ -57,11 +57,7 @@ public class UserSecurityService implements UserDetailsService {
 
     public boolean updateUserSecurityPassword(PasswordUpdate passwordUpdate) {
         UserSecurity userSecurity = findUserSecurityByID(passwordUpdate.id());
-        String currentPasswordDB = userSecurity.getPassword();
-        String currentPasswordUI = passwordEncoder.encode(passwordUpdate.currentPassword());
-        System.out.println("currentPasswordDB:: " + currentPasswordDB);
-        System.out.println("currentPasswordUI:: " + currentPasswordUI);
-        if (currentPasswordDB.equals(currentPasswordUI)) {
+        if (passwordEncoder.matches(passwordUpdate.currentPassword(), userSecurity.getPassword())) {
             userSecurity.setPassword(passwordEncoder.encode(passwordUpdate.newPassword()));
             userRepository.save(userSecurity);
             return true;
