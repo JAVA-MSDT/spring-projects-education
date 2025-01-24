@@ -1,7 +1,9 @@
 package com.clothesshop.web.priv;
 
 import com.clothesshop.dto.PasswordUpdate;
+import com.clothesshop.model.user.security.Role;
 import com.clothesshop.model.user.security.UserSecurity;
+import com.clothesshop.service.security.RoleService;
 import com.clothesshop.service.security.UserSecurityService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,19 +14,28 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/user-security")
 @RequiredArgsConstructor
 public class UserSecurityController {
 
     private final UserSecurityService userSecurityService;
+    private final RoleService roleService;
 
     @GetMapping("/account-settings")
     public String getAccountSettings(Model model, @AuthenticationPrincipal UserSecurity userSecurity) {
         UserSecurity userSecurityDB = userSecurityService.getUserSecurityById(userSecurity.getId());
+        Set<Role> roles = roleService.findAll()
+                .stream().filter(role -> !userSecurity.getRoles().contains(role))
+                .collect(Collectors.toSet());
+
         PasswordUpdate passwordUpdate = PasswordUpdate.defaultInstance();
         model.addAttribute("passwordUpdate", passwordUpdate);
         model.addAttribute("userSecurity", userSecurityDB);
+        model.addAttribute("roles", roles);
         model.addAttribute("fragment", "v-pills-contact-info");
         return "private/user/account_settings";
     }
@@ -53,6 +64,13 @@ public class UserSecurityController {
         } else {
             redirectAttributes.addFlashAttribute("wrongPassword", "Current password is incorrect.");
         }
+        return "redirect:/user-security/account-settings#v-pills-security-settings";
+    }
+
+    @PostMapping("/update-roles")
+    public String updateRoles() {
+
+
         return "redirect:/user-security/account-settings#v-pills-security-settings";
     }
 }

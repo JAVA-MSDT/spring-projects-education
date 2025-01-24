@@ -47,7 +47,7 @@ values ('mscott', 'mscott@dundlermifflin.com', '{bcrypt}$2a$10$fL3vnmII70wYMDPVu
 INSERT INTO user_security (username, email, password, enabled, customer_id)
 values ('tstark', 'tstark@stark.com', '{bcrypt}$2a$10$FRcIGuqcVsBTcAJNHBdRWO70dUuz00og1Blf97t.xj.uDbPG7LbHy', true, 5);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
-values ('marya', 'marya.samy@mail.com', '{bcrypt}$2a$10$td4QwRtTm7QIUHminn/X5eFSISn8LJ9J8n6JfUVtQCZZsKe8AcXb2', true,
+values ('marya', 'marya.samy@mail.com', '{bcrypt}$2a$10$SSQgE7Zh8kGsomocAaJuAOFzzQuY5aI3zjrbvZEL5bVIJ0A7r3zRy', true,
         6);
 INSERT INTO user_security (username, email, password, enabled, customer_id)
 values ('bwayne', 'bwayne@wayne.com', '{bcrypt}2a$10$4Uhhaxz8nyliCGcBCzlhkOqukyZrx7mXz4y48xxEQ/bMCQXXV5ZJW', true, 7);

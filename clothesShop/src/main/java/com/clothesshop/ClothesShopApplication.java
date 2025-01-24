@@ -26,7 +26,7 @@ public class ClothesShopApplication implements ApplicationRunner {
         System.out.println(passwordEncoder.encode("tcal"));
         System.out.println(passwordEncoder.encode("mscott"));
         System.out.println(passwordEncoder.encode("tstark"));
-        System.out.println(passwordEncoder.encode("pgib"));
+        System.out.println(passwordEncoder.encode("marya"));
         System.out.println(passwordEncoder.encode("bwayne"));
 
         userRepository.findAll()

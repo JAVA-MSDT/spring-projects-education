@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class RoleService {
@@ -14,5 +17,9 @@ public class RoleService {
 
     public Role findByRoleName(String roleName) {
         return roleRepository.findByRole(roleName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found"));
+    }
+
+    public Set<Role> findAll() {
+        return new HashSet<>(roleRepository.findAll());
     }
 }
