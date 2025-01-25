@@ -15,11 +15,19 @@ import java.util.Set;
 public class RoleService {
     private final RoleRepository roleRepository;
 
-    public Role findByRoleName(String roleName) {
+    public Role getRoleByName(String roleName) {
         return roleRepository.findByRole(roleName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found"));
     }
 
-    public Set<Role> findAll() {
+    public Set<Role> getRoles() {
         return new HashSet<>(roleRepository.findAll());
+    }
+
+    public Role getRoleById(int id) {
+        return findById(id);
+    }
+
+    private Role findById(int id) {
+        return roleRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found"));
     }
 }

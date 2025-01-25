@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
     public static final String ERROR_PAGE = "shared/error";
@@ -15,14 +17,17 @@ public class GlobalExceptionHandler {
     public String handleException(Exception ex, Model model) {
         if (ex instanceof ResponseStatusException) {
             model.addAttribute("errorMessage", ex.getLocalizedMessage());
+            System.out.println(Arrays.toString(ex.getStackTrace()));
             return ERROR_PAGE;
         }
 
         if (ex instanceof AuthorizationDeniedException) {
             model.addAttribute("errorMessage", ex.getLocalizedMessage());
+            System.out.println(Arrays.toString(ex.getStackTrace()));
             return ERROR_PAGE;
         }
         model.addAttribute("errorMessage", ex.getLocalizedMessage());
+        System.out.println(Arrays.toString(ex.getStackTrace()));
         return ERROR_PAGE;
     }
 }

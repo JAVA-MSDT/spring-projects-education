@@ -20,7 +20,7 @@ public class UserMapper {
         userSecurity.setAccountNonExpired(true);
         userSecurity.setAccountNonLocked(true);
         userSecurity.setCredentialsNonExpired(true);
-        userSecurity.getRoles().add(roleService.findByRoleName("USER"));
+        userSecurity.getRoles().add(roleService.getRoleByName("USER"));
 
         Customer customer = new Customer();
         customer.setUserSecurity(userSecurity);

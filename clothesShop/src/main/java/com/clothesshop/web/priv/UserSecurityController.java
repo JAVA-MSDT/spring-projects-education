@@ -14,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,7 +30,7 @@ public class UserSecurityController {
     @GetMapping("/account-settings")
     public String getAccountSettings(Model model, @AuthenticationPrincipal UserSecurity userSecurity) {
         UserSecurity userSecurityDB = userSecurityService.getUserSecurityById(userSecurity.getId());
-        Set<Role> roles = roleService.findAll()
+        Set<Role> roles = roleService.getRoles()
                 .stream().filter(role -> !userSecurity.getRoles().contains(role))
                 .collect(Collectors.toSet());
 
@@ -68,9 +70,21 @@ public class UserSecurityController {
     }
 
     @PostMapping("/update-roles")
-    public String updateRoles() {
-
-
+    public String updateRoles(@RequestParam("userRolesHolder") String userRolesHolder, @RequestParam("id") Long userId) {
+        System.out.println("userID: " + userId);
+        System.out.println("userRoles: " + userRolesHolder);
+        UserSecurity userSecurity = userSecurityService.getUserSecurityById(userId);
+        System.out.println("userSecurity = " + userSecurity);
+        List<Integer> userRolesId = fromStringToIntegers(userRolesHolder);
+        userRolesId.forEach(System.out::println);
         return "redirect:/user-security/account-settings#v-pills-security-settings";
+    }
+
+    private List<Integer> fromStringToIntegers(String value) {
+        String cleaned = value.replaceAll("[\\[\\]\"]", "");
+        String[] tokens = cleaned.split(",");
+        return Arrays.stream(tokens)
+                .map(Integer::valueOf)
+                .toList();
     }
 }

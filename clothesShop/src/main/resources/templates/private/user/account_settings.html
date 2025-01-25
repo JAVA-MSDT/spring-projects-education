@@ -318,13 +318,16 @@
                             <div class="row border rounded bg-light py-4">
                                 <!--                                 th:if="${hasAdminRule}">-->
                                 <h3 class="mb-4">Role Settings</h3>
-                                <form th:action="@{/admin/update-roles}" method="post">
+                                <form th:action="@{/user-security/update-roles}" onsubmit="submitData()" method="post">
+                                    <input type="hidden" name="id" th:value="${userSecurity.id}"/>
+                                    <input type="hidden" name="userRolesHolder" id="userRolesHolder"/>
                                     <div class="container">
                                         <div class="row">
                                             <!-- Left column: User's current roles -->
                                             <div class="col-5">
                                                 <h4>User Roles</h4>
-                                                <select name="userRoles" multiple size="10" class="form-control">
+                                                <select id="userRoles" name="userRoles" multiple size="10"
+                                                        class="form-control">
                                                     <option th:each="role : ${userSecurity.roles}" th:value="${role.id}"
                                                             th:text="${role.role}"></option>
                                                 </select>
@@ -409,6 +412,29 @@
             }
         }
     });
+
+    function submitData() {
+        let userRolesHolder = document.getElementById('userRolesHolder');
+        let userRolesOption = document.querySelectorAll('#userRoles option');
+        let userRolesIds = Array.from(userRolesOption).map(role => role.value);
+
+        userRolesHolder.value = JSON.stringify(userRolesIds);
+    }
+
+    function moveRole(action) {
+        let userRoles = document.querySelector('select[name="userRoles"]');
+        let availableRoles = document.querySelector('select[name="availableRoles"]');
+        if (action === 'add') {
+            moveSelectionOption(availableRoles, userRoles)
+        } else if (action === 'remove') {
+            moveSelectionOption(userRoles, availableRoles)
+        }
+    }
+
+    function moveSelectionOption(fromSelect, toSelect) {
+        let selectedOption = Array.from(fromSelect.selectedOptions);
+        selectedOption.forEach(option => toSelect.appendChild(option));
+    }
 </script>
 </body>
 </html>
