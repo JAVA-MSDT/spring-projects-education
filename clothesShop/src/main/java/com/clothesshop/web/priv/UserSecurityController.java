@@ -30,9 +30,7 @@ public class UserSecurityController {
     @GetMapping("/account-settings")
     public String getAccountSettings(Model model, @AuthenticationPrincipal UserSecurity userSecurity) {
         UserSecurity userSecurityDB = userSecurityService.getUserSecurityById(userSecurity.getId());
-        Set<Role> roles = roleService.getRoles()
-                .stream().filter(role -> !userSecurity.getRoles().contains(role))
-                .collect(Collectors.toSet());
+        Set<Role> roles = getFilteredRoles(userSecurityDB);
 
         PasswordUpdate passwordUpdate = PasswordUpdate.defaultInstance();
         model.addAttribute("passwordUpdate", passwordUpdate);
@@ -70,14 +68,15 @@ public class UserSecurityController {
     }
 
     @PostMapping("/update-roles")
-    public String updateRoles(@RequestParam("userRolesHolder") String userRolesHolder, @RequestParam("id") Long userId) {
-        System.out.println("userID: " + userId);
-        System.out.println("userRoles: " + userRolesHolder);
-        UserSecurity userSecurity = userSecurityService.getUserSecurityById(userId);
-        System.out.println("userSecurity = " + userSecurity);
-        List<Integer> userRolesId = fromStringToIntegers(userRolesHolder);
-        userRolesId.forEach(System.out::println);
+    public String updateRoles(@RequestParam("userRolesHolder") String userRolesHolder, @RequestParam("id") Long userId, RedirectAttributes redirectAttributes) {
+        userSecurityService.updateUserRoles(userId, fromStringToIntegers(userRolesHolder));
         return "redirect:/user-security/account-settings#v-pills-security-settings";
+    }
+
+    private Set<Role> getFilteredRoles(UserSecurity userSecurity) {
+        return roleService.getRoles()
+                .stream().filter(role -> !userSecurity.getRoles().contains(role))
+                .collect(Collectors.toSet());
     }
 
     private List<Integer> fromStringToIntegers(String value) {

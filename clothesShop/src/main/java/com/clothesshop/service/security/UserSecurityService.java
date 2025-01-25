@@ -3,6 +3,7 @@ package com.clothesshop.service.security;
 import com.clothesshop.dto.PasswordUpdate;
 import com.clothesshop.dto.UserRegister;
 import com.clothesshop.mapper.UserMapper;
+import com.clothesshop.model.user.security.Role;
 import com.clothesshop.model.user.security.UserSecurity;
 import com.clothesshop.repository.user.UserRepository;
 import com.clothesshop.util.UserUtil;
@@ -15,6 +16,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +68,15 @@ public class UserSecurityService implements UserDetailsService {
             return true;
         }
         return false;
+    }
+
+    public void updateUserRoles(Long id, List<Integer> roles) {
+        UserSecurity userSecurity = findUserSecurityByID(id);
+        Set<Role> updatedRoles = roles.stream()
+                .map(roleService::getRoleById)
+                .collect(Collectors.toSet());
+        userSecurity.setRoles(updatedRoles);
+        userRepository.save(userSecurity);
     }
 
     private UserSecurity findUserSecurityByID(Long id) {
