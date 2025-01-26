@@ -41,7 +41,13 @@
                 <button class="btn btn-secondary dropdown-toggle w-100" type="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
-                    <img th:src="${customerProfileImage}"
+                    <img th:if="${customerProfileImage != null}"
+                         th:src="${customerProfileImage}"
+                         alt="Customer Profile Image"
+                         class="border border-4 border-dark rounded-circle m-auto"
+                         width="32px" height="32px"/>
+                    <img th:if="${customerProfileImage == null}"
+                         th:src="@{/images/user_banner.jpg}"
                          alt="Customer Profile Image"
                          class="border border-4 border-dark rounded-circle m-auto"
                          width="32px" height="32px"/>
