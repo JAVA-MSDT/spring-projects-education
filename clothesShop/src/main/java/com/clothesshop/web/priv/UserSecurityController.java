@@ -5,6 +5,7 @@ import com.clothesshop.model.user.security.Role;
 import com.clothesshop.model.user.security.UserSecurity;
 import com.clothesshop.service.security.RoleService;
 import com.clothesshop.service.security.UserSecurityService;
+import com.clothesshop.util.UserUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user-security")
@@ -27,17 +27,14 @@ public class UserSecurityController {
     private final UserSecurityService userSecurityService;
     private final RoleService roleService;
 
-    @GetMapping("/account-settings")
-    public String getAccountSettings(Model model, @AuthenticationPrincipal UserSecurity userSecurity) {
-        UserSecurity userSecurityDB = userSecurityService.getUserSecurityById(userSecurity.getId());
-        Set<Role> roles = getFilteredRoles(userSecurityDB);
+    @GetMapping("/account-settings/{id}")
+    public String getAccountSettings(Model model, @AuthenticationPrincipal UserSecurity userSecurity, @PathVariable(required = false) Long id) {
+        UserSecurity userSecurityDB = id == 0
+                ? userSecurityService.getUserSecurityById(userSecurity.getId())
+                : userSecurityService.getUserSecurityById(id);
 
-        PasswordUpdate passwordUpdate = PasswordUpdate.defaultInstance();
-        model.addAttribute("passwordUpdate", passwordUpdate);
-        model.addAttribute("userSecurity", userSecurityDB);
-        model.addAttribute("roles", roles);
-        model.addAttribute("fragment", "v-pills-contact-info");
-        return "private/user/account_settings";
+        Set<Role> roles = roleService.getFilteredRoles(userSecurityDB);
+        return UserUtil.getUserAccountSettings(model, userSecurityDB, roles);
     }
 
     @PostMapping("/update-email")
@@ -45,7 +42,7 @@ public class UserSecurityController {
                               RedirectAttributes redirectAttributes) {
         userSecurityService.updateUserSecurityEmail(id, newEmail);
         redirectAttributes.addFlashAttribute("emailUpdateSuccess", "Email updated successfully");
-        return "redirect:/user-security/account-settings#v-pills-security-settings";
+        return "redirect:/user-security/account-settings/" + id + "#v-pills-security-settings";
     }
 
     @PostMapping("/update-password")
@@ -64,19 +61,13 @@ public class UserSecurityController {
         } else {
             redirectAttributes.addFlashAttribute("wrongPassword", "Current password is incorrect.");
         }
-        return "redirect:/user-security/account-settings#v-pills-security-settings";
+        return "redirect:/user-security/account-settings/" + passwordUpdate.id() + "#v-pills-security-settings";
     }
 
     @PostMapping("/update-roles")
-    public String updateRoles(@RequestParam("userRolesHolder") String userRolesHolder, @RequestParam("id") Long userId, RedirectAttributes redirectAttributes) {
+    public String updateRoles(@RequestParam("userRolesHolder") String userRolesHolder, @RequestParam("id") Long userId) {
         userSecurityService.updateUserRoles(userId, fromStringToIntegers(userRolesHolder));
-        return "redirect:/user-security/account-settings#v-pills-security-settings";
-    }
-
-    private Set<Role> getFilteredRoles(UserSecurity userSecurity) {
-        return roleService.getRoles()
-                .stream().filter(role -> !userSecurity.getRoles().contains(role))
-                .collect(Collectors.toSet());
+        return "redirect:/user-security/account-settings/" + userId + "#v-pills-security-settings";
     }
 
     private List<Integer> fromStringToIntegers(String value) {

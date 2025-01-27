@@ -40,7 +40,7 @@
             </td>
             <td>
                 <a class="btn btn-primary" href="#" th:href="@{/customers/{id}(id=${customer.id})}">Details</a>
-                <!--                    <a class="btn btn-warning" href="#" th:href="@{/customers/update/{id}(id=${customer.id})}">Update</a>-->
+                <a class="btn btn-warning" href="#" th:href="@{/admin/update-user-account/{id}(id=${customer.id})}">Update</a>
                 <a class="btn btn-danger" href="#" th:href="@{/customers/delete/{id}(id=${customer.id})}">Delete</a>
             </td>
         </tr>

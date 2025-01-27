@@ -54,22 +54,22 @@ public class CustomerService {
         clotheService.removeClotheFromClothe(clotheId, 1);
     }
 
-    public void updateCustomerBasicDetails(Customer customer) {
+    public Customer updateCustomerBasicDetails(Customer customer) {
         Customer oldCustomer = findById(customer.getId());
         customerMapper.mapCustomerBasicDetails(customer, oldCustomer);
-        customerRepository.save(oldCustomer);
+        return saveCustomer(oldCustomer);
     }
 
-    public void updateCustomerProfileImage(Long id, String imageUrl) {
+    public Customer updateCustomerProfileImage(Long id, String imageUrl) {
         Customer customer = findById(id);
         customer.setProfilePictureUrl(imageUrl);
-        saveCustomer(customer);
+        return saveCustomer(customer);
     }
 
-    public void updateCustomerBannerImage(Long id, String imageUrl) {
+    public Customer updateCustomerBannerImage(Long id, String imageUrl) {
         Customer customer = findById(id);
         customer.setBannerPictureUrl(imageUrl);
-        saveCustomer(customer);
+        return saveCustomer(customer);
     }
 
     private Customer findById(Long id) {

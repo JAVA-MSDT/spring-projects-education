@@ -62,7 +62,8 @@
                     <li>
                         <a class="dropdown-item text-white"
                            href="#"
-                           th:href="@{/user-security/account-settings}"> Account Settings </a>
+                           th:href="@{/user-security/account-settings/{id}(id=${@securityUtils.loggedInUserId()})}">
+                            Account Settings </a>
                     </li>
                     <li>
                         <a class="dropdown-item text-white" href="#">My Orders</a>

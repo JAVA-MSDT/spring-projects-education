@@ -1,9 +1,14 @@
 package com.clothesshop.util;
 
+import com.clothesshop.dto.PasswordUpdate;
 import com.clothesshop.dto.UserRegister;
+import com.clothesshop.model.user.security.Role;
+import com.clothesshop.model.user.security.UserSecurity;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.ui.Model;
 
+import java.util.Set;
 import java.util.regex.Pattern;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -22,5 +27,15 @@ public class UserUtil {
 
     public static boolean isPasswordsNotMatched(UserRegister userRegister) {
         return !userRegister.password().equals(userRegister.repeatPassword());
+    }
+
+    public static String getUserAccountSettings(Model model, UserSecurity userSecurityDB, Set<Role> roles) {
+        PasswordUpdate passwordUpdate = PasswordUpdate.defaultInstance();
+
+        model.addAttribute("passwordUpdate", passwordUpdate);
+        model.addAttribute("userSecurity", userSecurityDB);
+        model.addAttribute("roles", roles);
+        model.addAttribute("fragment", "v-pills-contact-info");
+        return "private/user/account_settings";
     }
 }

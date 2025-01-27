@@ -68,7 +68,8 @@
                                   method="post"
                                   class="p-2 mb-2">
                                 <input type="hidden" name="id" th:value="${customer.id}"/>
-                                <input type="file" name="customerProfileImage" accept="image/*" required/>
+                                <input class="form-control" type="file" name="customerProfileImage" accept="image/*"
+                                       required/>
                                 <input id="upload-customer-profile-image"
                                        class="btn btn-info mt-2"
                                        type="submit"
@@ -92,7 +93,8 @@
                                   method="post"
                                   class="p-2 mb-2">
                                 <input type="hidden" name="id" th:value="${customer.id}"/>
-                                <input type="file" name="customerBannerImage" accept="image/*" required/>
+                                <input class="form-control" type="file" name="customerBannerImage" accept="image/*"
+                                       required/>
                                 <input id="upload-customer-banner-image"
                                        class="btn btn-primary mt-2"
                                        type="submit"
@@ -100,7 +102,7 @@
                             </form>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="mt-3">
                     <div class="row my-2">
                         <div class="col-12 text-left">
                             <h3>Basic Details</h3>
