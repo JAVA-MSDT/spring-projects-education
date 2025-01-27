@@ -20,10 +20,10 @@
     <!-- Sorting Links -->
     <!-- Filter, Sort, and Items Per Page Form -->
     <div class="row text-center my-4 border rounded py-2 pt-3 shadow bg-body-tertiary ">
-        <form id="filterForm" class="col-auto"
+        <form id="filterForm" class="col-auto border"
               th:action="@{/clothes}"
               method="get">
-            <div class="row">
+            <div class="row px-2">
                 <!-- Sort By -->
                 <div class="col-auto">
                     <div class="row">
@@ -81,14 +81,31 @@
                     </div>
                 </div>
             </div>
+            <div class="row input-group mt-2 border border-1">
+                <div class="col-sm-2 m-0 p-0">
+                    <select class="form-select w-100" name="size" id="searchBy" style="width: 150px"
+                            th:onchange="applyFilter()">
+                        <option th:selected="${searchBy == null}" value="">Search By</option>
+                        <option value="clotheType" th:selected="${searchBy == 'clotheType'}">Type</option>
+                        <option value="fabric" th:selected="${searchBy == 'fabric'}">Fabric</option>
+                        <option value="size" th:selected="${searchBy == 'size'}">Size</option>
+                        <option value="gender" th:selected="${searchBy == 'gender'}">Gender</option>
+                    </select>
+                </div>
+                <input type="search" class="form-control col-sm-8" aria-label="Search">
+                <button class="btn btn-outline-secondary col-sm-2" type="button" id="searchButton"
+                        onclick="applyFilter()">
+                    Search
+                </button>
+            </div>
         </form>
         <!-- Display Items As -->
         <div class="col-auto">
             <div class="row">
-                <div class="col-auto">
+                <div class="col-12">
                     <label class="form-label text-center">Display items as:</label>
                 </div>
-                <div class="col-auto">
+                <div class="col-12">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="displayMode" id="displayCard" value="card"
                                onchange="toggleDisplay('card')">
