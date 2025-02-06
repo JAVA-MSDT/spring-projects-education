@@ -20,7 +20,7 @@
     <!-- Sorting Links -->
     <!-- Filter, Sort, and Items Per Page Form -->
     <div class="row text-center my-4 border rounded py-2 pt-3 shadow bg-body-tertiary ">
-        <form id="filterForm" class="col-auto border"
+        <form id="filterForm" class="col-auto"
               th:action="@{/clothes}"
               method="get">
             <div class="row px-2">
@@ -81,9 +81,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row input-group mt-2 border border-1">
-                <div class="col-sm-2 m-0 p-0">
-                    <select class="form-select w-100" name="size" id="searchBy" style="width: 150px"
+            <div class="row input-group mt-2">
+                <div class="col-sm-2 ms-1 p-0">
+                    <select class="form-select w-100" name="searchBy" id="searchBy" style="width: 150px"
                             th:onchange="applyFilter()">
                         <option th:selected="${searchBy == null}" value="">Search By</option>
                         <option value="clotheType" th:selected="${searchBy == 'clotheType'}">Type</option>
@@ -92,7 +92,8 @@
                         <option value="gender" th:selected="${searchBy == 'gender'}">Gender</option>
                     </select>
                 </div>
-                <input type="search" class="form-control col-sm-8" aria-label="Search">
+                <input type="search" name="search" th:value="${search}" class="form-control col-sm-8"
+                       aria-label="Search">
                 <button class="btn btn-outline-secondary col-sm-2" type="button" id="searchButton"
                         onclick="applyFilter()">
                     Search

@@ -57,6 +57,10 @@ public class ClotheService {
         clotheRepository.save(clothe);
     }
 
+    public Page<Clothe> searchClothes(String keyword, Pageable pageable) {
+        return clotheRepository.findByDescriptionContainingIgnoreCase(keyword, pageable);
+    }
+
     private Clothe findClotheById(Long id) {
         return clotheRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Clothe Not found"));

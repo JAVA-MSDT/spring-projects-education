@@ -33,12 +33,17 @@ public class ClotheController {
                                    @RequestParam(defaultValue = "10") int size,
                                    @RequestParam(defaultValue = "id") String sortBy,
                                    @RequestParam(defaultValue = "asc") String sortDir,
+                                   @RequestParam(required = false) String search,
+                                   @RequestParam(required = false) String searchBy,
                                    Model model) {
 
         Sort.Direction direction = sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
-        Page<Clothe> clothePage = clotheService.getAllClothes(pageable);
 
+        Page<Clothe> clothePage = clotheService.getAllClothes(pageable);
+        if (search != null) {
+            clothePage = clotheService.searchClothes(search, pageable);
+        }
         model.addAttribute("clothes", clothePage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", clothePage.getTotalPages());
@@ -46,6 +51,8 @@ public class ClotheController {
         model.addAttribute("size", size);
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortDir", sortDir);
+        model.addAttribute("search", search);
+        model.addAttribute("searchBy", searchBy);
         return "public/clothes";
     }
 
