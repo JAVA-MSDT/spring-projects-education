@@ -1,6 +1,7 @@
 package com.clothesshop.service;
 
 import com.clothesshop.model.clothe.Clothe;
+import com.clothesshop.model.clothe.SearchBy;
 import com.clothesshop.repository.ClotheRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +58,7 @@ public class ClotheService {
         clotheRepository.save(clothe);
     }
 
-    public Page<Clothe> searchClothes(String keyword, Pageable pageable) {
+    public Page<Clothe> searchClothes(SearchBy searchBy, String keyword, Pageable pageable) {
         return clotheRepository.findByDescriptionContainingIgnoreCase(keyword, pageable);
     }
 
@@ -72,4 +73,5 @@ public class ClotheService {
                 + clothe.getGender() + ") in the store are less than the amount you asking for, Clothes in the store = "
                 + clothe.getQuantityInStore() + ", Amount you are asking = " + amount + ".";
     }
+
 }

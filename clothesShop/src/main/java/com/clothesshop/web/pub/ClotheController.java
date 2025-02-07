@@ -1,6 +1,7 @@
 package com.clothesshop.web.pub;
 
 import com.clothesshop.model.clothe.Clothe;
+import com.clothesshop.model.clothe.SearchBy;
 import com.clothesshop.service.ClotheService;
 import com.clothesshop.util.ResourcesUtil;
 import lombok.RequiredArgsConstructor;
@@ -34,15 +35,15 @@ public class ClotheController {
                                    @RequestParam(defaultValue = "id") String sortBy,
                                    @RequestParam(defaultValue = "asc") String sortDir,
                                    @RequestParam(required = false) String search,
-                                   @RequestParam(required = false) String searchBy,
+                                   @RequestParam(required = false) SearchBy searchBy,
                                    Model model) {
 
         Sort.Direction direction = sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
-
+        System.out.println(searchBy);
         Page<Clothe> clothePage = clotheService.getAllClothes(pageable);
         if (search != null) {
-            clothePage = clotheService.searchClothes(search, pageable);
+            clothePage = clotheService.searchClothes(searchBy, search, pageable);
         }
         model.addAttribute("clothes", clothePage.getContent());
         model.addAttribute("currentPage", page);

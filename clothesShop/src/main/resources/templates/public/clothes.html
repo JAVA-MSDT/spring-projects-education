@@ -83,13 +83,14 @@
             </div>
             <div class="row input-group mt-2">
                 <div class="col-sm-2 ms-1 p-0">
-                    <select class="form-select w-100" name="searchBy" id="searchBy" style="width: 150px"
-                            th:onchange="applyFilter()">
+                    <select class="form-select w-100" name="searchBy" id="searchBy" style="width: 150px">
                         <option th:selected="${searchBy == null}" value="">Search By</option>
-                        <option value="clotheType" th:selected="${searchBy == 'clotheType'}">Type</option>
-                        <option value="fabric" th:selected="${searchBy == 'fabric'}">Fabric</option>
-                        <option value="size" th:selected="${searchBy == 'size'}">Size</option>
-                        <option value="gender" th:selected="${searchBy == 'gender'}">Gender</option>
+                        <option th:each="option: ${T(com.clothesshop.model.clothe.SearchBy).values()}"
+                                th:value="${option}"
+                                th:selected="${searchBy == option}"
+                                th:text="${option.value}">
+
+                        </option>
                     </select>
                 </div>
                 <input type="search" name="search" th:value="${search}" class="form-control col-sm-8"
