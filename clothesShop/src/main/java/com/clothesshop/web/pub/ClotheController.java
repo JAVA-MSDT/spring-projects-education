@@ -40,7 +40,8 @@ public class ClotheController {
 
         Sort.Direction direction = sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
-        System.out.println(searchBy);
+        System.out.println("searchBy:: " + searchBy);
+        System.out.println("Search:: " + search);
         Page<Clothe> clothePage = clotheService.getAllClothes(pageable);
         if (search != null) {
             clothePage = clotheService.searchClothes(searchBy, search, pageable);

@@ -34,7 +34,7 @@
                             <select class="form-select" name="sortBy" id="sortBy" style="width: 150px"
                                     onchange="applyFilter()">
                                 <option th:selected="${sortBy == null}" value="">None</option>
-                                <option value="clotheType" th:selected="${sortBy == 'clotheType'}">Type</option>
+                                <option value="category" th:selected="${sortBy == 'category'}">Type</option>
                                 <option value="fabric" th:selected="${sortBy == 'fabric'}">Fabric</option>
                                 <option value="size" th:selected="${sortBy == 'size'}">Size</option>
                                 <option value="gender" th:selected="${sortBy == 'gender'}">Gender</option>
@@ -83,7 +83,7 @@
             </div>
             <div class="row input-group mt-2">
                 <div class="col-sm-2 ms-1 p-0">
-                    <select class="form-select w-100" name="searchBy" id="searchBy" style="width: 150px">
+                    <select class="form-select w-100 border-end-0" name="searchBy" id="searchBy" style="width: 150px">
                         <option th:selected="${searchBy == null}" value="">Search By</option>
                         <option th:each="option: ${T(com.clothesshop.model.clothe.SearchBy).values()}"
                                 th:value="${option}"
@@ -170,7 +170,7 @@
             <tbody>
             <tr th:each="clothe, stat : ${clothes}">
                 <td th:text="${stat.index + 1}"></td>
-                <td th:text="${clothe.clotheType}"></td>
+                <td th:text="${clothe.category}"></td>
                 <td th:text="${clothe.fabric}"></td>
                 <td th:text="${clothe.gender}"></td>
                 <td th:text="${clothe.size}"></td>
@@ -199,7 +199,7 @@
                         <img th:src="${clothe.images}" alt="Clothes Picture" class="w-100"/>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${clothe.clotheType}"></h5>
+                        <h5 class="card-title" th:text="${clothe.category}"></h5>
                         <p class="card-text" th:text="${clothe.description}"></p>
                     </div>
                     <div class="card-footer">

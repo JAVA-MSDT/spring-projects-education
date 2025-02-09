@@ -22,9 +22,9 @@
           class="border rounded border-info p-1 py-3 needs-validation" novalidate>
         <div class="row g-3 align-items-center">
             <input type="hidden" name="id" th:value="${clothe.id}"/>
-            <div id="clotheTypeContainer" class="col-md-3">
-                <label for="clotheType" class="form-label">Clothe Type</label>
-                <select th:field="*{clotheType}" id="clotheType" class="form-select form-select-lg mb-3"
+            <div id="categoryContainer" class="col-md-3">
+                <label for="category" class="form-label">Clothe Type</label>
+                <select th:field="*{category}" id="category" class="form-select form-select-lg mb-3"
                         aria-label="Select Clothe Type">
                     <option selected value="SHIRT">Shirt</option>
                     <option value="TROUSER">Trouser</option>

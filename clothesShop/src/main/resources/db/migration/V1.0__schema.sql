@@ -1,7 +1,7 @@
 CREATE TABLE clothe
 (
     id                bigint auto_increment primary key,
-    clothe_type       varchar(64)  not null,
+    category       varchar(64)  not null,
     fabric            varchar(128) not null,
     gender            varchar(128) not null,
     size              varchar(24)  not null,

@@ -41,13 +41,13 @@
                         <!-- Clothe Type Field -->
                         <div class="row p-2">
                             <div class="col-sm-2">
-                                <label class="my-2" for="clotheType">Clothe Type</label>
+                                <label class="my-2" for="category">Clothe Type</label>
                             </div>
                             <div class="col-sm-10">
                                 <input disabled
                                        type="text"
-                                       th:value="${clothe.clotheType != null ? clothe.clotheType : 'Default'}"
-                                       id="clotheType" name="clotheType"
+                                       th:value="${clothe.category != null ? clothe.category : 'Default'}"
+                                       id="category" name="category"
                                        class="form-control form-control-lg border-0 update-details-input"
                                        required autofocus/>
                             </div>

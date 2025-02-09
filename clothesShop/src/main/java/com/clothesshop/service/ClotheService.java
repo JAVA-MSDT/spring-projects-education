@@ -59,7 +59,15 @@ public class ClotheService {
     }
 
     public Page<Clothe> searchClothes(SearchBy searchBy, String keyword, Pageable pageable) {
-        return clotheRepository.findByDescriptionContainingIgnoreCase(keyword, pageable);
+        keyword = keyword.toUpperCase();
+        return switch (searchBy) {
+            case DESCRIPTION -> clotheRepository.findByDescriptionContainingIgnoreCase(keyword, pageable);
+            case TYPE -> clotheRepository.findByCategoryContainingIgnoreCase(keyword, pageable);
+            case FABRIC -> clotheRepository.findByFabricContainingIgnoreCase(keyword, pageable);
+            case SIZE -> clotheRepository.findBySizeContainingIgnoreCase(keyword, pageable);
+            case GENDER -> clotheRepository.findByGenderContainingIgnoreCase(keyword, pageable);
+            case null -> clotheRepository.findByDescriptionContainingIgnoreCase(keyword, pageable);
+        };
     }
 
     private Clothe findClotheById(Long id) {
@@ -69,7 +77,7 @@ public class ClotheService {
 
     private String getRemoveClotheErrorMessage(Clothe clothe, int amount) {
         return "Clothe (" +
-                clothe.getClotheType() + ", " + clothe.getFabric() + ", " + clothe.getAgeType() + ", "
+                clothe.getCategory() + ", " + clothe.getFabric() + ", " + clothe.getAgeType() + ", "
                 + clothe.getGender() + ") in the store are less than the amount you asking for, Clothes in the store = "
                 + clothe.getQuantityInStore() + ", Amount you are asking = " + amount + ".";
     }

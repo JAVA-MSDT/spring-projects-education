@@ -16,9 +16,8 @@ public class Clothe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "clothe_type")
-    private ClotheType clotheType;
+    @Column(name = "category")
+    private String category;
     @Enumerated(EnumType.STRING)
     @Column(name = "fabric")
     private Fabric fabric;
