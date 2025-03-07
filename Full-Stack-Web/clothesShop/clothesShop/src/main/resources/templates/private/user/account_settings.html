@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      th:with="hasAdminRule=${@securityUtils.hasRole('ROLE_ADMIN')},
+                customer=${userSecurity.customer}"
+      lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          crossorigin="anonymous">
+    <title sec:authorize="!isAuthenticated()">Clothes Shop | Customers</title>
+    <title sec:authorize="isAuthenticated()" th:text="${#authentication.name} + ' Profile' "></title>
+</head>
+<body>
+<div th:replace="~{shared/header :: header}"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2 bg-dark py-4">
+            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
+                 aria-orientation="vertical">
+                <button class="btn btn-link text-start" id="v-pills-contact-info-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-contact-info" type="button" role="tab"
+                        aria-controls="v-pills-contact-info"
+                        aria-selected="true">Contact Info
+                </button>
+                <button class="btn btn-link text-start" id="v-pills-security-settings-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-security-settings" type="button" role="tab"
+                        aria-controls="v-pills-security-settings"
+                        aria-selected="false">Security Settings
+                </button>
+                <button class="btn btn-link text-start" id="v-pills-linked-accounts-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-linked-accounts" type="button" role="tab"
+                        aria-controls="v-pills-linked-accounts"
+                        aria-selected="false">Linked Accounts
+                </button>
+                <button class="btn btn-link text-start" id="v-pills-email-preferences-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-email-preferences" type="button" role="tab"
+                        aria-controls="v-pills-email-preferences"
+                        aria-selected="false">Email Preferences
+                </button>
+            </div>
+        </div>
+        <div class="col-sm-10 py-4">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div th:classappend="${fragment == 'v-pills-contact-info'} ? 'show active' : ''" class="tab-pane fade"
+                     id="v-pills-contact-info" role="tabpanel"
+                     aria-labelledby="v-pills-contact-info-tab" tabindex="0">
+                    <h2>Contact Info</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-4 mb-4" style="height: 350px">
+                            <h3 class="mb-2">Profile picture</h3>
+                            <img th:if="${customer.profilePictureUrl != null}"
+                                 th:src="${customer.profilePictureUrl}"
+                                 alt="Customer Profile Picture"
+                                 class="border border-4 border-dark rounded-circle"
+                                 width="250px" height="250px"/>
+                            <img th:if="${customer.profilePictureUrl == null}"
+                                 th:src="@{/images/user_avatar.jpg}"
+                                 alt="Customer Profile Picture"
+                                 class="border border-4 border-dark rounded-circle"
+                                 width="250px" height="250px"/>
+                            <!-- Profile Image Form-->
+                            <form id="upload-customer-profile-image-form"
+                                  enctype="multipart/form-data"
+                                  th:action="@{/customers/update-customer-profile-image}"
+                                  method="post"
+                                  class="p-2 mb-2">
+                                <input type="hidden" name="id" th:value="${customer.id}"/>
+                                <input class="form-control" type="file" name="customerProfileImage" accept="image/*"
+                                       required/>
+                                <input id="upload-customer-profile-image"
+                                       class="btn btn-info mt-2"
+                                       type="submit"
+                                       value="Upload Profile image"/>
+                            </form>
+                        </div>
+                        <div class="col-lg-8 mb-4" style="height: 350px">
+                            <h3 class="mb-2">Banner picture</h3>
+                            <img class="w-100 h-75"
+                                 th:if="${customer.bannerPictureUrl != null}"
+                                 th:src="${customer.bannerPictureUrl}"
+                                 alt="Customer Banner"/>
+                            <img class="w-100 h-75"
+                                 th:if="${customer.bannerPictureUrl == null}"
+                                 th:src="@{/images/user_banner.jpg}"
+                                 alt="Customer Banner"/>
+                            <!-- Banner Image Form-->
+                            <form id="upload-customer-banner-image-form"
+                                  enctype="multipart/form-data"
+                                  th:action="@{/customers/update-customer-banner-image}"
+                                  method="post"
+                                  class="p-2 mb-2">
+                                <input type="hidden" name="id" th:value="${customer.id}"/>
+                                <input class="form-control" type="file" name="customerBannerImage" accept="image/*"
+                                       required/>
+                                <input id="upload-customer-banner-image"
+                                       class="btn btn-primary mt-2"
+                                       type="submit"
+                                       value="Upload Banner image"/>
+                            </form>
+                        </div>
+                    </div>
+                    <hr class="mt-3">
+                    <div class="row my-2">
+                        <div class="col-12 text-left">
+                            <h3>Basic Details</h3>
+                            <form th:action="@{/customers/update-customer-basic}" method="post"
+                                  class="needs-validation" novalidate>
+                                <input type="hidden" name="id" th:value="${customer.id}"/>
+                                <!-- Name Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="name">Name</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="text" th:value="${customer.name}"
+                                                id="name" name="name"
+                                                class="form-control form-control-lg update-details-input"
+                                                required autofocus/>
+                                    </div>
+                                </div>
+                                <!-- Contact Name Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="contactName">Contact Name</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="text"
+                                                th:value="${customer.contactName}"
+                                                id="contactName" name="contactName"
+                                                class="form-control form-control-lg update-details-input"
+                                                required/>
+                                    </div>
+                                </div>
+                                <!-- Email Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="email">Email</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="email"
+                                                th:value="${customer.email}"
+                                                id="email" name="email"
+                                                class="form-control form-control-lg update-details-input"
+                                                required/>
+                                    </div>
+                                </div>
+                                <!-- Phone Number Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="phoneNumber">Phone Number</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="text"
+                                                th:value="${customer.phoneNumber}"
+                                                id="phoneNumber" name="phoneNumber"
+                                                class="form-control form-control-lg update-details-input"
+                                                required minlength="6"/>
+                                    </div>
+                                </div>
+                                <!-- Address Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="address">Address</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="text"
+                                                th:value="${customer.address}"
+                                                id="address" name="address"
+                                                class="form-control form-control-lg update-details-input"
+                                                required/>
+                                    </div>
+                                </div>
+                                <!-- Form Buttons -->
+                                <div class="row p-2">
+                                    <div class="col-sm-4 p-2">
+                                        <input id="update-details-btn"
+                                               class="btn btn-primary w-100"
+                                               type="submit"
+                                               value="Update Details"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade"
+                     th:classappend="${fragment == 'v-pills-security-settings'} ? 'show active' : ''"
+                     id="v-pills-security-settings" role="tabpanel"
+                     aria-labelledby="v-pills-security-settings-tab"
+                     tabindex="0">
+                    <h2>Security Settings</h2>
+                    <hr>
+                    <div class="row my-2">
+                        <div class="col-12 text-left my-4">
+                            <h3>Email Settings</h3>
+                            <div th:if="${emailUpdateSuccess != null}"
+                                 th:utext="${emailUpdateSuccess}"
+                                 class="alert alert-info p-2"></div>
+                            <form th:action="@{/user-security/update-email}" method="post"
+                                  class="needs-validation" novalidate>
+                                <input type="hidden" name="id" th:value="${userSecurity.id}"/>
+                                <!-- Current Email Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="currentEmail">Current Email</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input disabled
+                                               type="email"
+                                               th:value="${userSecurity.email}"
+                                               id="currentEmail" name="currentEmail"
+                                               class="form-control form-control-lg update-details-input"
+                                               required autofocus/>
+                                    </div>
+                                </div>
+                                <!-- New Email Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="newEmail">New Email</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input
+                                                type="email"
+                                                id="newEmail" name="newEmail"
+                                                class="form-control form-control-lg update-details-input"
+                                                required/>
+                                    </div>
+                                </div>
+                                <!-- Form Buttons -->
+                                <div class="row p-2">
+                                    <div class="col-sm-4 p-2">
+                                        <input id="update-email-btn"
+                                               class="btn btn-primary w-100"
+                                               type="submit"
+                                               value="Update Email"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-12 text-left my-4">
+                            <h3>Password Settings</h3>
+                            <div th:if="${passwordUpdateSuccess != null}"
+                                 th:utext="${passwordUpdateSuccess}"
+                                 class="alert alert-info p-2"></div>
+                            <form th:object="${passwordUpdate}" th:action="@{/user-security/update-password}"
+                                  method="post"
+                                  class="needs-validation" novalidate>
+                                <input type="hidden" name="id" th:value="${userSecurity.id}"/>
+                                <!-- Current Password Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="currentPassword">Current Password</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input th:field="*{currentPassword}"
+                                               type="password"
+                                               id="currentPassword" name="currentPassword"
+                                               class="form-control form-control-lg update-details-input"
+                                               required autofocus/>
+                                        <div th:if="${#fields.hasErrors('currentPassword')}"
+                                             th:errors="*{currentPassword}"
+                                             class="alert alert-danger"></div>
+                                        <div th:if="${wrongPassword}"
+                                             th:utext="${wrongPassword}"
+                                             class="alert alert-danger">
+                                            <a href="">Forget Password</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- New Password Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="newPassword">New Password</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input th:field="*{newPassword}"
+                                               type="password"
+                                               id="newPassword" name="newPassword"
+                                               class="form-control form-control-lg update-details-input"
+                                               required/>
+                                        <div th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"
+                                             class="alert alert-danger"></div>
+                                    </div>
+                                </div>
+                                <!-- Repeat Password Field -->
+                                <div class="row p-2">
+                                    <div class="col-sm-2">
+                                        <label class="my-2" for="repeatPassword">Repeat Password</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input th:field="*{repeatPassword}"
+                                               type="password"
+                                               id="repeatPassword" name="repeatPassword"
+                                               class="form-control form-control-lg update-details-input"
+                                               required/>
+                                        <div th:if="${#fields.hasErrors('repeatPassword')}"
+                                             th:errors="*{repeatPassword}" class="alert alert-danger"></div>
+                                    </div>
+                                </div>
+                                <!-- Form Buttons -->
+                                <div class="row p-2">
+                                    <div class="col-sm-4 p-2">
+                                        <input id="update-password-btn"
+                                               class="btn btn-primary w-100"
+                                               type="submit"
+                                               value="Update Password"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-12 text-left my-4">
+                            <div class="row border rounded bg-light py-4">
+                                <!--                                 th:if="${hasAdminRule}">-->
+                                <h3 class="mb-4">Role Settings</h3>
+                                <form th:action="@{/user-security/update-roles}" onsubmit="submitData()" method="post">
+                                    <input type="hidden" name="id" th:value="${userSecurity.id}"/>
+                                    <input type="hidden" name="userRolesHolder" id="userRolesHolder"/>
+                                    <div class="container">
+                                        <div class="row">
+                                            <!-- Left column: User's current roles -->
+                                            <div class="col-5">
+                                                <h4>User Roles</h4>
+                                                <select id="userRoles" name="userRoles" multiple size="10"
+                                                        class="form-control">
+                                                    <option th:each="role : ${userSecurity.roles}" th:value="${role.id}"
+                                                            th:text="${role.role}"></option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Middle section: Buttons to move roles -->
+                                            <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                                                <button type="button" onclick="moveRole('add')"
+                                                        class="btn btn-primary mb-2 w-75">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                         fill="currentColor" class="bi bi-arrow-left-circle-fill me-1"
+                                                         viewBox="0 0 16 16">
+                                                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                                                    </svg>
+                                                    Add
+                                                </button>
+                                                <button type="button" onclick="moveRole('remove')"
+                                                        class="btn btn-danger w-75">Remove
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                         fill="currentColor" class="bi bi-arrow-right-circle-fill ms-1"
+                                                         viewBox="0 0 16 16">
+                                                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+
+                                            <!-- Right column: Available roles -->
+                                            <div class="col-5">
+                                                <h4>Available Roles</h4>
+                                                <select name="availableRoles" multiple size="10" class="form-control">
+                                                    <option th:each="role : ${roles}" th:value="${role.id}"
+                                                            th:text="${role.role}"></option>
+                                                </select>
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <!-- Form Buttons -->
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <input type="submit" value="Update Roles"
+                                                       class="btn btn-success w-100"/>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-linked-accounts" role="tabpanel"
+                     aria-labelledby="v-pills-linked-accounts-tab"
+                     tabindex="0">
+                    <h2>Linked Accounts</h2>
+                    <hr>
+                </div>
+                <div class="tab-pane fade" id="v-pills-email-preferences" role="tabpanel"
+                     aria-labelledby="v-pills-email-preferences-tab"
+                     tabindex="0">
+                    <h2>Email Preferences</h2>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{shared/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const hash = window.location.hash;
+        const serverFragment = /*[[${fragment}]]*/ '';
+        const tabHash = hash || `#${serverFragment}`;
+        if (tabHash) {
+            const tabButton = document.querySelector(`button[data-bs-target="${tabHash}"]`);
+            if (tabButton) {
+                const tab = new bootstrap.Tab(tabButton);
+                tab.show();
+            }
+        }
+    });
+
+    function submitData() {
+        let userRolesHolder = document.getElementById('userRolesHolder');
+        let userRolesOption = document.querySelectorAll('#userRoles option');
+        let userRolesIds = Array.from(userRolesOption).map(role => role.value);
+
+        userRolesHolder.value = JSON.stringify(userRolesIds);
+    }
+
+    function moveRole(action) {
+        let userRoles = document.querySelector('select[name="userRoles"]');
+        let availableRoles = document.querySelector('select[name="availableRoles"]');
+        if (action === 'add') {
+            moveSelectionOption(availableRoles, userRoles)
+        } else if (action === 'remove') {
+            moveSelectionOption(userRoles, availableRoles)
+        }
+    }
+
+    function moveSelectionOption(fromSelect, toSelect) {
+        let selectedOption = Array.from(fromSelect.selectedOptions);
+        selectedOption.forEach(option => toSelect.appendChild(option));
+    }
+</script>
+</body>
+</html>
