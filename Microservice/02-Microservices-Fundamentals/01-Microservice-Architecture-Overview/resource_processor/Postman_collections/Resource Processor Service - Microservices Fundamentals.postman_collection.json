@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "7d9358d7-6bd9-4e4b-b62c-a4cce69d17fc",
+		"name": "Resource Processor Service - Microservices Fundamentals",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9368472"
+	},
+	"item": [
+		{
+			"name": "Get All Metadata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8102/api/v1/resources-processor/mp3-metadata",
+					"host": [
+						"localhost"
+					],
+					"port": "8102",
+					"path": [
+						"api",
+						"v1",
+						"resources-processor",
+						"mp3-metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete MP3 Metadata by ids",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8102/api/v1/resources-processor/mp3-metadata/delete-metadata-by-resources-ids?resources-ids=1, 2",
+					"host": [
+						"localhost"
+					],
+					"port": "8102",
+					"path": [
+						"api",
+						"v1",
+						"resources-processor",
+						"mp3-metadata",
+						"delete-metadata-by-resources-ids"
+					],
+					"query": [
+						{
+							"key": "resources-ids",
+							"value": "1, 2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get MP3 Metadata By Resource Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mp3File",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/ENA/Mix/Mad World - Michael Andrews.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8102/api/v1/resources-processor/mp3-metadata/resource/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8102",
+					"path": [
+						"api",
+						"v1",
+						"resources-processor",
+						"mp3-metadata",
+						"resource",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save MP3 Metadata By Resource Id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mp3File",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/ENA/Michael Jackson/Michael Jackson - They Don't Care About Us.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8102/api/v1/resources-processor/mp3-metadata/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8102",
+					"path": [
+						"api",
+						"v1",
+						"resources-processor",
+						"mp3-metadata",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

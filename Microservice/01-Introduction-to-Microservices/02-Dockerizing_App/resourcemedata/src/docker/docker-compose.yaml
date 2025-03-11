@@ -1,0 +1,26 @@
+services:
+  db:
+    container_name: pg_resource
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: "resource"
+      POSTGRES_USER: "resource"
+      POSTGRES_PASSWORD: "resource"
+    volumes:
+      - C:\Docker\Postgres\resource:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  pgadmin:
+    container_name: pgAdmin
+    image: dpage/pgadmin4
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - C:\Docker\Postgres\pgadmin:/var/lib/pgadmin
+    ports:
+      - 5430:80

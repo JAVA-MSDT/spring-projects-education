@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "c1416c49-ac13-4fc9-bd1e-eb6037594a05",
+		"name": "Song-Resource",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9368472"
+	},
+	"item": [
+		{
+			"name": "Get Song",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/songs/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"songs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Mp3 Metadata By Resource ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8100/api/v1/mp3-metadata/resource/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"api",
+						"v1",
+						"mp3-metadata",
+						"resource",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Mp3 Metadata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8100/api/v1/mp3-metadata",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"api",
+						"v1",
+						"mp3-metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all Mp3 Metadata by Resources Ids",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8100/api/v1/mp3-metadata/delete-metadata-by-resources-ids?resources-ids=1,2,3,4",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"api",
+						"v1",
+						"mp3-metadata",
+						"delete-metadata-by-resources-ids"
+					],
+					"query": [
+						{
+							"key": "resources-ids",
+							"value": "1,2,3,4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Song Content",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/songs/song/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"songs",
+						"song",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Songs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/songs",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Songs",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/songs/delete-songs?ids=1,2,3",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"songs",
+						"delete-songs"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "1,2,3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Song",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "song",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/Arabic/Hamed Al-Shaere/اجمل من كل البشر - حميد الشاعرى (192 kbps).mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/songs",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"songs"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

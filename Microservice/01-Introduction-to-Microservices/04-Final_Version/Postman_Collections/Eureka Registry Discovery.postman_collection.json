@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "47b0296b-642f-4572-9cbd-c65450d0c9d3",
+		"name": "Eureka Registry Discovery",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9368472"
+	},
+	"item": [
+		{
+			"name": "Get all MP3 Songs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/resources/songs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save MP3  Song",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "song",
+							"type": "file",
+							"src": "/C:/Disk_D/Audio/Arabic/Hamed Al-Shaere/خدني بين ايديك _ حميد الشاعري (192 kbps).mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/resources/songs",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Mp3 Metadata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/resources-metadata/mp3-metadata",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"resources-metadata",
+						"mp3-metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Mp3 Metadata by resource id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/resources-metadata/mp3-metadata/resource/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"resources-metadata",
+						"mp3-metadata",
+						"resource",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get MP3 Song",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/resources/songs/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"songs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get MP3 Song Content",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/resources/songs/song/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"songs",
+						"song",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete MP3  Songs by IDs",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/resources/songs/delete-songs?ids=1,2,3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"songs",
+						"delete-songs"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "1,2,3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete MP3 Resource Metadata by IDs",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/resources-metadata/mp3-metadata/delete-metadata-by-resources-ids?resources-ids=1,2,3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"resources-metadata",
+						"mp3-metadata",
+						"delete-metadata-by-resources-ids"
+					],
+					"query": [
+						{
+							"key": "resources-ids",
+							"value": "1,2,3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
