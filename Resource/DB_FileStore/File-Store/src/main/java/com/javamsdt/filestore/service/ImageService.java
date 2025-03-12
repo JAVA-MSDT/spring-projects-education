@@ -4,10 +4,6 @@ import com.javamsdt.filestore.dto.ImageDto;
 import com.javamsdt.filestore.mapper.ImageMapper;
 import com.javamsdt.filestore.model.Image;
 import com.javamsdt.filestore.repository.ImageRepository;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.javamsdt.filestore.util.FileStoreUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ImageService {
@@ -29,18 +27,20 @@ public class ImageService {
 
     private final ImageMapper imageMapper;
 
-    @Value("${app.api.image}")
-    private String imagesApi;
+    @Value("${images.folder}")
+    private String imagesFolder;
 
     public ImageDto saveImage(MultipartFile multipartImage, String alt) throws Exception {
         String originalFilename = multipartImage.getOriginalFilename();
+        byte[] content = multipartImage.getBytes();
+        String imageName = FileStoreUtil.saveFileToFolder(multipartImage, imagesFolder);
         Image image = new Image();
         image.setName(FileStoreUtil.getFileNameWithoutExtension(originalFilename));
         image.setExtension(FileStoreUtil.getFileExtension(originalFilename, "png"));
-        image.setContent(multipartImage.getBytes());
+        image.setContent(content);
         image.setAlt(alt);
         image.setContentType(FileStoreUtil.getContentType(originalFilename));
-        image.setUrl(imagesApi);
+        image.setUrl("/images/" + imageName);
 
         return imageMapper.toImageDto(imageRepository.save(image));
     }
@@ -64,14 +64,14 @@ public class ImageService {
         return imageRepository.findAll()
                 .stream()
                 .map(imageMapper::toImageDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<ImageDto> findByImageIds(List<Long> ids) {
         return imageRepository.findByImageIds(ids)
                 .stream()
                 .map(imageMapper::toImageDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public ImageDto findImageByName(String name) {

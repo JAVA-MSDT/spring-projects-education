@@ -1,7 +1,10 @@
 package com.javamsdt.filestore.util;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileStoreUtil {
@@ -21,7 +24,7 @@ public class FileStoreUtil {
     }
 
     public static String getFileExtension(String fileName, String defaultExtension) {
-        if(fileName == null) {
+        if (fileName == null) {
             return defaultExtension;
         }
         int lastIndex = getLastIndex(fileName);
@@ -33,7 +36,7 @@ public class FileStoreUtil {
 
     public static String getFileNameWithoutExtension(String fileName) {
         String defaultFileName = "file";
-        if(fileName == null) {
+        if (fileName == null) {
             return defaultFileName;
         }
         int lastIndex = getLastIndex(fileName);
@@ -41,6 +44,14 @@ public class FileStoreUtil {
             return fileName.substring(0, lastIndex);
         }
         return defaultFileName;
+    }
+
+    public static String saveFileToFolder(MultipartFile file, String path) throws IOException {
+        String fileName = file.getOriginalFilename();
+        Path imagePath = Paths.get(path + fileName);
+        Files.createDirectories(imagePath.getParent());
+        file.transferTo(imagePath.toFile());
+        return fileName;
     }
 
     private static int getLastIndex(String fileName) {
