@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -30,7 +31,7 @@ public class ImageService {
     @Value("${images.folder}")
     private String imagesFolder;
 
-    public ImageDto saveImage(MultipartFile multipartImage, String alt) throws Exception {
+    public ImageDto saveImage(MultipartFile multipartImage, String alt) throws IOException {
         String originalFilename = multipartImage.getOriginalFilename();
         byte[] content = multipartImage.getBytes();
         String imageName = FileStoreUtil.saveFileToFolder(multipartImage, imagesFolder);
@@ -60,6 +61,17 @@ public class ImageService {
                 .body(resource);
     }
 
+    public ResponseEntity<Resource> getImageResourceByName(String name) {
+        Image image = getImageByName(name);
+        ByteArrayResource resource = new ByteArrayResource(image.getContent());
+        String fileNameHeader = "attachment; filename=" + image.getName() + "." + image.getExtension();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, fileNameHeader)
+                .contentLength(image.getContent().length)
+                .contentType(MediaType.parseMediaType(image.getContentType()))
+                .body(resource);
+    }
+
     public List<ImageDto> findAllImages() {
         return imageRepository.findAll()
                 .stream()
@@ -75,13 +87,16 @@ public class ImageService {
     }
 
     public ImageDto findImageByName(String name) {
-        Image image = imageRepository.findByName(name)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return imageMapper.toFullImageDto(image);
+        return imageMapper.toFullImageDto(getImageByName(name));
     }
 
-    private Image getImageById(Long imageId) {
-        return imageRepository.findById(imageId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    private Image getImageByName(String name) {
+        return imageRepository.findByName(name)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image by name not found, provided name: " + name));
+    }
+
+    private Image getImageById(Long id) {
+        return imageRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image by id not found, provided ID: " + id));
     }
 }
